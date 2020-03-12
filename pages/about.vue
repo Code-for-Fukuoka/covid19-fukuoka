@@ -4,9 +4,9 @@
       当サイトについて
     </h2>
     <TextCard>
-      当サイトは新型コロナウイルス感染症（COVID-19）に関する最新情報を提供するために、東京都が開設したものです。<br />
+      当サイトは新型コロナウイルス感染症（COVID-19）に関する最新情報を提供するために、福岡市が開設したものです。<br />
       <br />
-      東京都による公式情報と客観的な数値をわかりやすく伝えることで、東京都にお住まいの方や、東京都内に拠点を持つ企業の方、東京都を訪れる方が、現状を把握して適切な対策を取れるようにすることを目的としています。
+      福岡市による公式情報と客観的な数値をわかりやすく伝えることで、福岡市にお住まいの方や、福岡市内に拠点を持つ企業の方、福岡市を訪れる方が、現状を把握して適切な対策を取れるようにすることを目的としています。
     </TextCard>
     <TextCard title="ブラウザ環境について">
       当サイトは以下の環境でご覧いただくことを推奨いたします。<br />
@@ -86,7 +86,7 @@
     </TextCard>
     <TextCard title="データについて">
       本サイトで公表しているデータは、<a
-        href="https://portal.data.metro.tokyo.lg.jp/"
+        href="https://www.open-governmentdata.org/fukuoka-city//"
         target="_blank"
         rel="noopener"
         >東京都オープンデータカタログサイト</a
@@ -94,17 +94,17 @@
     </TextCard>
     <TextCard title="ソースコードについて">
       本サイトのソースコードはMITライセンスで公開されており、誰でも自由に利用することができます。詳しくは、<a
-        href="https://github.com/tokyo-metropolitan-gov/covid19"
+        href="https://https://github.com/ISITBODIK/covid19"
         target="_blank"
         rel="noopener"
         >GitHub リポジトリ</a
       >をご確認ください。
     </TextCard>
 
-    <TextCard title="お問い合わせ先（都のHPサイトポリシーについて）">
-      東京都生活文化局広報広聴部広報課<br />
+    <TextCard title="お問い合わせ先（福岡市のHPサイトポリシーについて）">
+      福岡市”生活文化局広報広聴部広報課”<br />
       電話
-      <a href="tel:03-5388-3085">03-5388-3085</a>
+      <a href="tel:092-xxxx-xxxx">092-xxxx-xxxx</a>
     </TextCard>
   </div>
 </template>
