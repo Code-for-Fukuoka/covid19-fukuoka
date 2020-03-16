@@ -1,6 +1,6 @@
-# 福岡市 新型コロナウイルス感染症対策ポータルサイト
+# 福岡市 新型コロナウイルス感染症ポータルサイト
 
-[![福岡市 新型コロナウイルス感染症対策サイト](https://github.com/Code-for-Fukuoka/covid19/blob/development/static/ogp.png?raw=true)](https://lucid-khorana-6efa58.netlify.com/)
+[![福岡市 新型コロナウイルス感染症ポータルサイト](https://github.com/Code-for-Fukuoka/covid19/blob/development/static/ogp.png?raw=true)](https://lucid-khorana-6efa58.netlify.com/)
 
 ## 貢献の仕方
 Issues にあるいろいろな修正にご協力いただけると嬉しいです。
