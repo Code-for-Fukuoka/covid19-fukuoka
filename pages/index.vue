@@ -70,7 +70,7 @@
       </v-col> -->
       <v-col cols="12" md="6" class="DataCard">
         <time-bar-chart
-          title="新型コロナウイルス感染症相談ダイヤル相談件数"
+          title="新型コロナウイルス感染症　相談ダイヤル相談件数"
           :title-id="'number-of-reports-to-covid19-telephone-advisory-center'"
           :chart-id="'time-bar-chart-contacts'"
           :chart-data="contactsGraph"
