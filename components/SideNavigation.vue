@@ -85,11 +85,10 @@
   "ja": {
     "Navi Open": "サイドメニュー項目を開く",
     "Navi Close": "サイドメニュー項目を閉じる",
+    "Fukuoka": "福岡市",
     "City": "福岡市",
     "COVID-19": "新型コロナウイルス感染症",
     "Measures site": "ポータルサイト",
-    "Tokyo Metropolitan Government": "福岡市",
-    "Tokyo COVID-19 Task Force": "新型コロナウイルス感染症対策本部",
     "The latest updates": "福岡市内の最新感染動向",
     "If you have any symptoms": "こんな方はご注意ください",
     "for Families with children": "お子様をお持ちの皆様へ",
