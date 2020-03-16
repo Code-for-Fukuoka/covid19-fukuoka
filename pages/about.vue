@@ -84,13 +84,16 @@
       <br />
       当サイトに掲載されている情報は、予告なしに変更又は削除することがあります。
     </TextCard>
-    <TextCard title="データについて">
-      本サイトで公表しているデータは、<a
+    <TextCard title="データの出典について">
+      本サイトで利用しているデータは、<a
         href="https://www.open-governmentdata.org/fukuoka-city/"
         target="_blank"
         rel="noopener"
         >福岡市オープンデータカタログサイト</a
-      >より誰でも自由にダウンロードが可能です。（データは順次追加予定です）
+      >に掲載されたものを利用しています。<br />
+      <br />
+      出典：福岡市、<>福岡市　新型コロナウイルス感染症　帰国者・接触者相談センター相談件数、<a href="https://creativecommons.org/licenses/by/4.0/deed.ja" target="_blank" rel="noopener">　クリエイティブ・コモンズ 表示 2.1 日本</a>、データカタログサイト利用規約（https://www.open-governmentdata.org/fukuoka-city/usepolicy/）      <br />
+
     </TextCard>
     <TextCard title="ソースコードについて">
       本サイトのソースコードはMITライセンスで公開されており、誰でも自由に利用することができます。詳しくは、<a
