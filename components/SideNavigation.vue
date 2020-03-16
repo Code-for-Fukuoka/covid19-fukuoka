@@ -13,7 +13,7 @@
           <img src="/logo.png" :alt="$t('Fukuoka')" />
         </div>
         <h1 class="SideNavigation-Heading">
-          {{ $t('COVID-19') }}<br />{{ $t('Measures site') }}
+          {{ $t('City') }} {{ $t('COVID-19') }}<br />{{ $t('Measures site') }}
         </h1>
       </nuxt-link>
     </div>
@@ -85,9 +85,9 @@
   "ja": {
     "Navi Open": "サイドメニュー項目を開く",
     "Navi Close": "サイドメニュー項目を閉じる",
-    "Tokyo": "福岡市",
+    "City": "福岡市",
     "COVID-19": "新型コロナウイルス感染症",
-    "Measures site": "ポータル",
+    "Measures site": "ポータルサイト",
     "Tokyo Metropolitan Government": "福岡市",
     "Tokyo COVID-19 Task Force": "新型コロナウイルス感染症対策本部",
     "The latest updates": "福岡市内の最新感染動向",
