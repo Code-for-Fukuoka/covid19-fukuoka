@@ -37,30 +37,45 @@
           <v-divider v-show="item.divider" class="SideNavigation-Divider" />
         </v-container>
       </v-list>
-      <div class="SideNavigation-Footer">
-        <div class="SideNavigation-OrgLinkContainer150">
-          運営： 
-          <a
-            href="https://www.codeforfukuoka.org/"
-            target="_blank"
-            rel="noopener"
-          >
-            <img src="/logo-code4Fukuoka.png" alt="Code for Fukuoka" />
-          </a>
+      <v-footer class="SideNavigation-Footer">
+        <div class="SideNavigation-Footer">
+          <div class="SideNavigation-OrgLinkContainer150">
+            運営： 
+            <a
+              href="https://www.codeforfukuoka.org/"
+              target="_blank"
+              rel="noopener"
+            >
+              <img src="/logo-code4Fukuoka.png" alt="Code for Fukuoka" />
+            </a>
+          </div>
         </div>
-      </div>
-      <div class="SideNavigation-Footer">
-        <div class="SideNavigation-OrgLinkContainer100">
-          協力：
-          <a
-            href="https://www.city.fukuoka.lg.jp/"
-            target="_blank"
-            rel="noopener"
-          >
-            <img src="/logo-fukuoka.png" alt="福岡市" />
-          </a>
+        <div class="SideNavigation-Footer">
+          <div class="SideNavigation-OrgLinkContainer100">
+            協力：
+            <a
+              href="https://www.city.fukuoka.lg.jp/"
+              target="_blank"
+              rel="noopener"
+            >
+              <img src="/logo-fukuoka.png" alt="福岡市" />
+            </a>
+          </div>
         </div>
-      </div>
+        <small class="SideNavigation-Copyright">
+          {{ $t('このサイトの内容物は') }}
+          <a
+            rel="license"
+            target="_blank"
+            :href="$t('https://creativecommons.org/licenses/by/4.0/deed.ja')"
+          >
+            {{ $t('クリエイティブ・コモンズ 表示 4.0 ライセンス') }}
+          </a>
+          {{ $t('の下に提供されています。') }}
+          <br />
+          2020 Code for Fukuoka
+        </small>
+      </v-footer>
     </div>
   </div>
 </template>
