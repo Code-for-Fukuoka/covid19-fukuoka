@@ -92,7 +92,7 @@
         >福岡市オープンデータカタログサイト</a
       >に掲載されたものを利用しています。<br />
       <br />
-      出典：福岡市、<a href="https://ckan.open-governmentdata.org/dataset/401307_covid19_kikokusyasessyokusya">福岡市　新型コロナウイルス感染症　帰国者・接触者相談センター相談件数</a>、<a href="https://creativecommons.org/licenses/by/4.0/deed.ja" target="_blank" rel="noopener">　クリエイティブ・コモンズ 表示 2.1 日本</a>、データカタログサイト利用規約（https://www.open-governmentdata.org/fukuoka-city/usepolicy/）      <br />
+      出典：<a href="https://ckan.open-governmentdata.org/dataset/401307_covid19_kikokusyasessyokusya" target="_blank" rel="noopener">福岡市　新型コロナウイルス感染症　帰国者・接触者相談センター相談件数</a>、<a href="https://creativecommons.org/licenses/by/4.0/deed.ja" target="_blank" rel="noopener">　クリエイティブ・コモンズ 表示 2.1 日本</a>、データカタログサイト利用規約（https://www.open-governmentdata.org/fukuoka-city/usepolicy/）      <br />
 
     </TextCard>
     <TextCard title="ソースコードについて">
