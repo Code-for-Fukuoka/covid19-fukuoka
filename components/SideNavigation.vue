@@ -51,7 +51,7 @@
           </div>
         </div>
         <div class="SideNavigation-Footer">
-          <div class="SideNavigation-OrgLinkContainer100">
+          <div class="SideNavigation-OrgLinkContainer150">
             協力：
             <a
               href="https://www.city.fukuoka.lg.jp/"
@@ -253,41 +253,11 @@ export default {
       }
     }
   }
-  &-OrgLinkContainer100 {
-    display: flex;
-    vertical-align: middle;
-    & img {
-      width: 150px;
-      &:first-of-type {
-        margin-right: 10px;
-      }
-    }
-  }
   &-OrgLinkContainer150 {
     display: flex;
     vertical-align: middle;
     & img {
       width: 150px;
-      &:first-of-type {
-        margin-right: 10px;
-      }
-    }
-  }
-  &-OrgLinkContainer200 {
-    display: flex;
-    vertical-align: middle;
-    & img {
-      width: 200px;
-      &:first-of-type {
-        margin-right: 10px;
-      }
-    }
-  }
-  &-OrgLinkContainer250 {
-    display: flex;
-    vertical-align: middle;
-    & img {
-      width: 250px;
       &:first-of-type {
         margin-right: 10px;
       }
@@ -300,6 +270,9 @@ export default {
     line-height: 1.2;
     color: $gray-1;
     font-weight: bold;
+    & a {
+      font-size: 8px;
+    }
   }
 }
 .open {
