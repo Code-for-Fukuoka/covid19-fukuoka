@@ -1,6 +1,6 @@
 # 福岡県 新型コロナウイルス感染症ポータルサイト
 
-[![福岡県 新型コロナウイルス感染症ポータルサイト](https://github.com/Code-for-Fukuoka/covid19/blob/development/static/ogp.png?raw=true)](https://fukuoka.stopcovid19.jp/)
+[![福岡県 新型コロナウイルス感染症ポータルサイト](https://github.com/Code-for-Fukuoka/covid19-fukuoka/blob/development/static/ogp.png?raw=true)](https://fukuoka.stopcovid19.jp/)
 
 ## 貢献の仕方
 Issues にあるいろいろな修正にご協力いただけると嬉しいです。
