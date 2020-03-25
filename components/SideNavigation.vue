@@ -50,7 +50,7 @@
             </a>
           </div>
         </div>
-<!--        <div class="SideNavigation-Footer">
+        <div class="SideNavigation-Footer">
           <div class="SideNavigation-OrgLinkContainer150">
             協力：
             <a
@@ -61,7 +61,7 @@
               <img src="/logo-fukuoka.png" alt="福岡県" />
             </a>
           </div>
-        </div> -->
+        </div>
         <small class="SideNavigation-Copyright">
           {{ $t('このサイトの内容物は') }}
           <a
