@@ -2,7 +2,7 @@
   <data-view class="SvgCard" :title="title" :title-id="titleId" :date="date">
     <template v-slot:button>
       <p class="Graph-Desc">
-        （注）福岡市のオープンデータに含まれない項目は未掲載<br />
+        （注）福岡県のオープンデータに含まれない項目は未掲載<br />
       </p>
     </template>
     <slot />

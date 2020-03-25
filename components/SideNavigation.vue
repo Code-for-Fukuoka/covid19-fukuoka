@@ -58,7 +58,7 @@
               target="_blank"
               rel="noopener"
             >
-              <img src="/logo-fukuoka.png" alt="福岡市" />
+              <img src="/logo-fukuoka.png" alt="福岡県" />
             </a>
           </div>
         </div>
@@ -85,19 +85,19 @@
   "ja": {
     "Navi Open": "サイドメニュー項目を開く",
     "Navi Close": "サイドメニュー項目を閉じる",
-    "Fukuoka": "福岡市",
-    "City": "福岡市",
+    "Fukuoka": "福岡県",
+    "City": "福岡県",
     "COVID-19": "新型コロナウイルス感染症",
     "Measures site": "ポータルサイト",
-    "The latest updates": "福岡市内の最新感染動向",
+    "The latest updates": "福岡県内の最新感染動向",
     "If you have any symptoms": "こんな方はご注意ください",
     "for Families with children": "お子様をお持ちの皆様へ",
     "for Citizens": "市民の皆様へ",
     "for Enterprises and Employees": "事業者の方へ",
-    "Official statements from Task Force": "福岡市新型コロナウイルス感染症対策本部報",
-    "Fukuoka City Subway Traffic": "福岡市地下鉄ラッシュ時の車内混雑状況",
+    "Official statements from Task Force": "福岡県新型コロナウイルス感染症対策本部報",
+    "Fukuoka City Subway Traffic": "福岡県地下鉄ラッシュ時の車内混雑状況",
     "Cancelled public events": "不特定多数の人が集まるイベントへの対応",
-    "Government official website": "福岡市公式ホームページ",
+    "Government official website": "福岡県公式ホームページ",
     "Message from Governor Takashima": "市長からのメッセージ",
     "About us": "当サイトについて"
   }
