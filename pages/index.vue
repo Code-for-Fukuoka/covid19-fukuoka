@@ -67,7 +67,7 @@
           :unit="'件'"
           :url="'https://ckan.open-governmentdata.org/dataset/401307_covid19_exam'"
         />
-      </v-col> -->
+      </v-col>
       <v-col cols="12" md="6" class="DataCard">
         <time-bar-chart
           title="新型コロナウイルス感染症　相談ダイヤル相談件数"
@@ -78,7 +78,7 @@
           :unit="'件'"
           :url="'https://ckan.open-governmentdata.org/dataset/401307_covid19_hotline'"
         />
-      </v-col>
+      </v-col> -->
       <v-col cols="12" md="6" class="DataCard">
         <time-bar-chart
           title="新型コロナウイルス感染症　帰国者・接触者相談センター相談件数"
