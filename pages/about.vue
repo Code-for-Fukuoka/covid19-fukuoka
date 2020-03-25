@@ -86,23 +86,22 @@
     </TextCard>
     <TextCard title="データの出典について">
       本サイトで利用しているデータは、<a
-        href="https://www.open-governmentdata.org/fukuoka-city/"
+        href="https://www.open-governmentdata.org/fukuoka-pref/"
         target="_blank"
         rel="noopener"
         >福岡県オープンデータカタログサイト</a
       >に掲載されたものを利用しています。<br />
       <br />
       出典：<br />
-      <a href="https://ckan.open-governmentdata.org/dataset/401307_covid19_patients" target="_blank" rel="noopener">福岡県　新型コロナウイルス感染症　陽性患者発表情報</a>、<a href="https://creativecommons.org/licenses/by/4.0/deed.ja" target="_blank" rel="noopener">クリエイティブ・コモンズ 表示 2.1 日本</a><br />
-      <a href="https://ckan.open-governmentdata.org/dataset/401307_covid19_exam" target="_blank" rel="noopener">福岡県　新型コロナウイルス感染症　検査実施数</a>、<a href="https://creativecommons.org/licenses/by/4.0/deed.ja" target="_blank" rel="noopener">クリエイティブ・コモンズ 表示 2.1 日本</a><br />
-      <a href="https://ckan.open-governmentdata.org/dataset/401307_covid19_hotline" target="_blank" rel="noopener">福岡県　新型コロナウイルス感染症　相談ダイヤル相談件数</a>、<a href="https://creativecommons.org/licenses/by/4.0/deed.ja" target="_blank" rel="noopener">クリエイティブ・コモンズ 表示 2.1 日本</a><br />
-      <a href="https://ckan.open-governmentdata.org/dataset/401307_covid19_kikokusyasessyokusya" target="_blank" rel="noopener">福岡県　新型コロナウイルス感染症　帰国者・接触者相談センター相談件数</a>、<a href="https://creativecommons.org/licenses/by/4.0/deed.ja" target="_blank" rel="noopener">クリエイティブ・コモンズ 表示 2.1 日本</a><br />
+      <a href="https://ckan.open-governmentdata.org/dataset/401000_pref_fukuoka_covid19_patients" target="_blank" rel="noopener">福岡県　新型コロナウイルス感染症　陽性患者発表情報</a>、<a href="https://creativecommons.org/licenses/by/2.1/jp/legalcode" target="_blank" rel="noopener">クリエイティブ・コモンズ 表示 2.1 日本</a><br />
+      <a href="https://ckan.open-governmentdata.org/dataset/401000_pref_fukuoka_covid19_exam" target="_blank" rel="noopener">福岡県　新型コロナウイルス感染症　検査実施数</a>、<a href="https://creativecommons.org/licenses/by/2.1/jp/legalcode" target="_blank" rel="noopener">クリエイティブ・コモンズ 表示 2.1 日本</a><br />
+      <a href="https://ckan.open-governmentdata.org/dataset/401000_pref_fukuoka_covid19_kikokusyasessyokusya" target="_blank" rel="noopener">福岡県　新型コロナウイルス感染症　帰国者・接触者相談センター相談件数</a>、<a href="https://creativecommons.org/licenses/by/2.1/jp/legalcode" target="_blank" rel="noopener">クリエイティブ・コモンズ 表示 2.1 日本</a><br />
       <br />
-      <a href="https://www.open-governmentdata.org/fukuoka-city/usepolicy/" target="_blank" rel="noopener">福岡県オープンデータカタログサイト 利用規約</a><br />
+      <a href="https://www.open-governmentdata.org/fukuoka-pref/usepolicy/" target="_blank" rel="noopener">福岡県オープンデータカタログサイト 利用規約</a><br />
     </TextCard>
     <TextCard title="ソースコードについて">
       本サイトのソースコードはMITライセンスで公開されており、誰でも自由に利用することができます。詳しくは、<a
-        href="https://github.com/Code-for-Fukuoka/covid19"
+        href="https://github.com/Code-for-Fukuoka/covid19-fukuoka"
         target="_blank"
         rel="noopener"
         >GitHub リポジトリ</a
