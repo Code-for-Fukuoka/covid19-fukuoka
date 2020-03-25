@@ -50,7 +50,7 @@
             </a>
           </div>
         </div>
-        <div class="SideNavigation-Footer">
+<!--        <div class="SideNavigation-Footer">
           <div class="SideNavigation-OrgLinkContainer150">
             協力：
             <a
@@ -61,7 +61,7 @@
               <img src="/logo-fukuoka.png" alt="福岡県" />
             </a>
           </div>
-        </div>
+        </div> -->
         <small class="SideNavigation-Copyright">
           {{ $t('このサイトの内容物は') }}
           <a
@@ -163,7 +163,7 @@ export default {
         },
         {
           title: this.$t('Government official website'),
-          link: 'http://www.city.fukuoka.lg.jp/index.html',
+          link: 'https://www.pref.fukuoka.lg.jp/',
           divider: true
         }
       ]
