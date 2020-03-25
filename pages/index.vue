@@ -30,7 +30,7 @@
           :chart-data="patientsGraph"
           :date="Data.patients.date"
           :unit="'人'"
-          :url="'https://ckan.open-governmentdata.org/dataset/401307_covid19_patients'"
+          :url="'https://ckan.open-governmentdata.org/dataset/401000_pref_fukuoka_covid19_patients'"
         />
       </v-col>
       <v-col cols="12" md="6" class="DataCard">
@@ -41,7 +41,7 @@
           :chart-option="{}"
           :date="Data.patients.date"
           :info="sumInfoOfPatients"
-          :url="'https://ckan.open-governmentdata.org/dataset/401307_covid19_patients'"
+          :url="'https://ckan.open-governmentdata.org/dataset/401000_pref_fukuoka_covid19_patients'"
         />
       </v-col>
       <v-col cols="12" md="6" class="DataCard">
@@ -52,7 +52,7 @@
           :chart-data="testedGraph"
           :date="Data.tested.date"
           :unit="'件'"
-          :url="'https://ckan.open-governmentdata.org/dataset/401307_covid19_exam'"
+          :url="'https://ckan.open-governmentdata.org/dataset/401000_pref_fukuoka_covid19_exam'"
         />
       </v-col>
 <!--      <v-col cols="12" md="6" class="DataCard">
@@ -65,7 +65,7 @@
           :items="inspectionsItems"
           :labels="inspectionsLabels"
           :unit="'件'"
-          :url="'https://ckan.open-governmentdata.org/dataset/401307_covid19_exam'"
+          :url="''"
         />
       </v-col>
       <v-col cols="12" md="6" class="DataCard">
@@ -76,7 +76,7 @@
           :chart-data="contactsGraph"
           :date="Data.contacts.date"
           :unit="'件'"
-          :url="'https://ckan.open-governmentdata.org/dataset/401307_covid19_hotline'"
+          :url="''"
         />
       </v-col> -->
       <v-col cols="12" md="6" class="DataCard">
@@ -87,7 +87,7 @@
           :chart-data="querentsGraph"
           :date="Data.querents.date"
           :unit="'件'"
-          :url="'https://ckan.open-governmentdata.org/dataset/401307_covid19_kikokusyasessyokusya'"
+          :url="'https://ckan.open-governmentdata.org/dataset/401000_pref_fukuoka_covid19_kikokusyasessyokusya'"
         />
       </v-col>
 <!--      <v-col cols="12" md="6" class="DataCard">
