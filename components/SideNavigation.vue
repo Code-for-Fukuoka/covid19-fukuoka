@@ -131,7 +131,7 @@ export default {
           divider: true
         },
         {
-          icon: 'covid',
+          icon: 'earth',
           title: this.$t('Portal'),
           link: 'https://www.pref.fukuoka.lg.jp/contents/covid-19-portal.html'
         },
@@ -160,6 +160,7 @@ export default {
           title: this.$t('for school'),
           link:
             'https://www.pref.fukuoka.lg.jp/contents/kyouikutaiou.html'
+          divider: true
         },
         {
           title: this.$t('About us'),
