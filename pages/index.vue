@@ -9,7 +9,7 @@
     <static-info
       class="mb-4"
       :url="'https://www.pref.fukuoka.lg.jp/contents/covid-19-portal.html#A1-4'"
-      :text="'自分や家族の症状に不安や心配があればまずは電話相談をどうぞ'"
+      :text="'自分や家族の症状に不安や心配があればまずは電話でご相談下さい'"
       :btn-text="'相談の手順を見る'"
     />
     <v-row class="DataBlock">
