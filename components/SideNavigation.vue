@@ -131,7 +131,7 @@ export default {
           divider: true
         },
         {
-          icon: 'earth',
+          icon: 'mid-earth',
           title: this.$t('Portal'),
           link: 'https://www.pref.fukuoka.lg.jp/contents/covid-19-portal.html'
         },
