@@ -158,8 +158,7 @@ export default {
         },
         {
           title: this.$t('for school'),
-          link:
-            'https://www.pref.fukuoka.lg.jp/contents/kyouikutaiou.html'
+          link: 'https://www.pref.fukuoka.lg.jp/contents/kyouikutaiou.html',
           divider: true
         },
         {
