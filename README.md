@@ -1,6 +1,6 @@
-# 福岡市 新型コロナウイルス感染症ポータルサイト
+# 福岡県 新型コロナウイルス感染症ポータルサイト
 
-[![福岡市 新型コロナウイルス感染症ポータルサイト](https://github.com/Code-for-Fukuoka/covid19/blob/development/static/ogp.png?raw=true)](https://stopcovid19.codeforfukuoka.org/)
+[![福岡県 新型コロナウイルス感染症ポータルサイト](https://github.com/Code-for-Fukuoka/covid19-fukuoka/blob/development/static/ogp.png?raw=true)](https://fukuoka.stopcovid19.jp/)
 
 ## 貢献の仕方
 Issues にあるいろいろな修正にご協力いただけると嬉しいです。
@@ -37,6 +37,6 @@ $ docker-compose up --build
 
 ### ステージング・本番環境への反映
 
-`master` ブランチがアップデートされると、自動的に `production` ブランチにHTML類がbuildされます。そして、開発用サイト https://stopcovid19.codeforfukuoka.org/ が更新されます。
+`master` ブランチがアップデートされると、自動的に `production` ブランチにHTML類がbuildされます。そして、開発用サイト https://fukuoka.stopcovid19.jp/ が更新されます。
 
-`development` ブランチがアップデートされると、自動的に `dev-pages` ブランチにHTML類がbuildされます。そして、開発用サイト https://dev-covid19-fukuoka.netlify.com/ が更新されます。
+`development` ブランチがアップデートされると、自動的に `dev-pages` ブランチにHTML類がbuildされます。そして、開発用サイト https://dev-covid19-fukuokapref.netlify.com/ が更新されます。

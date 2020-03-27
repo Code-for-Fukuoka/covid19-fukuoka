@@ -8,12 +8,12 @@
     <whats-new class="mb-4" :items="newsItems" />
     <static-info
       class="mb-4"
-      :url="'https://www.city.fukuoka.lg.jp/data/open/cnt/3/72498/1/nCoV_flyer_200228.pdf?20200312113320'"
-      :text="'自分や家族の症状に不安や心配があればまずは電話相談をどうぞ'"
+      :url="'https://www.pref.fukuoka.lg.jp/contents/covid-19-portal.html#A1-4'"
+      :text="'自分や家族の症状に不安や心配があればまずは電話でご相談下さい'"
       :btn-text="'相談の手順を見る'"
     />
     <v-row class="DataBlock">
-<!--      <v-col cols="12" md="6" class="DataCard">
+      <v-col cols="12" md="6" class="DataCard">
         <svg-card
           title="検査陽性者の状況"
           :title-id="'details-of-confirmed-cases'"
@@ -21,7 +21,7 @@
         >
           <confirmed-cases-table v-bind="confirmedCases" />
         </svg-card>
-      </v-col> -->
+      </v-col> 
       <v-col cols="12" md="6" class="DataCard">
         <time-bar-chart
           title="陽性患者数"
@@ -30,7 +30,7 @@
           :chart-data="patientsGraph"
           :date="Data.patients.date"
           :unit="'人'"
-          :url="'https://ckan.open-governmentdata.org/dataset/401307_covid19_patients'"
+          :url="'https://ckan.open-governmentdata.org/dataset/401000_pref_fukuoka_covid19_patients'"
         />
       </v-col>
       <v-col cols="12" md="6" class="DataCard">
@@ -41,7 +41,7 @@
           :chart-option="{}"
           :date="Data.patients.date"
           :info="sumInfoOfPatients"
-          :url="'https://ckan.open-governmentdata.org/dataset/401307_covid19_patients'"
+          :url="'https://ckan.open-governmentdata.org/dataset/401000_pref_fukuoka_covid19_patients'"
         />
       </v-col>
       <v-col cols="12" md="6" class="DataCard">
@@ -52,7 +52,7 @@
           :chart-data="testedGraph"
           :date="Data.tested.date"
           :unit="'件'"
-          :url="'https://ckan.open-governmentdata.org/dataset/401307_covid19_exam'"
+          :url="'https://ckan.open-governmentdata.org/dataset/401000_pref_fukuoka_covid19_exam'"
         />
       </v-col>
 <!--      <v-col cols="12" md="6" class="DataCard">
@@ -65,9 +65,9 @@
           :items="inspectionsItems"
           :labels="inspectionsLabels"
           :unit="'件'"
-          :url="'https://ckan.open-governmentdata.org/dataset/401307_covid19_exam'"
+          :url="''"
         />
-      </v-col> -->
+      </v-col>
       <v-col cols="12" md="6" class="DataCard">
         <time-bar-chart
           title="新型コロナウイルス感染症　相談ダイヤル相談件数"
@@ -76,9 +76,9 @@
           :chart-data="contactsGraph"
           :date="Data.contacts.date"
           :unit="'件'"
-          :url="'https://ckan.open-governmentdata.org/dataset/401307_covid19_hotline'"
+          :url="''"
         />
-      </v-col>
+      </v-col> -->
       <v-col cols="12" md="6" class="DataCard">
         <time-bar-chart
           title="新型コロナウイルス感染症　帰国者・接触者相談センター相談件数"
@@ -87,12 +87,12 @@
           :chart-data="querentsGraph"
           :date="Data.querents.date"
           :unit="'件'"
-          :url="'https://ckan.open-governmentdata.org/dataset/401307_covid19_kikokusyasessyokusya'"
+          :url="'https://ckan.open-governmentdata.org/dataset/401000_pref_fukuoka_covid19_kikokusyasessyokusya'"
         />
       </v-col>
 <!--      <v-col cols="12" md="6" class="DataCard">
         <metro-bar-chart
-          title="福岡市営地下鉄の利用者数の推移"
+          title="福岡県営地下鉄の利用者数の推移"
           :title-id="'predicted-number-of-toei-subway-passengers'"
           :chart-id="'metro-bar-chart'"
           :chart-data="metroGraph"
@@ -147,7 +147,7 @@ export default {
     const contactsGraph = formatGraph(Data.contacts.data)
     // 帰国者・接触者電話相談センター相談件数
     const querentsGraph = formatGraph(Data.querents.data)
-    // 福岡市営地下鉄の利用者数の推移
+    // 福岡県営地下鉄の利用者数の推移
     const metroGraph = MetroData
     // 検査実施日別状況
     const inspectionsGraph = [
@@ -155,7 +155,7 @@ export default {
       Data.inspections_summary.data['その他']
     ]
     const inspectionsItems = [
-      '福岡市内発生（疑い例・接触者調査）',
+      '福岡県内発生（疑い例・接触者調査）',
       'その他（チャーター便・クルーズ便）'
     ]
     const inspectionsLabels = Data.inspections_summary.labels
@@ -191,7 +191,7 @@ export default {
       sumInfoOfPatients,
       headerItem: {
         icon: 'mdi-chart-timeline-variant',
-        title: '福岡市内の最新感染動向',
+        title: '福岡県内の最新感染動向(テストサイトです。データはダミーです。)',
         date: Data.lastUpdate
       },
       newsItems: News.newsItems,
@@ -253,7 +253,7 @@ export default {
   },
   head() {
     return {
-      title: '福岡市内の最新感染動向'
+      title: '福岡県内の最新感染動向（テストサイトです。データはダミーです。）'
     }
   }
 }

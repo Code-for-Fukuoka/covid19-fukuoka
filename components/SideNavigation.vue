@@ -58,7 +58,7 @@
               target="_blank"
               rel="noopener"
             >
-              <img src="/logo-fukuoka.png" alt="福岡市" />
+              <img src="/logo-fukuoka.png" alt="福岡県" />
             </a>
           </div>
         </div>
@@ -85,20 +85,19 @@
   "ja": {
     "Navi Open": "サイドメニュー項目を開く",
     "Navi Close": "サイドメニュー項目を閉じる",
-    "Fukuoka": "福岡市",
-    "City": "福岡市",
+    "Fukuoka": "福岡県",
+    "City": "福岡県",
     "COVID-19": "新型コロナウイルス感染症",
     "Measures site": "ポータルサイト",
-    "The latest updates": "福岡市内の最新感染動向",
-    "If you have any symptoms": "こんな方はご注意ください",
-    "for Families with children": "お子様をお持ちの皆様へ",
-    "for Citizens": "市民の皆様へ",
-    "for Enterprises and Employees": "事業者の方へ",
-    "Official statements from Task Force": "福岡市新型コロナウイルス感染症対策本部報",
-    "Fukuoka City Subway Traffic": "福岡市地下鉄ラッシュ時の車内混雑状況",
-    "Cancelled public events": "不特定多数の人が集まるイベントへの対応",
-    "Government official website": "福岡市公式ホームページ",
-    "Message from Governor Takashima": "市長からのメッセージ",
+    "The latest updates": "福岡県内の最新感染動向",
+    "If you have any symptoms": "感染が疑われる場合の受診・相談について",
+    "Portal": "新型コロナウイルス感染症ポータルページ",
+    "Not infect virus": "新型コロナウイルスに感染しないようにするために",
+    "for Citizens": "県民の方、事業者の方への支援情報",
+    "Cancelled public events": "県主催のイベント・行事の中止・延期",
+    "Closed public facility": "県有施設の臨時休館など",
+    "for school": "県内の学校等での対応",
+    "Government official website": "福岡県公式ホームページ",
     "About us": "当サイトについて"
   }
 }
@@ -128,34 +127,39 @@ export default {
         {
           icon: 'covid',
           title: this.$t('If you have any symptoms'),
-          link: 'https://www.city.fukuoka.lg.jp/hofuku/hokenyobo/health/kansen/nCorV.html#kgkd',
+          link: 'https://www.pref.fukuoka.lg.jp/contents/covid-19-portal.html#A1-4',
           divider: true
         },
         {
-          icon: 'parent',
-          title: this.$t('for Families with children'),
-          link: '/parent'
+          icon: 'mdi-earth',
+          title: this.$t('Portal'),
+          link: 'https://www.pref.fukuoka.lg.jp/contents/covid-19-portal.html'
         },
         {
           icon: 'mdi-account-multiple',
-          title: this.$t('for Citizens'),
-          link: 'https://www.city.fukuoka.lg.jp/hofuku/hokenyobo/health/kansen/nCorV.html#ci'
+          title: this.$t('Not infect virus'),
+          link: 'https://www.pref.fukuoka.lg.jp/contents/covid-19-portal.html#A1-3'
         },
         {
           icon: 'mdi-domain',
-          title: this.$t('for Enterprises and Employees'),
-          link: 'https://www.city.fukuoka.lg.jp/hofuku/hokenyobo/health/kansen/nCorV.html#ji',
+          title: this.$t('for Citizens'),
+          link: 'https://www.pref.fukuoka.lg.jp/contents/coronavirus-shien.html',
           divider: true
         },
         {
           title: this.$t('Cancelled public events'),
           link:
-            'https://www.city.fukuoka.lg.jp/hofuku/hokenyobo/health/kansen/nCorV.html#ftev'
+            'https://www.pref.fukuoka.lg.jp/contents/eventinfo-coronavirus.html'
         },
         {
-          title: this.$t('Fukuoka City Subway Traffic'),
+          title: this.$t('Closed public facility'),
           link:
-            'https://subway.city.fukuoka.lg.jp/topics/detail.php?id=1006'
+            'https://www.pref.fukuoka.lg.jp/contents/rinjikyuukan.html'
+        },
+        {
+          title: this.$t('for school'),
+          link: 'https://www.pref.fukuoka.lg.jp/contents/kyouikutaiou.html',
+          divider: true
         },
         {
           title: this.$t('About us'),
@@ -163,7 +167,7 @@ export default {
         },
         {
           title: this.$t('Government official website'),
-          link: 'http://www.city.fukuoka.lg.jp/index.html',
+          link: 'https://www.pref.fukuoka.lg.jp/',
           divider: true
         }
       ]
