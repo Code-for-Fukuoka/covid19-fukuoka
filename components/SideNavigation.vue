@@ -49,7 +49,9 @@
               <img src="/logo-code4Fukuoka.png" alt="Code for Fukuoka" />
             </a>
           </div>
-          <div class="SideNavigation-OrgLinkContainer150">
+        </div>
+        <div class="SideNavigation-Footer">
+          <div class="SideNavigation-OrgLinkContainer100">
             運営： 
             <a
               href="http://code4kurume.org/"
@@ -61,7 +63,7 @@
           </div>
         </div>
         <div class="SideNavigation-Footer">
-          <div class="SideNavigation-OrgLinkContainer100">
+          <div class="SideNavigation-OrgLinkContainer150">
             協力：
             <a
               href="https://www.city.fukuoka.lg.jp/"
