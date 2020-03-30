@@ -51,7 +51,7 @@
           </div>
         </div>
         <div class="SideNavigation-Footer">
-          <div class="SideNavigation-OrgLinkContainer100">
+          <div class="SideNavigation-OrgLinkContainer150">
             運営： 
             <a
               href="http://code4kurume.org/"
