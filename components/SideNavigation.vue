@@ -66,7 +66,7 @@
           <div class="SideNavigation-OrgLinkContainer150">
             協力：
             <a
-              href="https://www.city.fukuoka.lg.jp/"
+              href="https://www.pref.fukuoka.lg.jp/"
               target="_blank"
               rel="noopener"
             >
