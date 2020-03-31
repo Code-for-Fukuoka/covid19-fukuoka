@@ -68,7 +68,7 @@ const config: Configuration = {
       {
         hid: 'twitter:image',
         name: 'twitter:image',
-        content: 'https://stopcovid19.codeforfukuoka.org/ogp.png'
+        content: 'https://fukuoka.stopcovid19.jp/ogp.png'
       }
     ],
     link: [
