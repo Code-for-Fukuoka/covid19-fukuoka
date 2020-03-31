@@ -32,7 +32,7 @@ const config: Configuration = {
       {
         hid: 'og:url',
         property: 'og:url',
-        content: 'https://stopcovid19.codeforfukuoka.org/'
+        content: 'https://fukuoka.stopcovid19.jp/'
       },
       {
         hid: 'og:title',
@@ -48,7 +48,7 @@ const config: Configuration = {
       {
         hid: 'og:image',
         property: 'og:image',
-        content: 'https://stopcovid19.codeforfukuoka.org/ogp.png'
+        content: 'https://fukuoka.stopcovid19.jp/ogp.png'
       },
       {
         hid: 'twitter:card',
@@ -68,7 +68,7 @@ const config: Configuration = {
       {
         hid: 'twitter:image',
         name: 'twitter:image',
-        content: 'https://stopcovid19.codeforfukuoka.org/ogp.png'
+        content: 'https://fukuoka.stopcovid19.jp/ogp.png'
       }
     ],
     link: [

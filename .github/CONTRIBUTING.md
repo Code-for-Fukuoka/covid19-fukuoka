@@ -36,9 +36,8 @@
 [#654](https://github.com/tokyo-metropolitan-gov/covid19/issues/654) の Issue に、掲載名、リンク先（あれば）、役割をコメントください。
 
 ## 開発に関する情報
-* 開発サイト https://dev-covid19-fukuoka.netlify.com/
-* ステージングサイト https://stg-covid19-fukuoka.netlify.com/
-* 本番サイト https://stopcovid19.codeforfukuoka.org/
+* 開発サイト https://dev-covid19-fukuokapref.netlify.com/
+* 本番サイト https://fukuoka.stopcovid19.jp/
 * [デザイン](https://www.figma.com/file/V7vt80p2gauhdgTZeVNbgj/UI%E3%83%87%E3%82%B6%E3%82%A4%E3%83%B3?node-id=121%3A156)
 
 本 ドキュメント の更新も大歓迎です！
