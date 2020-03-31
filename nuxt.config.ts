@@ -48,7 +48,7 @@ const config: Configuration = {
       {
         hid: 'og:image',
         property: 'og:image',
-        content: 'https://stopcovid19.codeforfukuoka.org/ogp.png'
+        content: 'https://fukuoka.stopcovid19.jp/ogp.png'
       },
       {
         hid: 'twitter:card',
