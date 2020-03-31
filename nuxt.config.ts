@@ -32,7 +32,7 @@ const config: Configuration = {
       {
         hid: 'og:url',
         property: 'og:url',
-        content: 'https://stopcovid19.codeforfukuoka.org/'
+        content: 'https://fukuoka.stopcovid19.jp/'
       },
       {
         hid: 'og:title',
