@@ -32,7 +32,7 @@
                 ※最新の情報はWebページをご覧ください
               </p>
               <p class="PrintMeta-Link">
-                https://stopcovid19.codeforfukuoka.org/
+                https://fukuoka.stopcovid19.jp/
               </p>
             </v-card>
           </v-card>
@@ -77,7 +77,7 @@ export default {
       link: [
         {
           rel: 'canonical',
-          href: `https://stopcovid19.codeforfukuoka.org${this.$route.path}`
+          href: `https://fukuoka.stopcovid19.jp${this.$route.path}`
         }
       ]
     }
