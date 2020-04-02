@@ -62,9 +62,10 @@ export default {
 .date {
   font-size: 0.875rem;
   color: $gray-3;
-  a {
-    color: $gray-1;
-    text-decoration: none;
-  }
 }
+a.date {
+  color: $gray-1;
+  text-decoration: none;
+}
+
 </style>
