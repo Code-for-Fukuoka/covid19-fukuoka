@@ -12,6 +12,8 @@
       :text="'自分や家族の症状に不安や心配があればまずは電話でご相談下さい'"
       :btn-text="'相談の手順を見る'"
     />
+    本サイトの情報は<a href="https://ckan.open-governmentdata.org/organization/fukuoka-pref" target="_blank" rel="noopener">福岡県オープンデータ</a>の更新を1時間おきに確認しています。<br />
+    福岡県のオープンデータが更新されなければ、本サイトの情報は最新になりませんのでご注意ください。
     <v-row class="DataBlock">
       <v-col cols="12" md="6" class="DataCard">
         <svg-card
