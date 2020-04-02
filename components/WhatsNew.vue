@@ -8,9 +8,6 @@
     </h2> -->
     <ul class="WhatsNew-list">
       <li v-for="(item, i) in items" :key="i" class="WhatsNew-list-item">
-        <v-icon size="18" class="WhatsNew-heading-icon">
-          mdi-information
-        </v-icon>
         <a
           class="WhatsNew-list-item-anchor"
           :href="item.url"
@@ -24,6 +21,9 @@
             {{ item.date }}
           </time> -->
           <span class="WhatsNew-list-item-anchor-link">
+            <v-icon size="18" class="WhatsNew-heading-icon">
+              mdi-information
+            </v-icon>
             {{ item.text }}
             <v-icon
               v-if="!isInternalLink(item.url)"
