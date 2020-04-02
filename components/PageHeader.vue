@@ -9,7 +9,7 @@
     <div class="date">
       <span>最終更新 </span>
       <time :datetime="formattedDate">{{ date }}</time>
-      （<a href="https://ckan.open-governmentdata.org/organization/fukuoka-pref" target="_blank" rel="noopener">福岡県オープンデータ</a>を1時間毎に確認して更新）
+      （<a id="frequency" href="https://ckan.open-governmentdata.org/organization/fukuoka-pref" target="_blank" rel="noopener">福岡県オープンデータ</a>を1時間毎に確認して更新）
     </div>
   </div>
 </template>
@@ -63,7 +63,7 @@ export default {
   font-size: 0.875rem;
   color: $gray-3;
 }
-a.date {
+a#frequency {
   color: $gray-1;
   text-decoration: none;
 }
