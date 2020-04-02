@@ -9,7 +9,7 @@
     <div class="date">
       <span>最終更新 </span>
       <time :datetime="formattedDate">{{ date }}</time>
-      本サイトの情報は<a href="https://ckan.open-governmentdata.org/organization/fukuoka-pref" target="_blank" rel="noopener">福岡県オープンデータ</a>を1時間おきに確認して更新しています。
+      （<a href="https://ckan.open-governmentdata.org/organization/fukuoka-pref" target="_blank" rel="noopener">福岡県オープンデータ</a>を1時間毎に確認して更新）
     </div>
   </div>
 </template>
