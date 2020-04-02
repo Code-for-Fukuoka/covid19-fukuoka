@@ -4,7 +4,7 @@
       <v-icon size="24" class="WhatsNew-heading-icon">
         mdi-information
       </v-icon>
-      最新のお知らせ
+      お知らせ
     </h2>
     <ul class="WhatsNew-list">
       <li v-for="(item, i) in items" :key="i" class="WhatsNew-list-item">
@@ -14,12 +14,12 @@
           target="_blank"
           rel="noopener"
         >
-          <time
+<!--          <time
             class="WhatsNew-list-item-anchor-time px-2"
             :datetime="formattedDate(item.date)"
           >
             {{ item.date }}
-          </time>
+          </time> -->
           <span class="WhatsNew-list-item-anchor-link">
             {{ item.text }}
             <v-icon
