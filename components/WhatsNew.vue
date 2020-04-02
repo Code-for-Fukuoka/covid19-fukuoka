@@ -21,7 +21,7 @@
             {{ item.date }}
           </time> -->
           <span class="WhatsNew-list-item-anchor-link">
-            <v-icon size="18" class="WhatsNew-heading-icon">
+            <v-icon size="20" class="WhatsNew-heading-icon">
               mdi-information
             </v-icon>
             {{ item.text }}
