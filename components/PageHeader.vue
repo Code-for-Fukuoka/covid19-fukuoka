@@ -65,7 +65,6 @@ export default {
 }
 a#frequency {
   color: $gray-1;
-  text-decoration: none;
 }
 
 </style>
