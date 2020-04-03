@@ -253,7 +253,7 @@ export default {
   },
   head() {
     return {
-      title: '福岡県内の最新感染動向'
+      title: '福岡県内の感染動向'
     }
   }
 }

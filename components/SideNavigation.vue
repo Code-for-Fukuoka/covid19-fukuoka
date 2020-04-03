@@ -101,7 +101,7 @@
     "City": "福岡県",
     "COVID-19": "新型コロナウイルス感染症",
     "Measures site": "ポータルサイト",
-    "The latest updates": "福岡県内の最新感染動向",
+    "The latest updates": "福岡県内の感染動向",
     "If you have any symptoms": "感染が疑われる場合の受診・相談について",
     "Portal": "新型コロナウイルス感染症ポータルページ",
     "Not infect virus": "新型コロナウイルスに感染しないようにするために",
