@@ -25,7 +25,7 @@
 <path d="M299.352 95H297.518V87.9287L295.328 88.6079V87.1162L299.155 85.7451H299.352V95ZM305.902 86.76C305.832 88.08 305.972 92.62 301.982 94.83C302.382 95.11 302.772 95.47 302.982 95.78C305.092 94.49 306.142 92.56 306.682 90.76C307.242 92.6 308.362 94.66 310.622 95.78C310.812 95.46 311.172 95.05 311.542 94.77C307.812 93.02 307.312 88.71 307.232 87.33C307.242 87.12 307.252 86.92 307.262 86.76H305.902Z" fill="#325685"/>
     <text
       class="black text"
-      transform="translate(35 90)"
+      transform="translate(25 95)"
       :dx="getAdjustX(検査実施人数)"
     >
       <tspan>{{ 検査実施人数 }}</tspan>
@@ -33,7 +33,7 @@
     </text>
     <text
       class="green text"
-      transform="translate(100 90)"
+      transform="translate(90 95)"
       :dx="getAdjustX(陽性物数)"
     >
       <tspan>{{ 陽性物数 }}</tspan>
@@ -41,7 +41,7 @@
     </text>
     <text
       class="green text"
-      transform="translate(160 90)"
+      transform="translate(155 95)"
       :dx="getAdjustX(入院中)"
     >
       <tspan>{{ 入院中 }}</tspan>
@@ -49,7 +49,7 @@
     </text>
     <text
       class="green text"
-      transform="translate(200 90)"
+      transform="translate(230 95)"
       :dx="getAdjustX(死亡)"
     >
       <tspan>{{ 死亡 }}</tspan>
@@ -57,7 +57,7 @@
     </text>
     <text
       class="green text"
-      transform="translate(280 90)"
+      transform="translate(290 95)"
       :dx="getAdjustX(退院)"
     >
       <tspan>{{ 退院 }}</tspan>
