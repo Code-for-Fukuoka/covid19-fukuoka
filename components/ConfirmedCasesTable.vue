@@ -1,5 +1,5 @@
 <template>
-  <svg class="confirmed-cases-table" viewBox="0 0 341 140" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" :aria-label="ariaLabel(検査実施人数, 陽性物数, 入院中, 軽症中等症, 重症, 死亡, 退院)">
+  <svg class="confirmed-cases-table" viewBox="0 0 341 140" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" :aria-label="ariaLabel(検査実施人数, 陽性物数, 入院中, 死亡, 退院)">
     <mask id="path-1-inside-1" fill="white">
       <path d="M136 26.4855H201V131.364H136V26.4855Z"/>
     </mask>
@@ -62,22 +62,6 @@
     </text>
     <text
       class="green text"
-      transform="translate(157 100)"
-      :dx="getAdjustX(軽症中等症)"
-    >
-      <tspan>{{ 軽症中等症 }}</tspan>
-      <tspan class="unit" dx="-3">人</tspan>
-    </text>
-    <text
-      class="green text"
-      transform="translate(207 100)"
-      :dx="getAdjustX(重症)"
-    >
-      <tspan>{{ 重症 }}</tspan>
-      <tspan class="unit" dx="-3">人</tspan>
-    </text>
-    <text
-      class="green text"
       transform="translate(256 100)"
       :dx="getAdjustX(死亡)"
     >
@@ -101,8 +85,6 @@ export default {
     '検査実施人数',
     '陽性物数',
     '入院中',
-    '軽症中等症',
-    '重症',
     '死亡',
     '退院'
   ],
