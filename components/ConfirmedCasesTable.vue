@@ -28,7 +28,7 @@
     </text>
     <text
       class="green text"
-      transform="translate(90 95)"
+      transform="translate(85 95)"
       :dx="getAdjustX(陽性物数)"
     >
       <tspan>{{ 陽性物数 }}</tspan>
@@ -44,7 +44,7 @@
     </text>
     <text
       class="green text"
-      transform="translate(230 95)"
+      transform="translate(225 95)"
       :dx="getAdjustX(死亡)"
     >
       <tspan>{{ 死亡 }}</tspan>
@@ -52,7 +52,7 @@
     </text>
     <text
       class="green text"
-      transform="translate(290 95)"
+      transform="translate(295 95)"
       :dx="getAdjustX(退院)"
     >
       <tspan>{{ 退院 }}</tspan>
