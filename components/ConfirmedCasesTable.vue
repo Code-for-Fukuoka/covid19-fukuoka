@@ -38,7 +38,7 @@
 </defs>
     <text
       class="black text"
-      transform="translate(12 100)"
+      transform="translate(35 90)"
       :dx="getAdjustX(検査実施人数)"
     >
       <tspan>{{ 検査実施人数 }}</tspan>
@@ -46,7 +46,7 @@
     </text>
     <text
       class="green text"
-      transform="translate(60 100)"
+      transform="translate(100 90)"
       :dx="getAdjustX(陽性物数)"
     >
       <tspan>{{ 陽性物数 }}</tspan>
@@ -54,7 +54,7 @@
     </text>
     <text
       class="green text"
-      transform="translate(110 100)"
+      transform="translate(160 90)"
       :dx="getAdjustX(入院中)"
     >
       <tspan>{{ 入院中 }}</tspan>
@@ -62,7 +62,7 @@
     </text>
     <text
       class="green text"
-      transform="translate(256 100)"
+      transform="translate(200 90)"
       :dx="getAdjustX(死亡)"
     >
       <tspan>{{ 死亡 }}</tspan>
@@ -70,7 +70,7 @@
     </text>
     <text
       class="green text"
-      transform="translate(304 100)"
+      transform="translate(280 90)"
       :dx="getAdjustX(退院)"
     >
       <tspan>{{ 退院 }}</tspan>
