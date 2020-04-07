@@ -1,5 +1,14 @@
 <template>
-  <svg class="confirmed-cases-table" viewBox="0 0 340 120" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" :aria-label="ariaLabel(検査実施人数, 陽性物数, 入院中, 死亡, 退院)">
+  <svg
+    class="confirmed-cases-table"
+    viewBox="0 0 337 132"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    role="img"
+    :aria-label="
+      ariaLabel(検査実施人数, 陽性物数, 入院中, 軽症中等症, 重症, 死亡, 退院)
+    "
+  >
 <mask id="path-1-inside-1" fill="white">
 <path d="M136 26.4855H201V131.364H136V26.4855Z"/>
 </mask>
@@ -67,6 +76,8 @@ export default {
     '検査実施人数',
     '陽性物数',
     '入院中',
+    '軽症中等症',
+    '重症',
     '死亡',
     '退院'
   ],
