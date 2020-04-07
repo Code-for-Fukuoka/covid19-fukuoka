@@ -95,11 +95,8 @@
 </template>
 
 <script>
-//import FlowPcPast from './FlowPcPast.vue'
 import FlowPcDays from './FlowPcDays.vue'
-//import FlowPcSuspect from './FlowPcSuspect.vue'
 import FlowPcAdvisory from './FlowPcAdvisory.vue'
-//import FlowPcAdvisory2 from './FlowPcAdvisory2.vue'
 import FlowPcRequired from './FlowPcRequired.vue'
 import FlowPcPcr from './FlowPcPcr.vue'
 import FlowPcNotRequired from './FlowPcNotRequired.vue'
@@ -107,11 +104,8 @@ import FlowPcHospitalized from './FlowPcHospitalized.vue'
 
 export default {
   components: {
-    FlowPcPast,
     FlowPcDays,
-    FlowPcSuspect,
     FlowPcAdvisory,
-    FlowPcAdvisory2,
     FlowPcRequired,
     FlowPcPcr,
     FlowPcNotRequired,
