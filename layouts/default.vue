@@ -1,11 +1,9 @@
 <template>
   <v-app class="app">
-    <v-overlay v-if="loading" color="#F8F9FA" opacity="1" z-index="9999">
     <div v-if="loading" class="loader">
       <img src="/logo.svg" alt="福岡県" />
       <scale-loader color="#325685" />
     </div>
-    </v-overlay>
     <div v-else class="appContainer">
       <div class="naviContainer">
         <SideNavigation
