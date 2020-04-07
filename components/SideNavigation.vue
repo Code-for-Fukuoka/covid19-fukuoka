@@ -110,6 +110,7 @@
     "Closed public facility": "県有施設の臨時休館など",
     "for school": "県内の学校等での対応",
     "Government official website": "福岡県公式ホームページ",
+    "Message from Governor": "知事からのメッセージ",
     "About us": "当サイトについて"
   }
 }
@@ -264,16 +265,6 @@ export default {
     align-items: center;
     & img {
       width: 30px;
-      &:first-of-type {
-        margin-right: 10px;
-      }
-    }
-  }
-  &-OrgLinkContainer100 {
-    display: flex;
-    vertical-align: middle;
-    & img {
-      width: 100px;
       &:first-of-type {
         margin-right: 10px;
       }
