@@ -11,7 +11,7 @@
             :class="[
               $style.AdvisoryLink,
               $style.AdvisoryBlockCentering,
-              'mt-4'
+            'mt-4'
             ]"
           >
           <a
