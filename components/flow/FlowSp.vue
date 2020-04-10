@@ -4,16 +4,10 @@
       {{ $t('新型コロナウイルス感染症にかかる相談窓口について') }}
     </h3>
     <div :class="$style.FlowCard">
-      <flow-sp-past />
-    </div>
-    <div :class="$style.FlowCard">
       <flow-sp-general />
     </div>
     <div :class="$style.FlowCard">
       <flow-sp-elder />
-    </div>
-    <div :class="$style.FlowCard">
-      <flow-sp-suspect />
     </div>
     <div :class="[$style.FlowCard, $style.FlowCardGrayBg]">
       <flow-sp-advisory />
@@ -30,10 +24,8 @@
 <script>
 import VueScrollTo from 'vue-scrollto'
 
-import FlowSpPast from './FlowSpPast.vue'
 import FlowSpGeneral from './FlowSpGeneral.vue'
 import FlowSpElder from './FlowSpElder.vue'
-import FlowSpSuspect from './FlowSpSuspect.vue'
 import FlowSpAdvisory from './FlowSpAdvisory.vue'
 import FlowSpAccording from './FlowSpAccording.vue'
 import FlowSpHospitalized from './FlowSpHospitalized.vue'

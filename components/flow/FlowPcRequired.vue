@@ -31,8 +31,8 @@
       </div>
     </div>
     <div :class="$style.TwoRow">
-      <div :class="[$style.Card, $style.CardGreen]">
-        <p :class="$style.CardGreenText">
+      <div :class="[$style.Card, $style.CardBlue]">
+        <p :class="$style.CardBlueText">
           <i18n path="検査の必要{ifRequired}">
             <template v-slot:ifRequired>
               <span>{{ $t('あり') }}</span>
@@ -125,7 +125,7 @@ export default {
 
 .CardWhite {
   background-color: $white;
-  border: 2px solid $green-1 !important;
+  border: 2px solid $blue-1 !important;
 
   &Text {
     font-size: 22px;
@@ -133,8 +133,8 @@ export default {
   }
 }
 
-.CardGreen {
-  background-color: $green-1;
+.CardBlue {
+  background-color: $blue-1;
 
   &Text {
     color: $white;

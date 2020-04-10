@@ -49,7 +49,7 @@
           </i18n>
         </p>
         <div :class="$style.arrow" aria-hidden="true">
-          <GreenArrow />
+          <BlueArrow />
         </div>
       </a>
       <a
@@ -99,7 +99,7 @@
           <span :class="$style.fzXLarge">{{ $t('陰性') }}</span>
         </p>
         <div :class="$style.arrow" aria-hidden="true">
-          <GreenArrow />
+          <BlueArrow />
         </div>
       </a>
       <a
@@ -164,14 +164,14 @@
 import Apartment from '@/static/flow/responsive/apartment.svg'
 import House from '@/static/flow/responsive/house.svg'
 import Arrow from '@/static/flow/responsive/arrow_downward.svg'
-import GreenArrow from '@/static/flow/responsive/arrow_green.svg'
+import BlueArrow from '@/static/flow/responsive/arrow_blue.svg'
 
 export default {
   components: {
     Apartment,
     House,
     Arrow,
-    GreenArrow
+    BlueArrow
   },
   computed: {
     langsWithoutOutpatient() {
@@ -186,7 +186,7 @@ export default {
 
 .according {
   .heading {
-    color: $green-1;
+    color: $blue-1;
   }
 
   .diag {
@@ -249,7 +249,7 @@ export default {
     }
 
     &.consult {
-      border: px2vw(3) solid $green-1;
+      border: px2vw(3) solid $blue-1;
       flex-basis: 100%;
     }
 
@@ -344,7 +344,7 @@ export default {
       }
 
       &.consult {
-        border: px2vw(3, $vw) solid $green-1;
+        border: px2vw(3, $vw) solid $blue-1;
       }
 
       &:nth-child(n + 3) {

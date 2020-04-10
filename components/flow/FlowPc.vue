@@ -3,33 +3,9 @@
     <div :class="$style.FirstSectionWrapper">
       <h3>{{ $t('新型コロナウイルス感染症にかかる相談窓口について') }}</h3>
       <div :class="[$style.Outer, $style.OuterUpper]">
-        <div :class="[$style.CardBlock, $style.Past]">
-          <div :class="[$style.CardBlockInner]">
-            <flow-pc-past />
-            <img
-              :class="$style.CardBlockIcon"
-              src="/flow/flow_arrow.svg"
-              aria-hidden="true"
-              alt=" "
-            />
-          </div>
-        </div>
         <div :class="[$style.CardBlock, $style.Days]">
           <div :class="[$style.CardBlockInner]">
             <flow-pc-days />
-            <img
-              :class="$style.CardBlockIcon"
-              src="/flow/flow_arrow.svg"
-              aria-hidden="true"
-              alt=" "
-            />
-          </div>
-        </div>
-        <div
-          :class="[$style.CardBlock, $style.CardBlockSuspect, $style.Suspect]"
-        >
-          <div :class="[$style.CardBlockInner]">
-            <flow-pc-suspect />
             <img
               :class="$style.CardBlockIcon"
               src="/flow/flow_arrow.svg"
@@ -46,9 +22,6 @@
             aria-hidden="true"
             alt=" "
           />
-        </div>
-        <div :class="$style.Advisory2">
-          <flow-pc-advisory2 />
         </div>
       </div>
     </div>
@@ -122,11 +95,8 @@
 </template>
 
 <script>
-import FlowPcPast from './FlowPcPast.vue'
 import FlowPcDays from './FlowPcDays.vue'
-import FlowPcSuspect from './FlowPcSuspect.vue'
 import FlowPcAdvisory from './FlowPcAdvisory.vue'
-import FlowPcAdvisory2 from './FlowPcAdvisory2.vue'
 import FlowPcRequired from './FlowPcRequired.vue'
 import FlowPcPcr from './FlowPcPcr.vue'
 import FlowPcNotRequired from './FlowPcNotRequired.vue'
@@ -164,7 +134,7 @@ export default {
 .SecondSectionWrapper {
   page-break-inside: avoid;
   > h3 {
-    color: $green-2;
+    color: $blue-2;
     font-size: 1.5rem;
     margin-bottom: 7px;
   }
@@ -266,7 +236,7 @@ export default {
 .Title {
   @include font-size(28);
 
-  color: $green-1;
+  color: $blue-1;
 
   &Small {
     @include font-size(20);

@@ -8,23 +8,6 @@
       <PrinterButton :wrapper-class="'Flow-PullRight'" to="/print/flow" />
     </div>
     <div>
-      <div class="Flow-Card-Button-Wrapper">
-        <a
-          href="https://www.fukushihoken.metro.tokyo.lg.jp/iryo/kansen/coronasodan.html"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="Flow-Card-Button"
-        >
-          <span class="Flow-Card-Button-Description">
-            {{ $t('かかりつけ医に相談することもできます。') }}<br />
-            {{ $t('詳しくはこちらをご参照ください。') }}
-          </span>
-          {{ $t('詳細を見る（東京都福祉保健局）') }}
-          <v-icon class="Flow-Card-Button-ExternalLinkIcon" size="20">
-            mdi-open-in-new
-          </v-icon>
-        </a>
-      </div>
       <div class="only-pc" aria-hidden="true">
         <flow-pc />
       </div>
@@ -95,7 +78,7 @@ export default Vue.extend({
     font-weight: bold;
     display: inline-block;
     text-decoration: none;
-    color: $green-1 !important;
+    color: $blue-1 !important;
 
     &-Wrapper {
       text-align: center;
@@ -108,7 +91,7 @@ export default Vue.extend({
 
     &-ExternalLinkIcon {
       margin-left: 2px;
-      color: $green-1 !important;
+      color: $blue-1 !important;
     }
 
     &-Description {
