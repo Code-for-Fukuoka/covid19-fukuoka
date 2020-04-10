@@ -108,7 +108,6 @@ export default {
     FlowPcDays,
     FlowPcSuspect,
     FlowPcAdvisory,
-    FlowPcAdvisory2,
     FlowPcRequired,
     FlowPcPcr,
     FlowPcNotRequired,
