@@ -7,7 +7,13 @@
             $t('新型コロナ受診相談窓口（日本語のみ）')
           }}</span>
         </div>
-        <div :class="[$style.AdvisoryLink,style.AdvisoryBlockCentering,'mt-4']">
+        <div
+            :class="[
+              $style.AdvisoryLink,
+              $style.AdvisoryBlockCentering,
+              'mt-4'
+            ]"
+          >
           <a
             href="https://www.pref.fukuoka.lg.jp/contents/covid-19-portal.html#A1-5-1"
             target="_blank"
