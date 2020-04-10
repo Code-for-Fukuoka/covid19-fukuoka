@@ -1,17 +1,15 @@
 <template>
-  <flow-pc />
+  <DesktopFlowSvg />
 </template>
 
 <script>
-import FlowPc from '@/components/flow/FlowPc.vue'
+import DesktopFlowSvg from '@/components/DesktopFlowSvg.vue'
 export default {
-  components: {
-    FlowPc
-  },
+  components: { DesktopFlowSvg },
   layout: 'print',
   head() {
     return {
-      title: this.$t('新型コロナウイルス感染症にかかる相談窓口について')
+      title: '新型コロナウイルス感染症にかかる相談窓口について'
     }
   }
 }
