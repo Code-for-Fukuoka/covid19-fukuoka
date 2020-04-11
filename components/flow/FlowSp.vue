@@ -23,7 +23,6 @@
 
 <script>
 import VueScrollTo from 'vue-scrollto'
-
 import FlowSpGeneral from './FlowSpGeneral.vue'
 import FlowSpElder from './FlowSpElder.vue'
 import FlowSpAdvisory from './FlowSpAdvisory.vue'
@@ -32,10 +31,8 @@ import FlowSpHospitalized from './FlowSpHospitalized.vue'
 
 export default {
   components: {
-    FlowSpPast,
     FlowSpGeneral,
     FlowSpElder,
-    FlowSpSuspect,
     FlowSpAdvisory,
     FlowSpAccording,
     FlowSpHospitalized
