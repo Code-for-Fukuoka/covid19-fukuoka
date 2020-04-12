@@ -104,7 +104,9 @@ import FlowPcHospitalized from './FlowPcHospitalized.vue'
 
 export default {
   components: {
+    FlowPcPast,
     FlowPcDays,
+    FlowPcSuspect,
     FlowPcAdvisory,
     FlowPcRequired,
     FlowPcPcr,
@@ -297,9 +299,19 @@ export default {
   }
 }
 
+.Past {
+  grid-column: 1 / 2;
+  grid-row: 1 / 2;
+}
+
 .Days {
   grid-column: 1 / 2;
   grid-row: 2 / 3;
+}
+
+.Suspect {
+  grid-column: 1 / 2;
+  grid-row: 3 / 4;
 }
 
 .Advisory {
@@ -315,6 +327,10 @@ export default {
   }
 }
 
+.Advisory2 {
+  grid-column: 2 / 3;
+  grid-row: 3 / 4;
+}
 
 .Required {
   grid-column: 1 / 2;
