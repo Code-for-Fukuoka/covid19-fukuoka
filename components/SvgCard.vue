@@ -1,5 +1,5 @@
 <template>
-  <data-view class="SvgCard" :title="title" :title-id="titleId" :date="date">
+  <data-view class="SvgCard" :title="title" :title-id="titleId" :date="date" :url="url">
     <template v-slot:button>
       <p class="Graph-Desc">
         （注1）福岡県のオープンデータに含まれない項目は未掲載<br />
