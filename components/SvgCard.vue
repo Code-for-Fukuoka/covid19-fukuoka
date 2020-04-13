@@ -41,7 +41,7 @@ export default {
     date: {
       type: String,
       default: ''
-    }
+    },
     url: {
       type: String,
       required: false,
