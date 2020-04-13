@@ -1,7 +1,7 @@
 <template>
   <svg
     class="confirmed-cases-table"
-    viewBox="0 0 337 132"
+    viewBox="0 0 337 140"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
     role="img"
