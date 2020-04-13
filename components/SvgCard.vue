@@ -42,6 +42,11 @@ export default {
       type: String,
       default: ''
     }
+    url: {
+      type: String,
+      required: false,
+      default: ''
+    }
   }
 }
 </script>
