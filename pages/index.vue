@@ -17,7 +17,7 @@
         <svg-card
           title="検査陽性者の状況"
           :title-id="'details-of-confirmed-cases'"
-          :date="Data.inspections_summary.date"
+          :date="Data.patients.date"
           :url="'https://ckan.open-governmentdata.org/dataset/401000_pref_fukuoka_covid19_totalpatients'"
         >
           <confirmed-cases-table v-bind="confirmedCases" />
