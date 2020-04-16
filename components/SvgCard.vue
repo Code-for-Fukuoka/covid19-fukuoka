@@ -2,8 +2,8 @@
   <data-view class="SvgCard" :title="title" :title-id="titleId" :date="date" :url="url">
     <template v-slot:button>
       <p class="Graph-Desc">
-        （注1）福岡県のオープンデータに含まれない項目は未掲載<br />
-        （注2）入院等には、自宅待機中の方などを含む
+        （注）入院等には、自宅待機中の方などを含む<br />
+         <br />
       </p>
     </template>
     <slot />
