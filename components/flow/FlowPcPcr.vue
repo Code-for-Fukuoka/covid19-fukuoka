@@ -6,6 +6,9 @@
           {{ $t('PCR検査') }}
           <span :class="$style.small">{{ $t('※') }}</span>
         </p>
+        <p :class="$style.content">
+          {{ $t('保健環境研究所等') }}
+        </p>
       </div>
     </div>
     <div :class="$style.resultArea">

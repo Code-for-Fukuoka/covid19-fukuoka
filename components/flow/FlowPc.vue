@@ -16,12 +16,6 @@
         </div>
         <div :class="$style.Advisory">
           <flow-pc-advisory />
-          <img
-            :class="$style.AdvisoryIcon"
-            src="/flow/flow_arrow.svg"
-            aria-hidden="true"
-            alt=" "
-          />
         </div>
       </div>
     </div>
@@ -104,9 +98,7 @@ import FlowPcHospitalized from './FlowPcHospitalized.vue'
 
 export default {
   components: {
-    FlowPcPast,
     FlowPcDays,
-    FlowPcSuspect,
     FlowPcAdvisory,
     FlowPcRequired,
     FlowPcPcr,
@@ -164,7 +156,7 @@ export default {
   display: grid;
 
   &Upper {
-    grid-gap: $grid-gap;
+    grid-gap: 0 $grid-gap;
     grid-template-columns: 70% 30%;
     -ms-grid-columns: 70% 12px 30%;
     grid-template-rows: repeat(3, auto);
@@ -253,8 +245,8 @@ export default {
 
   &Icon {
     position: absolute;
-    bottom: 10%;
-    right: -30px;
+    bottom: calc(50% - 23px);
+    right: -23px;
     z-index: 1;
   }
 
@@ -306,7 +298,6 @@ export default {
 
 .Days {
   grid-column: 1 / 2;
-  grid-row: 2 / 3;
 }
 
 .Suspect {

@@ -7,30 +7,29 @@
             $t('新型コロナ受診相談窓口（日本語のみ）')
           }}</span>
         </div>
+        <div :class="[$style.AdvisoryContentsColsSentense, 'mt-4']">
+          {{ $t('帰国者・接触者相談センター（保健所）') }}
+        </div>
+        <div :class="[$style.AdvisoryBoxContainer, $style.AdvisoryWhiteBox]">
+          <span :class="$style.AdvisoryWhiteBoxSentense">
+            {{ $t('24時間対応') }}
+          </span>
+        </div>
         <div
-            :class="[
-              $style.AdvisoryLink,
-              $style.AdvisoryBlockCentering,
-            'mt-4'
-            ]"
-          >
+          :class="[$style.AdvisoryLink, $style.AdvisoryBlockCentering, 'mt-4']"
+        >
           <a
-            href="https://www.pref.fukuoka.lg.jp/contents/covid-19-portal.html#A1-5-1"
+            href="https://www.pref.fukuoka.lg.jp/contents/covid-19-portal.html#a1-6"
             target="_blank"
             rel="noopener noreferrer"
           >
-            <span>{{ $t('帰国者・接触者 電話相談センター') }}</span>
+            <span>{{
+              $t('各保健所の電話番号は新型コロナウイルス感染症ポータルページへ')
+            }}</span>
             <v-icon size="18">
               mdi-open-in-new
             </v-icon>
           </a>
-        </div>
-        <div>
-          <div :class="[$style.AdvisoryBoxContainer, $style.AdvisoryWhiteBox]">
-            <span :class="$style.AdvisoryWhiteBoxSentense">
-              {{ $t('24時間対応') }}
-            </span>
-          </div>
         </div>
       </div>
     </div>
@@ -89,7 +88,7 @@
     text-align: left;
 
     a {
-      color: rgba(0, 0, 0, 0.87);
+      color: rgba(0, 0, 0, 0.87) !important;
       text-decoration: none;
 
       &:hover {

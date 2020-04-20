@@ -1,50 +1,45 @@
 <template>
   <v-app class="app-print">
     <div v-if="loading" class="loader">
-      <img src="/logo.svg" alt="福岡県" />
+      <img src="/logo.svg" :alt="$t('福岡県')" />
       <scale-loader color="#325685" />
     </div>
-    <v-container v-else>
-      <v-row align="center" class="PrintMeta">
-        <v-col :cols="12" :sm="6">
-          <div class="PrintMeta-HeadingWrapper">
-            <div class="PrintMeta-Logo">
-              <img src="/logo.svg" alt="福岡県" />
-            </div>
-            <h1 class="PrintMeta-Heading">
-              新型コロナウイルス感染症<br />対策サイト
-            </h1>
+    <div v-else class="print-container">
+      <div class="PrintMeta">
+        <div class="PrintMeta-HeadingWrapper">
+          <div class="PrintMeta-Logo">
+            <img src="/logo.svg" :alt="$t('福岡県')" />
           </div>
-        </v-col>
-        <v-col :cols="12" :sm="6">
-          <v-card class="d-flex flex-row" flat tile color="transparent">
-            <v-spacer />
-            <v-card
-              class="PrintMeta-QR flex-shrink-0"
-              flat
-              tile
-              color="transparent"
-            >
-              <img src="/site-qr.svg" alt="QRコード" />
-            </v-card>
-            <v-card class="flex-shrink-0" flat tile color="transparent">
-              <p class="PrintMeta-Text">
-                ※最新の情報はWebページをご覧ください
-              </p>
-              <p class="PrintMeta-Link">
-                https://fukuoka.stopcovid19.jp/
-              </p>
-            </v-card>
-          </v-card>
-        </v-col>
-      </v-row>
+          <h1 class="PrintMeta-Heading">
+            {{ $t('新型コロナウイルス感染症') }}
+            <br />
+            {{ $t('対策サイト') }}
+          </h1>
+        </div>
+        <div class="PrintMeta-QRWrapper">
+          <div class="PrintMeta-QR flex-shrink-0" flat tile color="transparent">
+            <img src="/site-qr.svg" :alt="$t('2次元コード')" />
+          </div>
+          <div class="flex-shrink-0" flat tile color="transparent">
+            <p class="PrintMeta-Text">
+              {{ $t('※最新の情報はWebページをご覧ください') }}
+            </p>
+            <p class="PrintMeta-Link">
+              https://fukuoka.stopcovid19.jp/
+            </p>
+          </div>
+        </div>
+      </div>
       <nuxt />
-    </v-container>
+    </div>
   </v-app>
 </template>
-<script>
+<script lang="ts">
+import Vue from 'vue'
+import { MetaInfo } from 'vue-meta'
 import ScaleLoader from 'vue-spinner/src/ScaleLoader.vue'
-export default {
+
+export default Vue.extend({
   components: {
     ScaleLoader
   },
@@ -65,7 +60,7 @@ export default {
       window.print()
     }
   },
-  head() {
+  head(): MetaInfo {
     return {
       meta: [
         {
@@ -82,13 +77,14 @@ export default {
       ]
     }
   }
-}
+})
 </script>
 <style lang="scss">
 .app-print {
   margin: 0 auto;
   background-color: inherit !important;
 }
+
 .loader {
   height: 200px;
   width: 150px;
@@ -96,6 +92,7 @@ export default {
   top: 50%;
   left: 50%;
   transform: translateY(-50%) translateX(-50%);
+
   img {
     display: block;
     margin: 0 auto 20px;
@@ -104,23 +101,62 @@ export default {
 </style>
 
 <style lang="scss" scoped>
+* {
+  // Chromeでbackgroundを印刷する設定
+  // FirefoxはCSSでの設定では無理そうなので、いったん諦めました
+  -webkit-print-color-adjust: exact;
+}
+
+.print-container {
+  // v-containerの仕様のうち必要なものを書く
+  padding: 12px 12px 0 12px;
+  margin-right: auto;
+  margin-left: auto;
+  @media screen {
+    @media (min-width: 960px) {
+      max-width: 900px;
+    }
+    @media (min-width: 1264px) {
+      max-width: 1185px;
+    }
+  }
+  @media print {
+    width: 1050px;
+  }
+}
+
 .PrintMeta {
-  margin-bottom: 1em;
+  margin-bottom: 0.5em;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+
   &-HeadingWrapper {
     display: flex;
     align-items: center;
     text-decoration: none;
+    margin: 0 20px 0 0;
   }
+
   &-Logo {
     margin: 0 16px 0 0;
     width: 110px;
   }
+
   &-Heading {
     font-size: 13px;
     color: #898989;
     padding: 0.5em 0;
     text-decoration: none;
   }
+
+  &-QRWrapper {
+    display: flex;
+    justify-content: flex-end;
+    margin: 0 0 0 auto;
+  }
+
   &-QR {
     height: 60px;
     width: 60px;
@@ -130,6 +166,7 @@ export default {
       max-width: 100%;
     }
   }
+
   &-Text {
     font-size: 13px;
     color: gray;
@@ -137,6 +174,7 @@ export default {
     padding-top: 1em;
     width: max-content;
   }
+
   &-Link {
     font-size: 13px;
     color: gray;

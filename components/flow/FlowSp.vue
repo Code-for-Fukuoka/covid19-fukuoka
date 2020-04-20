@@ -32,10 +32,8 @@ import FlowSpHospitalized from './FlowSpHospitalized.vue'
 
 export default {
   components: {
-    FlowSpPast,
     FlowSpGeneral,
     FlowSpElder,
-    FlowSpSuspect,
     FlowSpAdvisory,
     FlowSpAccording,
     FlowSpHospitalized
