@@ -8,7 +8,7 @@
     <whats-new class="mb-4" :items="newsItems" />
     <static-info
       class="mb-4"
-      :url="'https://www.pref.fukuoka.lg.jp/contents/covid-19-portal.html#A1-5'"
+      :url="'/flow'"
       :text="'自分や家族の症状に不安や心配があればまずは電話でご相談下さい'"
       :btn-text="'相談の手順を見る'"
     />
@@ -17,8 +17,7 @@
         <svg-card
           title="検査陽性者の状況"
           :title-id="'details-of-confirmed-cases'"
-          :date="Data.main_summary.date"
-          :url="'https://ckan.open-governmentdata.org/dataset/401000_pref_fukuoka_covid19_totalpatients'"
+          :date="Data.inspections_summary.date"
         >
           <confirmed-cases-table v-bind="confirmedCases" />
         </svg-card>
@@ -58,7 +57,7 @@
       </v-col>
 <!--      <v-col cols="12" md="6" class="DataCard">
         <time-stacked-bar-chart
-          title="検査実施数２"
+          title="検査実施数"
           :title-id="'number-of-tested'"
           :chart-id="'time-stacked-bar-chart-inspections'"
           :chart-data="inspectionsGraph"
