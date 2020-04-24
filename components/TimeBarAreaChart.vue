@@ -252,7 +252,7 @@ export default {
                 drawOnChartArea: false,
                 drawTicks: true,
                 drawBorder: false,
-                tickMarkLength: 5
+                tickMarkLength: 10
               },
               ticks: {
                 fontSize: 11,
