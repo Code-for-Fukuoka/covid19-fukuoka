@@ -27,7 +27,7 @@
         :class="['ListItem-Icon', isActive(link)]"
       />
     </v-list-item-action>
-    <v-list-item-content class="ListItem-TextContainer">
+    <v-list-item-content :class="{'ListItem-TextContainer': true, 'ListItem-ActiveIconSpace': icon }">
       <v-list-item-title
         :class="['ListItem-Text', isActive(link)]"
         v-text="title"
@@ -105,6 +105,9 @@ export default class ListItem extends Vue {
     color: transparent !important;
     & .ListItem-TextContainer {
       max-width: calc(100% - 20px);
+    }
+    & .ListItem-ActiveIconSpace {
+      max-width: calc(100% - 40px);
     }
     & .ListItem-Text {
       overflow: visible;
