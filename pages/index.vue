@@ -41,9 +41,7 @@
           :chart-data="areaGraph"
           :date="Data.patients.date"
           :unit="'人'"
-          :url="
-            'https://ckan.open-governmentdata.org/dataset/401307_covid19_patients'
-          "
+          :url="'https://ckan.open-governmentdata.org/dataset/401000_pref_fukuoka_covid19_patients'"
         />
       </v-col>
       <v-col cols="12" md="6" class="DataCard">
