@@ -34,6 +34,17 @@
         />
       </v-col>
       <v-col cols="12" md="6" class="DataCard">
+        <time-bar-area-chart
+          title="陽性患者数（居住地別）"
+          :title-id="'number-of-confirmed-cases'"
+          :chart-id="'time-bar-area-chart-patients'"
+          :chart-data="areaGraph"
+          :date="Data.patients.date"
+          :unit="'人'"
+          :url="'https://ckan.open-governmentdata.org/dataset/401000_pref_fukuoka_covid19_patients'"
+        />
+      </v-col>
+      <v-col cols="12" md="6" class="DataCard">
         <data-table
           :title="'陽性患者の属性'"
           :title-id="'attributes-of-confirmed-cases'"
@@ -120,6 +131,8 @@ import formatConfirmedCases from '@/utils/formatConfirmedCases'
 import News from '@/data/news.json'
 import SvgCard from '@/components/SvgCard.vue'
 import ConfirmedCasesTable from '@/components/ConfirmedCasesTable.vue'
+import TimeBarAreaChart from '@/components/TimeBarAreaChart.vue'
+import formatAreaGraph from '@/utils/formatAreaGraph'
 
 export default {
   components: {
@@ -131,11 +144,14 @@ export default {
     StaticInfo,
     DataTable,
     SvgCard,
-    ConfirmedCasesTable
+    ConfirmedCasesTable,
+	TimeBarAreaChart
   },
   data() {
     // 感染者数グラフ
     const patientsGraph = formatGraph(Data.patients_summary.data)
+    // 感染者数グラフ（地区別）
+    const areaGraph = formatAreaGraph(Data.patients.data)
     // 感染者数
     const patientsTable = formatTable(Data.patients.data)
     // 退院者グラフ
@@ -185,6 +201,7 @@ export default {
       querentsGraph,
       metroGraph,
       inspectionsGraph,
+	  areaGraph,
       inspectionsItems,
       inspectionsLabels,
       confirmedCases,

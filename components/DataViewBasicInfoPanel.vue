@@ -1,5 +1,6 @@
 <template>
   <div class="DataView-DataInfo">
+    <span v-show="aText" class="DataView-DataInfo-areaName">{{ aText }}</span>
     <span class="DataView-DataInfo-summary">
       {{ lText }}
       <small class="DataView-DataInfo-summary-unit">{{ unit }}</small>
@@ -23,6 +24,16 @@
       &-unit {
         font-size: 0.6em;
       }
+    }
+    &-areaName {
+      padding-right: 10px;
+      font-size: 12px;
+      font-weight: bold;
+      color: $gray-3;
+    }
+    &-areaName::after {
+      content: '\A';
+      white-space: pre;
     }
     &-date {
       white-space: nowrap;
@@ -61,6 +72,7 @@ import { Component, Prop, Vue } from 'vue-property-decorator'
 
 @Component
 export default class DataViewBasicInfoPanel extends Vue {
+  @Prop() private aText!: string
   @Prop() private lText!: string
   @Prop() private sText!: string
   @Prop() private unit!: string
