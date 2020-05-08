@@ -1,11 +1,8 @@
 <template>
-  <data-view :title="title" :title-id="titleId" :date="date" :url="url">
+  <data-view :title="title" :category="category" :title-id="titleId" :date="date" :url="url">
     <template v-slot:button>
-      <data-area-selector
-	   :areadata="AreaData"
-	   :areaNumChild.sync="areaNum"
-	   :dataKindChild.sync="dataKind"
-	  />
+      <area-selector v-model="areaNum" />
+	  <data-selector v-model="dataKind" />
     </template>
     <bar
       :chart-id="chartId"
@@ -33,13 +30,19 @@ small.annotation {
 
 <script>
 import DataView from '@/components/DataView.vue'
-import DataAreaSelector from '@/components/DataAreaSelector.vue'
+import AreaSelector from '@/components/AreaSelector.vue'
+import DataSelector from '@/components/DataSelector.vue'
 import DataViewBasicInfoPanel from '@/components/DataViewBasicInfoPanel.vue'
 
 export default {
-  components: { DataView, DataAreaSelector, DataViewBasicInfoPanel },
+  components: { DataView, AreaSelector, DataSelector,DataViewBasicInfoPanel },
   props: {
     title: {
+      type: String,
+      required: false,
+      default: ''
+    },
+    category: {
       type: String,
       required: false,
       default: ''
@@ -85,6 +88,8 @@ export default {
 	  areaNum: 0,
       dataKind: 'transition',
 	  chartDataSelect: [],
+      displayData: {},
+      displayOption: {},
 	  update: String,
 	  transitionSum: 0,
 	  transitionPreSum: 0,
@@ -93,11 +98,17 @@ export default {
   },
   created() {
    this.chartData.forEach(d => {
-    this.AreaData.push(d.label.replace(/※/g, ''))
+     this.AreaData.push(d.label.replace(/※/g, ''))
    })
    this.chartData.forEach(d => {
-    this.chartDataSelect.push(d)
+     this.chartDataSelect.push(d)
    })
+   this.setAreaData()
+  },
+  mounted() {
+    const cardWidthNum = this.$el.clientWidth
+    this.displayOption = this.setDisplayOption(cardWidthNum)
+    this.displayData = this.setDisplayData()
   },
   computed: {
     displayCumulativeRatio() {
@@ -151,7 +162,7 @@ export default {
        lText_txt = this.chartDataSelect[
           this.chartDataSelect.length - 1
         ].cumulative.toLocaleString()
-       sText_txt = `${this.chartDataSelect.slice(-1)[0].label} 累計値（前日比：${
+       sText_txt = `${this.update} 累計値（前日比：${
           this.displayCumulativeRatio
         } ${this.unit}）`
 	  }	  
@@ -161,9 +172,43 @@ export default {
         sText: sText_txt,
         unit: this.unit
       }
+    }
+  },
+  methods: {
+    formatDayBeforeRatio(dayBeforeRatio) {
+      const dayBeforeRatioLocaleString = dayBeforeRatio.toLocaleString()
+      switch (Math.sign(dayBeforeRatio)) {
+        case 1:
+          return `+${dayBeforeRatioLocaleString}`
+        case -1:
+          return `${dayBeforeRatioLocaleString}`
+        default:
+          return `${dayBeforeRatioLocaleString}`
+      }
     },
-    displayData() {
-	  this.settingAreaData()
+    setAreaData() {
+      if(this.update != null){
+        let date = new Date(this.date)
+        let yesterday_date = new Date(date.getFullYear(), date.getMonth(), date.getDate() - 1)
+        this.update =  (1 + yesterday_date.getMonth() ) + "/" + yesterday_date.getDate()
+      }
+      if(this.transitionSum == 0){
+        this.chartDataSelect.map(d => {
+         this.transitionSum += d.transition
+        })
+      }
+      if(this.transitionPreSum == 0){
+        this.chartDataSelect.map(d => {
+		 this.transitionPreSum += d.transitionPre
+        })
+      }
+      if(this.cumulativeSum == 0){
+        this.chartDataSelect.map(d => {
+		 this.cumulativeSum += d.cumulative
+        })
+      }
+    },
+    setDisplayData() {
       if (this.dataKind === 'transition') {
         return {
           labels: this.chartDataSelect.map(d => {
@@ -197,8 +242,16 @@ export default {
         ]
       }
     },
-    displayOption() {
+    setDisplayOption(cardWidth) {
       const unit = this.unit
+      let fontSizeNum, fontStyleNum
+      fontSizeNum = 9
+      fontStyleNum = 'normal'
+      if (cardWidth > 360 && this.areaNum === 0) {
+        fontSizeNum = 11
+        fontStyleNum = 'bold'
+      } 
+	  
       return {
         tooltips: {
           displayColors: false,
@@ -209,15 +262,23 @@ export default {
               return labelText
             },
             title(tooltipItem, data) {
-              return data.labels[tooltipItem[0].index].replace(
-                /(\w+)\/(\w+)/,
-                '$1月$2日'
-              ).replace(/※/g, '')
+              return data.labels[tooltipItem[0].index]
+                .replace(/(\w+)\/(\w+)/, '$1月$2日')
+                .replace(/※/g, '')
             }
           }
         },
         responsive: true,
         maintainAspectRatio: false,
+        onResize(chart, size) {
+          if (size.width > 320) {
+            chart.options.scales.xAxes[0].ticks.fontSize = 11
+            chart.options.scales.xAxes[0].ticks.fontStyle = 'bold'
+          } else {
+            chart.options.scales.xAxes[0].ticks.fontSize = 9
+            chart.options.scales.xAxes[0].ticks.fontStyle = 'normal'
+          }
+        },
         legend: {
           display: false
         },
@@ -230,19 +291,19 @@ export default {
                 display: false
               },
               ticks: {
-                fontSize: 11,
-				maxTicksLimit: 20,
+                fontSize: fontSizeNum,
+                maxTicksLimit: 20,
                 fontColor: '#808080',
-				fontStyle: 'bold',
+                fontStyle: fontStyleNum,
                 maxRotation: 0,
                 minRotation: 0,
-                callback:   label => {
-				　if ( label.indexOf('/') != -1) {
-				 　return label.split('/')[1]
-				  } else {
-				   return label
-				  }
-				}
+                callback: label => {
+                  if (label.includes('/')) {
+                    return label.split('/')[1]
+                  } else {
+                    return label
+                  }
+                }
               }
             },
             {
@@ -306,45 +367,17 @@ export default {
       }
     }
   },
-  methods: {
-    formatDayBeforeRatio(dayBeforeRatio) {
-      const dayBeforeRatioLocaleString = dayBeforeRatio.toLocaleString()
-      switch (Math.sign(dayBeforeRatio)) {
-        case 1:
-          return `+${dayBeforeRatioLocaleString}`
-        case -1:
-          return `${dayBeforeRatioLocaleString}`
-        default:
-          return `${dayBeforeRatioLocaleString}`
-      }
-    },
-    settingAreaData() {
-      if(this.update != null){
-        let date = new Date(this.date)
-        let yesterday_date = new Date(date.getFullYear(), date.getMonth(), date.getDate() - 1)
-        this.update =  (1 + yesterday_date.getMonth() ) + "/" + yesterday_date.getDate()
-      }
-      if(this.transitionSum == 0){
-        this.chartDataSelect.map(d => {
-         this.transitionSum += d.transition
-        })
-      }
-      if(this.transitionPreSum == 0){
-        this.chartDataSelect.map(d => {
-		 this.transitionPreSum += d.transitionPre
-        })
-      }
-      if(this.cumulativeSum == 0){
-        this.chartDataSelect.map(d => {
-		 this.cumulativeSum += d.cumulative
-        })
-      }
-    }
-  },
   watch: {
+    dataKind() {
+      this.displayData = this.setDisplayData()
+    },
     areaNum: function (val) {
+	  console.log(val)
 	  this.dataKind = 'transition'
 	  this.chartDataSelect = []
+	  this.transitionSum = 0
+	  this.transitionPreSum = 0
+	  this.transitionPreSum = 0
 	  if(val === 0) {
 	   this.chartData.forEach(d => {
         this.chartDataSelect.push(d)
@@ -354,6 +387,10 @@ export default {
         this.chartDataSelect.push(d)
        })
 	  }
+	  this.setAreaData()
+	  
+	  this.displayData = this.setDisplayData()
+	  this.displayOption = this.setDisplayOption()
     }
   }
 }
