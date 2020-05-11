@@ -56,7 +56,7 @@
           :url="'https://ckan.open-governmentdata.org/dataset/401000_pref_fukuoka_covid19_patients'"
         />
       </v-col>
-      <v-col cols="12" md="6" class="DataCard">
+<!--      <v-col cols="12" md="6" class="DataCard">
         <time-bar-chart
           title="検査実施数"
           :title-id="'number-of-tested'"
@@ -66,8 +66,8 @@
           :unit="'件'"
           :url="'https://ckan.open-governmentdata.org/dataset/401000_pref_fukuoka_covid19_exam'"
         />
-      </v-col>
-<!--      <v-col cols="12" md="6" class="DataCard">
+      </v-col>-->
+      <v-col cols="12" md="6" class="DataCard">
         <time-stacked-bar-chart
           title="検査実施数"
           :title-id="'number-of-tested'"
@@ -77,10 +77,10 @@
           :items="inspectionsItems"
           :labels="inspectionsLabels"
           :unit="'件'"
-          :url="''"
+          :url="'https://ckan.open-governmentdata.org/dataset/401000_pref_fukuoka_covid19_exam'"
         />
       </v-col>
-      <v-col cols="12" md="6" class="DataCard">
+<!--      <v-col cols="12" md="6" class="DataCard">
         <time-bar-chart
           title="新型コロナウイルス感染症　相談ダイヤル相談件数"
           :title-id="'number-of-reports-to-covid19-telephone-advisory-center'"
@@ -168,12 +168,14 @@ export default {
     const metroGraph = MetroData
     // 検査実施日別状況
     const inspectionsGraph = [
-      Data.inspections_summary.data['都内'],
-      Data.inspections_summary.data['その他']
+      Data.inspections_summary.data['福岡市'],
+      Data.inspections_summary.data['北九州市'],
+      Data.inspections_summary.data['福岡県※']
     ]
     const inspectionsItems = [
-      '福岡県内発生（疑い例・接触者調査）',
-      'その他（チャーター便・クルーズ便）'
+      '福岡市',
+      '北九州市',
+      '福岡県※'
     ]
     const inspectionsLabels = Data.inspections_summary.labels
     // 死亡者数

@@ -1,9 +1,6 @@
 <template>
   <data-view :title="title" :title-id="titleId" :date="date" :url="url">
     <template v-slot:button>
-      <p class="Graph-Desc">
-        （注）同一の対象者について複数の検体を調査する場合あり
-      </p>
       <data-selector v-model="dataKind" />
     </template>
     <bar
@@ -19,8 +16,16 @@
         :unit="displayInfo.unit"
       />
     </template>
+    <small>※ 福岡県は福岡市、北九州市以外の自治体の合計</br>
+        ※ 自治体のラベルをクリックすることで特定の自治体のグラフを非表示にできます</small>
   </data-view>
 </template>
+
+<style>
+small.annotation {
+  padding-left: 28px;
+}
+</style>
 
 <script>
 import DataView from '@/components/DataView.vue'
@@ -97,7 +102,7 @@ export default {
       }
     },
     displayData() {
-      const colorArray = ['#325685', '#81A3CF']
+      const colorArray = ['#325685', '#81A3CF', '#B8CBE4']
       if (this.dataKind === 'transition') {
         return {
           labels: this.labels,
