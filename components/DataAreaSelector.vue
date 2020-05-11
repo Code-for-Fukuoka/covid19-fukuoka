@@ -1,14 +1,5 @@
 <template>
-<v-container>
-  <v-row>
-     <v-select
-	  v-model="inputData1"
-      :items="areadata"
-      label="居住地を変更する"
-     ></v-select>
-</v-row>
-<v-row>
-     <v-btn-toggle
+ <v-btn-toggle
 	  v-model="inputData2"
       class="DataSelector"
 	  mandatory
@@ -19,9 +10,7 @@
       <v-btn v-ripple="false" value="cumulative" class="DataSelector-Button">
        累計
       </v-btn>
-    </v-btn-toggle>
- </v-row>
- </v-container>
+ </v-btn-toggle>
 </template>
 
 <style lang="scss">
@@ -29,6 +18,16 @@
 .row:first-child {
 	padding-top:5px;
 	width:100% !important;
+}
+
+@include lessThan($medium) {
+  .SelectContainer {
+  	padding-left:12px;
+	padding-right:0px !important;
+  }
+  .selectArea .v-label {
+	font-size: 14px;
+  }
 }
 
 .DataSelector {
