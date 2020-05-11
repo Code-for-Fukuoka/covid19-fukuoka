@@ -6,7 +6,6 @@
       </v-icon>
       お知らせ
     </h2> -->
-    【お詫び】5月11日 データ更新しました。お待たせして申し訳ありません。
     <ul class="WhatsNew-list">
       <li v-for="(item, i) in items" :key="i" class="WhatsNew-list-item">
         <a
