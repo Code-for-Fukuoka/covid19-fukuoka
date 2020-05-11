@@ -55,7 +55,7 @@
           :info="sumInfoOfPatients"
           :url="'https://ckan.open-governmentdata.org/dataset/401000_pref_fukuoka_covid19_patients'"
         />
-      </v-col>
+<!--      </v-col>
       <v-col cols="12" md="6" class="DataCard">
         <time-bar-chart
           title="検査実施数"
@@ -66,7 +66,7 @@
           :unit="'件'"
           :url="'https://ckan.open-governmentdata.org/dataset/401000_pref_fukuoka_covid19_exam'"
         />
-      </v-col>
+      </v-col>-->
       <v-col cols="12" md="6" class="DataCard">
         <time-stacked-bar-chart
           title="検査実施数"
