@@ -18,10 +18,16 @@
     </template>
     <small v-if="areaNum == 0" class="annotation">
         ※ 福岡県は福岡市、北九州市以外の自治体の合計</br>
-    ※ 自治体のラベルをクリックすることで特定の自治体のグラフを非表示にできます
+        ※ 自治体のラベルをクリックすることで特定の自治体のグラフを非表示にできます
     </small>
   </data-view>
 </template>
+
+<style>
+small.annotation {
+  padding-left: 28px;
+}
+</style>
 
 <script>
 import DataView from '@/components/DataView.vue'
