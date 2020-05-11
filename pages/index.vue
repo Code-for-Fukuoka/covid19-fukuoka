@@ -168,12 +168,14 @@ export default {
     const metroGraph = MetroData
     // 検査実施日別状況
     const inspectionsGraph = [
-      Data.inspections_summary.data['都内'],
-      Data.inspections_summary.data['その他']
+      Data.inspections_summary.data['福岡市'],
+      Data.inspections_summary.data['北九州市'],
+      Data.inspections_summary.data['福岡県※']
     ]
     const inspectionsItems = [
-      '福岡県内発生（疑い例・接触者調査）',
-      'その他（チャーター便・クルーズ便）'
+      '福岡市',
+      '北九州市',
+      '福岡県※'
     ]
     const inspectionsLabels = Data.inspections_summary.labels
     // 死亡者数
