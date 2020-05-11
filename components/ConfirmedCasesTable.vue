@@ -95,7 +95,7 @@
     </text>
     <text
       class="green text"
-      transform="translate(85 95)"
+      transform="translate(75 95)"
       :dx="getAdjustX(陽性物数)"
     >
       <tspan>{{ 陽性物数 }}</tspan>
