@@ -16,10 +16,8 @@
         :unit="displayInfo.unit"
       />
     </template>
-    <small class="annotation">
-        ※ 福岡県は福岡市、北九州市以外の自治体の合計</br>
-        ※ 自治体のラベルをクリックすることで特定の自治体のグラフを非表示にできます
-    </small>
+    <small>※ 福岡県は福岡市、北九州市以外の自治体の合計</br>
+        ※ 自治体のラベルをクリックすることで特定の自治体のグラフを非表示にできます</small>
   </data-view>
 </template>
 
