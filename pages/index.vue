@@ -35,8 +35,9 @@
       </v-col>
       <v-col cols="12" md="6" class="DataCard">
         <time-bar-area-chart
-          title="陽性患者数（居住地別）"
-          :title-id="'number-of-confirmed-cases'"
+          title="陽性患者数"
+		  category="居住地別"
+          :title-id="'number-of-area-cases'"
           :chart-id="'time-bar-area-chart-patients'"
           :chart-data="areaGraph"
           :date="Data.patients.date"
@@ -151,7 +152,7 @@ export default {
     // 感染者数グラフ
     const patientsGraph = formatGraph(Data.patients_summary.data)
     // 感染者数グラフ（地区別）
-    const areaGraph = formatAreaGraph(Data.patients.data)
+    const areaGraph = formatAreaGraph(Data.patients)
     // 感染者数
     const patientsTable = formatTable(Data.patients.data)
     // 退院者グラフ

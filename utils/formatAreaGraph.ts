@@ -1,4 +1,4 @@
-type DataType = {
+type patientsArr = {
   リリース日: Date
   曜日: number
   居住地: string
@@ -6,6 +6,11 @@ type DataType = {
   性別: string
   退院: string
   date: Date
+}
+
+type DataType = {
+  date: Date
+  data: Array<patientsArr>
 }
 
 interface DataArrType {
@@ -22,7 +27,7 @@ type GraphDataType = {
   DataArr: Array<DataArrType>
 }
 
-export default (data: DataType[]) => {
+export default (data: DataType) => {
   const graphData: GraphDataType[] = [
     {
       label: '福岡市',
@@ -53,36 +58,46 @@ export default (data: DataType[]) => {
       DataArr: []
     }
   ]
-  const latestDate = new Date(data.slice(-1)[0]['リリース日'])
+  
+  let lastUpdate = new Date(data['date'])
+  lastUpdate = new Date(lastUpdate.getFullYear(), lastUpdate.getMonth(), lastUpdate.getDate() - 1)
   const cumulDataArr: number[] = [0, 0, 0, 0]
+  const diffDayArr: boolean[] = [false, false, false, false]
   let date: Date
-  data.forEach(d => {
+  data['data'].forEach(d => {
     let address: string
     let transitionNum: number = 0
     let transitionPreNum: number = 0
     let cumulativeNum: number = 1  
     date = new Date(d['リリース日'])
-    if (latestDate.getTime() === date.getTime()) {
-      transitionNum++
-    }
-    if (latestDate.getTime() - 86400000 === date.getTime()) {
-      transitionPreNum++
-    }
+	let areaNum: number
     switch (true) {
       case d['居住地'].includes('福岡市'):
         address = '福岡市'
+		areaNum = 0
         break
       case d['居住地'].includes('北九州市'):
         address = '北九州市'
+		areaNum = 1
         break
       default:
         if (d['居住地'] === '調査中' || d['居住地'] === '海外') {
           address = 'その他※'
+		  areaNum = 3
         } else {
           address = '福岡県（それ以外）'
+          areaNum = 2
         }
     }
-
+    if (lastUpdate.getTime() === (date.getTime() - 32400000)) {
+      transitionNum++
+	  diffDayArr[areaNum] = true
+    }
+	  
+    if (lastUpdate.getTime() - 86400000 === (date.getTime() - 32400000)) {
+      transitionPreNum++
+    }
+  
     const index = graphData.findIndex(v => v.label === address)
     graphData[index].transition += transitionNum
     graphData[index].transitionPre += transitionPreNum
@@ -91,7 +106,6 @@ export default (data: DataType[]) => {
 	let graphDateNum =  Math.round( date.getTime() / 1000 )
 
     const graphDate = String(graphDateNum)
-	
 		
     const ArrIndex = graphData[index].DataArr.findIndex(
       v => v.label === graphDate
@@ -107,8 +121,19 @@ export default (data: DataType[]) => {
     } else {
       graphData[index].DataArr[ArrIndex].transition += 1
       graphData[index].DataArr[ArrIndex].cumulative = cumulDataArr[index]
-    }
+    }	
+  })
 	
+  	
+  graphData.forEach((d,index) => {
+	let graphDate = String(Math.round( (lastUpdate.getTime() + 32400000) / 1000 ))
+    if(!diffDayArr[index]) {
+      d.DataArr.push({
+        label: graphDate,
+        transition: 0,
+        cumulative: d.DataArr.slice(-1)[0].cumulative
+      })
+	}
   })
 	
   graphData.forEach((d,index) => {
@@ -146,6 +171,6 @@ export default (data: DataType[]) => {
    graphData[index].DataArr = []
    graphData[index].DataArr = newDataArr
   })
-  
+		  
   return graphData
 }

@@ -5,6 +5,7 @@
         <h3 :id="titleId" class="DataView-ToolbarTitle">
           {{ title }}
         </h3>
+		<p v-if="category" class="Category">({{ category }})</p>
         <slot name="button" />
       </div>
       <v-spacer />
@@ -42,6 +43,7 @@ import { convertDatetimeToISO8601Format } from '@/utils/formatDate'
 @Component
 export default class DataView extends Vue {
   @Prop() private title!: string
+  @Prop() private category!: string
   @Prop() private titleId!: string
   @Prop() private date!: string
   @Prop() private url!: string
@@ -91,6 +93,11 @@ export default class DataView extends Vue {
   &-TitleContainer {
     padding: 14px 0 8px;
     color: $gray-2;
+    .Category {
+	  margin-bottom: 0px !important;
+      font-size: 1.2rem;
+      font-weight: normal;
+    }
   }
   &-Title {
     @include card-h2();
