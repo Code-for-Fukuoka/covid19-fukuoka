@@ -143,8 +143,8 @@ export default {
             label: tooltipItem => {
               const labelText =
                 this.dataKind === 'transition'
-                  ? `${sumArray[tooltipItem.index]}${unit}（福岡市: ${data[0][tooltipItem.index]}/北九州市: ${data[1][tooltipItem.index]}/福岡県: ${data[2][tooltipItem.index]}）`
-                  : `${cumulativeSumArray[tooltipItem.index]}${unit}（福岡市: ${cumulativeData[0][tooltipItem.index]}/北九州市: ${cumulativeData[1][tooltipItem.index]}/福岡県: ${cumulativeData[2][tooltipItem.index]}）`
+                  ? `${sumArray[tooltipItem.index]}${unit}（福岡市: ${data[0][tooltipItem.index]}/北九州市: ${data[1][tooltipItem.index]}/福岡県※: ${data[2][tooltipItem.index]}）`
+                  : `${cumulativeSumArray[tooltipItem.index]}${unit}（福岡市: ${cumulativeData[0][tooltipItem.index]}/北九州市: ${cumulativeData[1][tooltipItem.index]}/福岡県※: ${cumulativeData[2][tooltipItem.index]}）`
               return labelText
             },
             title(tooltipItem, data) {
@@ -267,7 +267,7 @@ export default {
     eachArraySum(chartDataArray) {
       const sumArray = []
       for (let i = 0; i < chartDataArray[0].length; i++) {
-        sumArray.push(chartDataArray[0][i] + chartDataArray[1][i])
+        sumArray.push(chartDataArray[0][i] + chartDataArray[1][i] + chartDataArray[2][i])
       }
       return sumArray
     }
