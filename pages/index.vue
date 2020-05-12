@@ -8,7 +8,7 @@
     <whats-new class="mb-4" :items="newsItems" />
     <static-info
       class="mb-4"
-      :url="'https://www.pref.fukuoka.lg.jp/contents/covid-19-portal.html#A1-5'"
+      :url="'/flow'"
       :text="'自分や家族の症状に不安や心配があればまずは電話でご相談下さい'"
       :btn-text="'相談の手順を見る'"
     />
@@ -17,8 +17,7 @@
         <svg-card
           title="検査陽性者の状況"
           :title-id="'details-of-confirmed-cases'"
-          :date="Data.patients.date"
-          :url="'https://ckan.open-governmentdata.org/dataset/401000_pref_fukuoka_covid19_totalpatients'"
+          :date="Data.inspections_summary.date"
         >
           <confirmed-cases-table v-bind="confirmedCases" />
         </svg-card>
@@ -35,6 +34,18 @@
         />
       </v-col>
       <v-col cols="12" md="6" class="DataCard">
+        <time-bar-area-chart
+          title="陽性患者数"
+		  category="居住地別"
+          :title-id="'number-of-area-cases'"
+          :chart-id="'time-bar-area-chart-patients'"
+          :chart-data="areaGraph"
+          :date="Data.patients.date"
+          :unit="'人'"
+          :url="'https://ckan.open-governmentdata.org/dataset/401000_pref_fukuoka_covid19_patients'"
+        />
+      </v-col>
+      <v-col cols="12" md="6" class="DataCard">
         <data-table
           :title="'陽性患者の属性'"
           :title-id="'attributes-of-confirmed-cases'"
@@ -45,7 +56,7 @@
           :url="'https://ckan.open-governmentdata.org/dataset/401000_pref_fukuoka_covid19_patients'"
         />
       </v-col>
-      <v-col cols="12" md="6" class="DataCard">
+<!--      <v-col cols="12" md="6" class="DataCard">
         <time-bar-chart
           title="検査実施数"
           :title-id="'number-of-tested'"
@@ -55,10 +66,10 @@
           :unit="'件'"
           :url="'https://ckan.open-governmentdata.org/dataset/401000_pref_fukuoka_covid19_exam'"
         />
-      </v-col>
-<!--      <v-col cols="12" md="6" class="DataCard">
+      </v-col>-->
+      <v-col cols="12" md="6" class="DataCard">
         <time-stacked-bar-chart
-          title="検査実施数２"
+          title="検査実施数"
           :title-id="'number-of-tested'"
           :chart-id="'time-stacked-bar-chart-inspections'"
           :chart-data="inspectionsGraph"
@@ -66,10 +77,10 @@
           :items="inspectionsItems"
           :labels="inspectionsLabels"
           :unit="'件'"
-          :url="''"
+          :url="'https://ckan.open-governmentdata.org/dataset/401000_pref_fukuoka_covid19_exam'"
         />
       </v-col>
-      <v-col cols="12" md="6" class="DataCard">
+<!--      <v-col cols="12" md="6" class="DataCard">
         <time-bar-chart
           title="新型コロナウイルス感染症　相談ダイヤル相談件数"
           :title-id="'number-of-reports-to-covid19-telephone-advisory-center'"
@@ -121,6 +132,8 @@ import formatConfirmedCases from '@/utils/formatConfirmedCases'
 import News from '@/data/news.json'
 import SvgCard from '@/components/SvgCard.vue'
 import ConfirmedCasesTable from '@/components/ConfirmedCasesTable.vue'
+import TimeBarAreaChart from '@/components/TimeBarAreaChart.vue'
+import formatAreaGraph from '@/utils/formatAreaGraph'
 
 export default {
   components: {
@@ -132,11 +145,14 @@ export default {
     StaticInfo,
     DataTable,
     SvgCard,
-    ConfirmedCasesTable
+    ConfirmedCasesTable,
+	TimeBarAreaChart
   },
   data() {
     // 感染者数グラフ
     const patientsGraph = formatGraph(Data.patients_summary.data)
+    // 感染者数グラフ（地区別）
+    const areaGraph = formatAreaGraph(Data.patients)
     // 感染者数
     const patientsTable = formatTable(Data.patients.data)
     // 退院者グラフ
@@ -152,12 +168,14 @@ export default {
     const metroGraph = MetroData
     // 検査実施日別状況
     const inspectionsGraph = [
-      Data.inspections_summary.data['都内'],
-      Data.inspections_summary.data['その他']
+      Data.inspections_summary.data['福岡市'],
+      Data.inspections_summary.data['北九州市'],
+      Data.inspections_summary.data['福岡県※']
     ]
     const inspectionsItems = [
-      '福岡県内発生（疑い例・接触者調査）',
-      'その他（チャーター便・クルーズ便）'
+      '福岡市',
+      '北九州市',
+      '福岡県※'
     ]
     const inspectionsLabels = Data.inspections_summary.labels
     // 死亡者数
@@ -186,6 +204,7 @@ export default {
       querentsGraph,
       metroGraph,
       inspectionsGraph,
+	  areaGraph,
       inspectionsItems,
       inspectionsLabels,
       confirmedCases,
