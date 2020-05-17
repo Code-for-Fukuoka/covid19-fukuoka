@@ -23,26 +23,30 @@
         </svg-card>
       </v-col> 
       <v-col cols="12" md="6" class="DataCard">
-        <time-bar-chart
+        <time-bar-patients-chart
           title="陽性患者数"
           :title-id="'number-of-confirmed-cases'"
           :chart-id="'time-bar-chart-patients'"
           :chart-data="patientsGraph"
           :date="Data.patients.date"
           :unit="'人'"
-          :url="'https://ckan.open-governmentdata.org/dataset/401000_pref_fukuoka_covid19_patients'"
+          :url="
+            'https://ckan.open-governmentdata.org/dataset/401000_pref_fukuoka_covid19_patients'
+          "
         />
       </v-col>
       <v-col cols="12" md="6" class="DataCard">
-        <time-bar-area-chart
-          title="陽性患者数"
-		  category="居住地別"
-          :title-id="'number-of-area-cases'"
-          :chart-id="'time-bar-area-chart-patients'"
+        <area-chart
+          title="陽性患者数の累計"
+          category="居住地別"
+          :title-id="'area-of-confirmed-cases'"
+          :chart-id="'area-chart-patients'"
           :chart-data="areaGraph"
           :date="Data.patients.date"
           :unit="'人'"
-          :url="'https://ckan.open-governmentdata.org/dataset/401000_pref_fukuoka_covid19_patients'"
+          :url="
+            'https://ckan.open-governmentdata.org/dataset/401000_pref_fukuoka_covid19_patients'
+          "
         />
       </v-col>
       <v-col cols="12" md="6" class="DataCard">
@@ -87,6 +91,8 @@
 <script>
 import PageHeader from '@/components/PageHeader.vue'
 import TimeBarChart from '@/components/TimeBarChart.vue'
+import TimeBarPatientsChart from '@/components/TimeBarPatientsChart.vue'
+import AreaChart from '@/components/AreaChart.vue'
 import MetroBarChart from '@/components/MetroBarChart.vue'
 import TimeStackedBarChart from '@/components/TimeStackedBarChart.vue'
 import WhatsNew from '@/components/WhatsNew.vue'
@@ -95,32 +101,34 @@ import Data from '@/data/data.json'
 import MetroData from '@/data/metro.json'
 import DataTable from '@/components/DataTable.vue'
 import formatGraph from '@/utils/formatGraph'
+import formatPatientsGraph from '@/utils/formatPatientsGraph'
+import formatAreaGraph from '@/utils/formatAreaGraph'
 import formatTable from '@/utils/formatTable'
 import formatConfirmedCases from '@/utils/formatConfirmedCases'
 import News from '@/data/news.json'
 import SvgCard from '@/components/SvgCard.vue'
 import ConfirmedCasesTable from '@/components/ConfirmedCasesTable.vue'
-import TimeBarAreaChart from '@/components/TimeBarAreaChart.vue'
-import formatAreaGraph from '@/utils/formatAreaGraph'
+
 
 export default {
   components: {
     PageHeader,
     TimeBarChart,
+    TimeBarPatientsChart,
+    AreaChart,
     MetroBarChart,
     TimeStackedBarChart,
     WhatsNew,
     StaticInfo,
     DataTable,
     SvgCard,
-    ConfirmedCasesTable,
-	TimeBarAreaChart
+    ConfirmedCasesTable
   },
   data() {
     // 感染者数グラフ
-    const patientsGraph = formatGraph(Data.patients_summary.data)
+    const patientsGraph = formatPatientsGraph(Data.patients)
     // 感染者数グラフ（地区別）
-    const areaGraph = formatAreaGraph(Data.patients)
+    const areaGraph = formatAreaGraph(Data.patients.data)
     // 感染者数
     const patientsTable = formatTable(Data.patients.data)
     // 退院者グラフ
@@ -155,10 +163,12 @@ export default {
     const confirmedCases = formatConfirmedCases(Data.main_summary)
 
     const sumInfoOfPatients = {
-      lText: patientsGraph[
-        patientsGraph.length - 1
+      lText: patientsGraph[0].DataArr[
+        patientsGraph[0].DataArr.length - 1
       ].cumulative.toLocaleString(),
-      sText: patientsGraph[patientsGraph.length - 1].label + 'の累計',
+      sText:
+        patientsGraph[0].DataArr[patientsGraph[0].DataArr.length - 1].label +
+        'の累計',
       unit: '人'
     }
 
@@ -166,13 +176,13 @@ export default {
       Data,
       patientsTable,
       patientsGraph,
+	  areaGraph,
       dischargesGraph,
       testedGraph,
       contactsGraph,
       querentsGraph,
       metroGraph,
       inspectionsGraph,
-	  areaGraph,
       inspectionsItems,
       inspectionsLabels,
       confirmedCases,

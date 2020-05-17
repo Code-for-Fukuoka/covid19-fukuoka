@@ -16,11 +16,13 @@
 .selectArea {
 	padding-top:25px !important;
 	font-size: 14px;
+	width: 180px;
 }
 
 @include lessThan($medium) {
   .selectArea {
 	font-size: 12px !important;
+	width: 140px;
   }
 }
 </style>
@@ -41,8 +43,8 @@ export default {
 	    {label:'すべて',value:0},
 	    {label:'福岡市',value:1},
 	    {label:'北九州市',value:2},
-	    {label:'福岡県（それ以外）',value:3},
-	    {label:'その他',value:4}
+	    {label:'福岡県（その他）',value:3},
+	    {label:'それ以外',value:4}
 	  ]
     }
   }
