@@ -96,8 +96,13 @@ export default (data: DataType) => {
 				        areaNum = 1						  
 					  }
 					} else {
-					  address = '福岡県（その他）'
-					  areaNum = 3
+			　　　　　　if(d['居住地'].includes('確認中')) {
+			  　　　　　　　address = 'それ以外※'
+              　　　　　　　areaNum = 4			
+			　　　　　　} else {
+					  　　address = '福岡県（その他）'
+					  　　areaNum = 3
+			　　　　　　}
 					}
 				}
 			}
