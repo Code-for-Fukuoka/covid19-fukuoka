@@ -1,4 +1,4 @@
-type patientsArr = {
+type DataType = {
   リリース日: Date
   曜日: number
   居住地: string
@@ -8,169 +8,154 @@ type patientsArr = {
   date: Date
 }
 
-type DataType = {
-  date: Date
-  data: Array<patientsArr>
-}
-
 interface DataArrType {
   label: string
-  transition: number
   cumulative: number
 }
 
 type GraphDataType = {
   label: string
-  transitionPre: number
-  transition: number
   cumulative: number
-  DataArr: Array<DataArrType>
+  areaArr: Array<DataArrType>
 }
 
-export default (data: DataType) => {
+export default (data: DataType[]) => {
   const graphData: GraphDataType[] = [
     {
       label: '福岡市',
-      transition: 0,
-      transitionPre: 0,
       cumulative: 0,
-      DataArr: []
+      areaArr: []
     },
     {
       label: '北九州市',
-      transition: 0,
-      transitionPre: 0,
       cumulative: 0,
-      DataArr: []
+      areaArr: []
     },
     {
-      label: '福岡県（それ以外）',
-      transition: 0,
-      transitionPre: 0,
+      label: '福岡県（その他）',
       cumulative: 0,
-      DataArr: []
+      areaArr: []
     },
     {
-      label: 'その他※',
-      transition: 0,
-      transitionPre: 0,
+      label: 'それ以外※',
       cumulative: 0,
-      DataArr: []
+      areaArr: []
     }
   ]
-  
-  let lastUpdate = new Date(data['date'])
-  lastUpdate = new Date(lastUpdate.getFullYear(), lastUpdate.getMonth(), lastUpdate.getDate() - 1)
-  const cumulDataArr: number[] = [0, 0, 0, 0]
-  const diffDayArr: boolean[] = [false, false, false, false]
+  const latestDate = new Date(data.slice(-1)[0]['リリース日'])
   let date: Date
-  data['data'].forEach(d => {
+  data.forEach(d => {
     let address: string
-    let transitionNum: number = 0
-    let transitionPreNum: number = 0
-    let cumulativeNum: number = 1  
     date = new Date(d['リリース日'])
-	let areaNum: number
+    let AreaName: string
+	let index: number
+    let ArrIndex: number
     switch (true) {
       case d['居住地'].includes('福岡市'):
         address = '福岡市'
-		areaNum = 0
+        if (d['居住地'].includes('区') && !d['居住地'].includes('県')) {
+          AreaName = d['居住地'].replace(/福岡市/g, '')
+        } else {
+          AreaName = '福岡市内'
+        }
+	    index = 0
         break
       case d['居住地'].includes('北九州市'):
         address = '北九州市'
-		areaNum = 1
+        if (d['居住地'].includes('区') && !d['居住地'].includes('県')) {
+          AreaName = d['居住地'].replace(/北九州市/g, '')  
+		  index = 1
+        } else {
+		  if(d['居住地'] === '北九州市外') {
+            address = 'それ以外※'
+            AreaName = "それ以外"
+            index = 3
+		  } else {
+			AreaName = '北九州市内'
+			index = 1
+		  }
+        }
         break
       default:
         if (d['居住地'] === '調査中' || d['居住地'] === '海外') {
-          address = 'その他※'
-		  areaNum = 3
+          address = 'それ以外※'
+		  if(d['居住地'] === "調査中") {
+		    AreaName = "それ以外"
+		  } else {
+			AreaName = "海外"
+		  }
+          index = 3
         } else {
-          address = '福岡県（それ以外）'
-          areaNum = 2
+          if (!d['居住地'].includes('県') && !d['居住地'].includes('区')) {
+			address = '福岡県（その他）'
+            AreaName = d['居住地']
+            index = 2
+          } else if(d['居住地'].includes('区')) {
+		    let cityArr: string[] = ['東区','博多区','中央区','南区','西区','城南区','早良区']
+		    let areaIndex = cityArr.indexOf( d['居住地'])
+		    if(areaIndex === -1) {
+			  AreaName = d['居住地']
+			  index = 1						  
+			} else {
+			  AreaName = d['居住地']
+			  index = 0						  
+			}
+		  } else {
+            address = 'それ以外※'
+            AreaName = d['居住地']
+            index = 3
+          }
         }
-    }
-    if (lastUpdate.getTime() === (date.getTime() - 32400000)) {
-      transitionNum++
-	  diffDayArr[areaNum] = true
-    }
-	  
-    if (lastUpdate.getTime() - 86400000 === (date.getTime() - 32400000)) {
-      transitionPreNum++
-    }
-  
-    const index = graphData.findIndex(v => v.label === address)
-    graphData[index].transition += transitionNum
-    graphData[index].transitionPre += transitionPreNum
-    graphData[index].cumulative += cumulativeNum
-	  
-	let graphDateNum =  Math.round( date.getTime() / 1000 )
-
-    const graphDate = String(graphDateNum)
-		
-    const ArrIndex = graphData[index].DataArr.findIndex(
-      v => v.label === graphDate
-    )
-    cumulDataArr[index] += 1
-	  
+    }  
+	ArrIndex = graphData[index].areaArr.findIndex(v => v.label === AreaName)
+    graphData[index].cumulative += 1
     if (ArrIndex === -1) {
-      graphData[index].DataArr.push({
-        label: graphDate,
-        transition: 1,
-        cumulative: cumulDataArr[index]
+      graphData[index].areaArr.push({
+        label: AreaName,
+        cumulative: 1
       })
     } else {
-      graphData[index].DataArr[ArrIndex].transition += 1
-      graphData[index].DataArr[ArrIndex].cumulative = cumulDataArr[index]
-    }	
+      graphData[index].areaArr[ArrIndex].cumulative += 1
+    }
   })
-	
-  	
-  graphData.forEach((d,index) => {
-	let graphDate = String(Math.round( (lastUpdate.getTime() + 32400000) / 1000 ))
-    if(!diffDayArr[index]) {
-      d.DataArr.push({
-        label: graphDate,
-        transition: 0,
-        cumulative: d.DataArr.slice(-1)[0].cumulative
-      })
-	}
+  
+  let removeNum: string[] = []
+  let ArrIndex: number
+  graphData[3]["areaArr"].forEach((d,index) => {
+    switch (true) {
+      case d.label === 'それ以外':
+        break
+      case d.label === '海外':
+        break			
+      case d.label.replace(/福岡県/g, '').length === 0:
+	    graphData[2].areaArr.push({
+		  label: '福岡県内',
+		  cumulative: d.cumulative
+		})
+		 graphData[2].cumulative += d.cumulative
+		 graphData[3].cumulative -= d.cumulative
+		 removeNum.push('福岡県内')
+        break
+      case !d.label.includes('福岡県'):
+		if(d.label.includes('県')) {
+		  ArrIndex = graphData[3]["areaArr"].findIndex(v => v.label === "それ以外")
+		  graphData[3]["areaArr"][ArrIndex].cumulative  += d.cumulative
+		  removeNum.push(d.label)
+		} 
+        break
+      default: 
+    }  
   })
-	
-  graphData.forEach((d,index) => {
-   let DataArr = d["DataArr"]
-   let newDataArr: Array<DataArrType> = []
-   let checkArr: number[] = []
-   let fistDate: number = Number(DataArr[0]["label"])
-   let lastDate: number = Number(DataArr.slice(-1)[0]["label"])
-   let nowDate: number = fistDate
-   let cumulative: number
-   while (nowDate <= lastDate) {
-	checkArr.push(nowDate)
-    nowDate += 86400
-   }
-   checkArr.forEach(e => {
-	  let dateTime: Date
- 　　　let data = DataArr.filter(function(item, index){
-  　　　if (item.label === String(e)) return item;
-　　　 })
-	  if(data.length > 0) {
-		  let labelStr = data[0]["label"]
-		  dateTime = new Date(Number(labelStr) * 1000)
-		  data[0]["label"] = dateTime.toLocaleDateString('ja-JP').slice(5)
-		  newDataArr.push(data[0])
-		  cumulative = data[0]["cumulative"]
-	  } else if(data.length === 0) {
-		  dateTime = new Date(e * 1000)
-		  newDataArr.push({
-           label: dateTime.toLocaleDateString('ja-JP').slice(5),
-           transition: 0,
-           cumulative: cumulative
-          })
-	  }
-   })
-   graphData[index].DataArr = []
-   graphData[index].DataArr = newDataArr
+  
+  for (let i = 0; i < removeNum.length; i++) {
+    let ArrIndex = graphData[3]["areaArr"].findIndex(v => v.label === removeNum[i])
+	graphData[3]["areaArr"].splice(ArrIndex,1)
+  }
+  
+  graphData.forEach(d => {
+    d.areaArr.sort(function(val1, val2) {
+      return val1.cumulative < val2.cumulative ? 1 : -1
+    })
   })
-		  
   return graphData
 }
