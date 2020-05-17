@@ -87,9 +87,15 @@ export default (data: DataType[]) => {
           index = 3
         } else {
           if (!d['居住地'].includes('県') && !d['居住地'].includes('区')) {
-			address = '福岡県（その他）'
-            AreaName = d['居住地']
-            index = 2
+			if(d['居住地'].includes('確認中')) {
+			  address = 'それ以外※'
+              AreaName = "それ以外"
+              index = 3			
+			} else {
+			  address = '福岡県（その他）'
+              AreaName = d['居住地']
+              index = 2	
+			}
           } else if(d['居住地'].includes('区')) {
 		    let cityArr: string[] = ['東区','博多区','中央区','南区','西区','城南区','早良区']
 		    let areaIndex = cityArr.indexOf( d['居住地'])
