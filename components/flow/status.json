@@ -1,0 +1,35 @@
+{
+  "normal": {
+	"display":true,
+    "day":null,
+    "inequality":"",
+    "custom":{
+	  "display":true,
+	  "txt": "または風邪の症状が続く場合",
+	  "emphasis": {
+        "display":true,
+		"word":"続く"
+	  }
+	}
+  },
+  "others": {
+	"display":true,
+    "day":null,
+    "inequality":"",
+	"custom":{
+	  "display":true,
+	  "txt": "または風邪の症状がある場合",
+	  "emphasis": {
+        "display":true,
+		"word":"ある"
+	  }
+	},
+    "list": ["ご高齢な方","基礎疾患のある方","妊娠中の方"]
+  },
+  "symptomList": [
+	{"txt":"息苦しさ","emphasis": ""},
+	{"txt":"強いだるさ","emphasis": ""},
+	{"txt":"高熱","emphasis": ""}
+  ],
+  "infoURL":"https://www.pref.fukuoka.lg.jp/contents/covid-19-portal.html#a1-6"
+}
