@@ -1,8 +1,9 @@
 <template>
   <div class="DataView-DataInfo">
-    <span v-show="aText" class="DataView-DataInfo-areaName">{{ aText }}</span>
-    <span class="DataView-DataInfo-summary">
-      {{ lText }}
+    <span v-show="aText" class="DataView-DataInfo-areaName"> {{ aText }}</span>
+	<span class="DataView-DataInfo-summary">
+	　<span v-if="kindtype && lText > 0" class="DataView-DataInfo-summary-transition">+</span>
+	  <span v-bind:style="{ color: activeColor}">{{ lText }}</span>
       <small class="DataView-DataInfo-summary-unit">{{ unit }}</small>
     </span>
     <br />
@@ -11,6 +12,7 @@
 </template>
 
 <style lang="scss">
+
 .DataView {
   &-DataInfo {
     margin-top: 20px;
@@ -21,6 +23,9 @@
       font-style: normal;
       font-size: 30px;
       line-height: 30px;
+      &-transition {
+        font-size: 0.5em;
+      }
       &-unit {
         font-size: 0.6em;
       }
@@ -76,5 +81,25 @@ export default class DataViewBasicInfoPanel extends Vue {
   @Prop() private lText!: string
   @Prop() private sText!: string
   @Prop() private unit!: string
+  @Prop() private dataKind!: string
+ 
+  get kindtype() {
+    if(this.dataKind === 'transition') {
+	  return true
+	}
+    return false
+  }
+ 
+  get activeColor() {
+    if(!this.dataKind || this.dataKind === 'cumulative') {
+	  return "#4D4D4D"
+	}
+    if(Number(this.lText) === 0) {
+	  return "#5badd6"
+	} else {
+	  return "#de5a5a"
+	}
+  }
+   
 }
 </script>
