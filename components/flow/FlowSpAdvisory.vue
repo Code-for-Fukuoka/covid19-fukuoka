@@ -11,7 +11,7 @@
     </p>
     <div :class="$style.link">
       <a
-        href="https://www.pref.fukuoka.lg.jp/contents/covid-19-portal.html#a1-6"
+        v-bind:href="getUrl"
         target="_blank"
         rel="noopener noreferrer"
       >
@@ -23,6 +23,26 @@
     </div>
   </div>
 </template>
+
+<script>
+import Status from '@/components/flow/status.json'
+export default {
+  data() {
+    return {
+	  status: Status
+    }
+  },
+  computed: {
+    getUrl() {
+	  let URL = this.status.infoURL
+	  if(URL.length == 0) {
+	   URL = "https://www.pref.fukuoka.lg.jp/contents/covid-19-portal.html"
+	  } 
+      return URL
+    }
+  }
+}
+</script>
 
 <style module lang="scss">
 @import '@/components/flow/flow_sp.scss';
