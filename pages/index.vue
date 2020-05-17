@@ -56,17 +56,6 @@
           :url="'https://ckan.open-governmentdata.org/dataset/401000_pref_fukuoka_covid19_patients'"
         />
       </v-col>
-<!--      <v-col cols="12" md="6" class="DataCard">
-        <time-bar-chart
-          title="検査実施数"
-          :title-id="'number-of-tested'"
-          :chart-id="'time-bar-chart-tested'"
-          :chart-data="testedGraph"
-          :date="Data.tested.date"
-          :unit="'件'"
-          :url="'https://ckan.open-governmentdata.org/dataset/401000_pref_fukuoka_covid19_exam'"
-        />
-      </v-col>-->
       <v-col cols="12" md="6" class="DataCard">
         <time-stacked-bar-chart
           title="検査実施数"
@@ -80,17 +69,6 @@
           :url="'https://ckan.open-governmentdata.org/dataset/401000_pref_fukuoka_covid19_exam'"
         />
       </v-col>
-<!--      <v-col cols="12" md="6" class="DataCard">
-        <time-bar-chart
-          title="新型コロナウイルス感染症　相談ダイヤル相談件数"
-          :title-id="'number-of-reports-to-covid19-telephone-advisory-center'"
-          :chart-id="'time-bar-chart-contacts'"
-          :chart-data="contactsGraph"
-          :date="Data.contacts.date"
-          :unit="'件'"
-          :url="''"
-        />
-      </v-col> -->
       <v-col cols="12" md="6" class="DataCard">
         <time-bar-chart
           title="新型コロナウイルス感染症　帰国者・接触者相談センター相談件数"
@@ -102,16 +80,6 @@
           :url="'https://ckan.open-governmentdata.org/dataset/401000_pref_fukuoka_covid19_kikokusyasessyokusya'"
         />
       </v-col>
-<!--      <v-col cols="12" md="6" class="DataCard">
-        <metro-bar-chart
-          title="福岡県営地下鉄の利用者数の推移"
-          :title-id="'predicted-number-of-toei-subway-passengers'"
-          :chart-id="'metro-bar-chart'"
-          :chart-data="metroGraph"
-          :chart-option="metroGraphOption"
-          :date="metroGraph.date"
-        />
-      </v-col> -->
     </v-row>
   </div>
 </template>
