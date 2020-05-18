@@ -146,9 +146,9 @@ export default {
     // 検査実施日別状況
     // 最新の日付から2ヶ月前の日付を mm/dd の文字列で取得（05/18 => 03/18）
     const TwoMonthsAgo = (() => {
-      const tmpDate = new Date(Data.inspections_summary.date.slice(5,10))
+      const tmpDate = new Date(Data.inspections_summary.date.slice(5, 10))
       tmpDate.setMonth(tmpDate.getMonth() - 2)
-      const m = ('00' + (tmpDate.getMonth()+1)).slice(-2)
+      const m = ('00' + (tmpDate.getMonth() + 1)).slice(-2)
       const d = ('00' + tmpDate.getDate()).slice(-2)
       return m + '/' + d
     })()
@@ -158,10 +158,10 @@ export default {
       return element > TwoMonthsAgo
     })
     // 変数から可視化しないデータを削除
-    Data.inspections_summary.labels.splice(0,startIndex)
-    Data.inspections_summary.data['福岡市'].splice(0,startIndex),
-    Data.inspections_summary.data['北九州市'].splice(0,startIndex),
-    Data.inspections_summary.data['福岡県※'].splice(0,startIndex)
+    Data.inspections_summary.labels.splice(0, startIndex)
+    Data.inspections_summary.data['福岡市'].splice(0, startIndex)
+    Data.inspections_summary.data['北九州市'].splice(0, startIndex)
+    Data.inspections_summary.data['福岡県※'].splice(0, startIndex)
     const inspectionsGraph = [
       Data.inspections_summary.data['福岡市'],
       Data.inspections_summary.data['北九州市'],
