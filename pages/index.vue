@@ -142,7 +142,26 @@ export default {
     const querentsGraph = formatGraph(Data.querents.data)
     // 福岡県営地下鉄の利用者数の推移
     const metroGraph = MetroData
+
     // 検査実施日別状況
+    // 最新の日付から2ヶ月前の日付を mm/dd の文字列で取得（05/18 => 03/18）
+    const date_2MonthsAgo = (() => {
+      const tmp_date = new Date(Data.inspections_summary.date.slice(5,10));
+      tmp_date.setMonth(tmp_date.getMonth() - 2);
+      const m = ("00" + (tmp_date.getMonth()+1)).slice(-2);
+      const d = ("00" + tmp_date.getDate()).slice(-2);
+      return m + "/" + d;
+    })();
+    // 可視化する最初（最古）のデータが入っているインデックスを取得
+    // 例：最新の日付が05/18 => 03/19のデータが入っているインデックスを取得
+    const inspectionsLabels_startIndex = Data.inspections_summary.labels.findIndex((element) => {
+      return (element > date_2MonthsAgo);
+    });
+    // 変数から可視化しないデータを削除
+    Data.inspections_summary.labels.splice(0,inspectionsLabels_startIndex)
+    Data.inspections_summary.data['福岡市'].splice(0,inspectionsLabels_startIndex),
+    Data.inspections_summary.data['北九州市'].splice(0,inspectionsLabels_startIndex),
+    Data.inspections_summary.data['福岡県※'].splice(0,inspectionsLabels_startIndex)
     const inspectionsGraph = [
       Data.inspections_summary.data['福岡市'],
       Data.inspections_summary.data['北九州市'],
@@ -154,6 +173,7 @@ export default {
       '福岡県※'
     ]
     const inspectionsLabels = Data.inspections_summary.labels
+
     // 死亡者数
     // #MEMO: 今後使う可能性あるので一時コメントアウト
     // const fatalitiesTable = formatTable(
