@@ -84,7 +84,35 @@ export default {
   },
   data() {
     return {
-      dataKind: 'transition'
+      dataKind: 'transition',
+      hiddenDataSum: [],  // 各区域毎に可視化しないデータの合計値を計算し、格納するための配列
+      cumulativeData: []  // 各区域毎に可視化するデータの累積データを格納するための配列（二次元配列）
+    }
+  },
+  created () {
+    
+    // 最新の日付から2ヶ月前の日付を mm/dd の文字列で取得（05/18 => 03/18）
+    const TwoMonthsAgo = (() => {
+      let tmpDate = new Date(this.date)
+      tmpDate.setMonth(tmpDate.getMonth() - 2)
+      const m = ('00' + (tmpDate.getMonth() + 1)).slice(-2)
+      const d = ('00' + tmpDate.getDate()).slice(-2)
+      return m + '/' + d
+    })()
+    // 可視化する最初（最古）のデータが入っているインデックスを取得
+    // 例：最新の日付が05/18 => 03/19のデータが入っているインデックスを取得
+    const startIndex = this.labels.findIndex(dateStr => {
+      return dateStr > TwoMonthsAgo
+    })
+    
+    // 可視化しないラベルを削除
+    this.labels.splice(0, startIndex)
+    // 区域の毎にループ
+    for (const i in this.chartData) {
+      // 可視化しないデータを削除しつつ、可視化しないデータの累計値を計算
+      this.hiddenDataSum.push(this.sum(this.chartData[i].splice(0, startIndex)))
+      // 累積データを計算
+      this.cumulativeData.push(this.cumulative(this.chartData[i], i))
     }
   },
   computed: {
@@ -97,7 +125,7 @@ export default {
         }
       }
       return {
-        lText: this.sum(this.cumulativeSum(this.chartData)).toLocaleString(),
+        lText: this.sum(this.pickLastNumber(this.cumulativeData)).toLocaleString(),
         sText: `${this.labels[this.labels.length - 1]} の全体累計`,
         unit: this.unit
       }
@@ -119,10 +147,10 @@ export default {
       }
       return {
         labels: this.labels,
-        datasets: this.chartData.map((item, index) => {
+        datasets: this.cumulativeData.map((item, index) => {
           return {
             label: this.items[index],
-            data: this.cumulative(item),
+            data: item,
             backgroundColor: colorArray[index],
             borderWidth: 0
           }
@@ -133,10 +161,7 @@ export default {
       const unit = this.unit
       const sumArray = this.eachArraySum(this.chartData)
       const data = this.chartData
-      const cumulativeData = this.chartData.map(item => {
-        return this.cumulative(item)
-      })
-      const cumulativeSumArray = this.eachArraySum(cumulativeData)
+      const cumulativeSumArray = this.eachArraySum(this.cumulativeData)
       return {
         tooltips: {
           displayColors: false,
@@ -145,7 +170,7 @@ export default {
               const labelText =
                 this.dataKind === 'transition'
                   ? `${sumArray[tooltipItem.index]}${unit}（福岡市: ${data[0][tooltipItem.index]}/北九州市: ${data[1][tooltipItem.index]}/福岡県※: ${data[2][tooltipItem.index]}）`
-                  : `${cumulativeSumArray[tooltipItem.index]}${unit}（福岡市: ${cumulativeData[0][tooltipItem.index]}/北九州市: ${cumulativeData[1][tooltipItem.index]}/福岡県※: ${cumulativeData[2][tooltipItem.index]}）`
+                  : `${cumulativeSumArray[tooltipItem.index]}${unit}（福岡市: ${this.cumulativeData[0][tooltipItem.index]}/北九州市: ${this.cumulativeData[1][tooltipItem.index]}/福岡県※: ${this.cumulativeData[2][tooltipItem.index]}）`
               return labelText
             },
             title(tooltipItem, data) {
@@ -239,9 +264,9 @@ export default {
     }
   },
   methods: {
-    cumulative(array) {
+    cumulative(array, index) {
       const cumulativeArray = []
-      let patSum = 0
+      let patSum = this.hiddenDataSum[index]
       array.forEach(d => {
         patSum += d
         cumulativeArray.push(patSum)
