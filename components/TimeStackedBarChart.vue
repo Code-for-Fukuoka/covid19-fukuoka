@@ -93,7 +93,7 @@ export default {
     
     // 最新の日付から2ヶ月前の日付を mm/dd の文字列で取得（05/18 => 03/18）
     const TwoMonthsAgo = (() => {
-      let tmpDate = new Date(this.date)
+      const tmpDate = new Date(this.date)
       tmpDate.setMonth(tmpDate.getMonth() - 2)
       const m = ('00' + (tmpDate.getMonth() + 1)).slice(-2)
       const d = ('00' + tmpDate.getDate()).slice(-2)
