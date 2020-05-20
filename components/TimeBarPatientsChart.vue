@@ -2,7 +2,7 @@
   <data-view :title="title" :title-id="titleId" :date="date" :url="url">
     <template v-slot:button>
       <area-selector v-model="areaNum" />
-	  <data-selector v-model="dataKind" />
+      <data-selector v-model="dataKind" />
     </template>
     <bar
       :chart-id="chartId"
@@ -12,7 +12,7 @@
     />
     <template v-slot:infoPanel>
       <data-view-basic-info-panel
-	    :dataKind="dataKind"
+        :data-kind="dataKind"
         :a-text="displayInfo.aText"
         :l-text="displayInfo.lText"
         :s-text="displayInfo.sText"
@@ -77,7 +77,7 @@ export default {
     AreaData: {
       type: Array,
       required: false,
-      default: () => ["すべて"]
+      default: () => ['すべて']
     }
   },
   data() {
@@ -101,16 +101,18 @@ export default {
     displayInfo() {
       if (this.dataKind === 'transition') {
         return {
-          aText: "新規感染者 :",
+          aText: '新規感染者 :',
           lText: `${this.chartDataSelect
             .slice(-1)[0]
             .transition.toLocaleString()}`,
-          sText: `${this.chartDataSelect.slice(-1)[0].label} 実績値（前日比：${this.displayTransitionRatio} ${this.unit}）`,
+          sText: `${this.chartDataSelect.slice(-1)[0].label} 実績値（前日比：${
+            this.displayTransitionRatio
+          } ${this.unit}）`,
           unit: this.unit
         }
       }
       return {
-        aText: "累計感染者 :",
+        aText: '累計感染者 :',
         lText: this.chartDataSelect[
           this.chartDataSelect.length - 1
         ].cumulative.toLocaleString(),
