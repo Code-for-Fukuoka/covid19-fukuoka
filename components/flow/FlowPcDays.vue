@@ -22,37 +22,44 @@
                 :class="$style.FlowRowEmphasis"
               >
                 <template v-slot:day>
-                  <span :class="$style.FlowRowEmphasisDay">{{normalConditon.day}}</span>
+                  <span :class="$style.FlowRowEmphasisDay">{{
+                    normalConditon.day
+                  }}</span>
                 </template>
-               <template v-slot:inequality>
-                  <span>{{normalConditon.inequality}}</span>
+                <template v-slot:inequality>
+                  <span>{{ normalConditon.inequality }}</span>
                 </template>
               </i18n>
             </template>
           </i18n>
         </p>
-		<p v-else>
-          <i18n v-if="normalConditon.custom.emphasis.display === false" v-bind:path="normalConditon.custom.txt">
-          </i18n>
-          <i18n v-else v-bind:path="normalConditon.custom.txt">
+        <p v-else>
+          <i18n
+            v-if="normalConditon.custom.emphasis.display === false"
+            :path="normalConditon.custom.txt"
+          />
+          <i18n v-else :path="normalConditon.custom.txt">
             <template v-slot:duration>
               <i18n
                 tag="span"
-                v-bind:path="normalConditon.custom.emphasis.word"
+                :path="normalConditon.custom.emphasis.word"
                 :class="$style.FlowRowEmphasis"
-              >
-              </i18n>
+              />
             </template>
           </i18n>
-		</p>
+        </p>
       </div>
     </div>
     <div :class="[$style.FlowRow, $style.FlowRowRowCheck]">
-      <div :class="$style.FlowRowCondition" v-for="item in getSymptomList" :key="item.id">
-        <p v-if = "item.emphasis === true">
+      <div
+        v-for="item in getSymptomList"
+        :key="item.id"
+        :class="$style.FlowRowCondition"
+      >
+        <p v-if="item.emphasis === true">
           <i18n
             tag="span"
-			v-bind:path="item.txt"
+            :path="item.txt"
             :class="$style.FlowRowConditionSmall"
           >
             <template v-slot:emphasis>
@@ -62,7 +69,9 @@
             </template>
           </i18n>
         </p>
-		<p v-else>{{item.txt}} </p>
+        <p v-else>
+          {{ item.txt }}
+        </p>
         <img
           :class="$style.FlowRowConditionIcon"
           src="/flow/check_circle-24px.svg"
@@ -71,20 +80,24 @@
         />
       </div>
       <div :class="[$style.FlowRowCondition, $style.FlowRowSummary]">
-	    <p>等の強い症状のいずれかがある場合</p>
+        <p>等の強い症状のいずれかがある場合</p>
       </div>
     </div>
     <div :class="$style.FlowRow">
       <div :class="$style.FlowRowRowThree">
         <ul :class="$style.FlowRowRowThreeCareTargetList">
-          <li :class="$style.FlowRowRowThreeCareTargetListItem" v-for="item in getPatientList" :key="item.id">
+          <li
+            v-for="item in getPatientList"
+            :key="item.id"
+            :class="$style.FlowRowRowThreeCareTargetListItem"
+          >
             <img
               :class="$style.FlowRowRowThreeCareTargetListItemIcon"
               :src="item.src"
               aria-hidden="true"
               alt=" "
             />
-			<span>{{ item.txt }}</span>
+            <span>{{ item.txt }}</span>
           </li>
         </ul>
       </div>
@@ -98,29 +111,32 @@
                 :class="$style.FlowRowEmphasis"
               >
                 <template v-slot:day>
-                  <span :class="$style.FlowRowEmphasisDay">{{othersConditon.day}}</span>
+                  <span :class="$style.FlowRowEmphasisDay">{{
+                    othersConditon.day
+                  }}</span>
                 </template>
-               <template v-slot:inequality>
-                  <span>{{othersConditon.inequality}}</span>
+                <template v-slot:inequality>
+                  <span>{{ othersConditon.inequality }}</span>
                 </template>
               </i18n>
             </template>
           </i18n>
         </p>
-		<p v-else>
-          <i18n v-if="othersConditon.custom.emphasis.display === false" v-bind:path="othersConditon.custom.txt">
-          </i18n>
-          <i18n v-else v-bind:path="othersConditon.custom.txt">
+        <p v-else>
+          <i18n
+            v-if="othersConditon.custom.emphasis.display === false"
+            :path="othersConditon.custom.txt"
+          />
+          <i18n v-else :path="othersConditon.custom.txt">
             <template v-slot:duration>
               <i18n
                 tag="span"
-                v-bind:path="othersConditon.custom.emphasis.word"
+                :path="othersConditon.custom.emphasis.word"
                 :class="$style.FlowRowEmphasis"
-              >
-              </i18n>
+              />
             </template>
           </i18n>
-		</p>
+        </p>
       </div>
     </div>
   </div>
@@ -131,129 +147,128 @@ import Status from '@/components/flow/status.json'
 export default {
   data() {
     return {
-	  status: Status,
-	  normalConditon : {
-	    display:false,
-	    day:0,
-		inequality:"",
-		custom: {
-		  display:false,
-		  txt: "",
-		  emphasis: {
-		    display:false,
-			word:""
-		  }
-		}
-	  },
-	  othersConditon : {
-	    display:false,
-	    day:0,
-		inequality:"",
-		custom: {
-		  display:false,
-		  txt: "",
-		  emphasis: {
-		    display:false,
-			word:""
-		  }
-		}
-	  }
+      status: Status,
+      normalConditon: {
+        display: false,
+        day: 0,
+        inequality: '',
+        custom: {
+          display: false,
+          txt: '',
+          emphasis: {
+            display: false,
+            word: ''
+          }
+        }
+      },
+      othersConditon: {
+        display: false,
+        day: 0,
+        inequality: '',
+        custom: {
+          display: false,
+          txt: '',
+          emphasis: {
+            display: false,
+            word: ''
+          }
+        }
+      }
     }
-  },
-  created () {
-    if(this.status.normal.display) {
-	  this.normalConditon.display = true
-	  this.normalConditon.day = this.status.normal.day
-	  this.normalConditon.inequality = this.status.normal.inequality
-	  if(this.status.normal.custom.display) {
-	    this.normalConditon.custom.display = true
-	    this.normalConditon.custom.txt = this.status.normal.custom.txt
-		if(this.status.normal.custom.emphasis.display) {
-		  this.normalConditon.custom.emphasis.display = true
-		  this.normalConditon.custom.emphasis.word = this.status.normal.custom.emphasis.word
-		  let txt = this.normalConditon.custom.txt
-		  let word = this.normalConditon.custom.emphasis.word
-		  let customTxt = txt.replace(new RegExp(word, 'g'), '{duration}')
-		  this.normalConditon.custom.txt = customTxt
-		}
-	  } 
-	}
-    if(this.status.others.display) {
-	  this.othersConditon.display = true
-	  this.othersConditon.day = this.status.others.day
-	  this.othersConditon.inequality = this.status.others.inequality
-	  if(this.status.others.custom.display) {
-	    this.othersConditon.custom.display = true
-	    this.othersConditon.custom.txt = this.status.others.custom.txt
-		if(this.status.others.custom.emphasis.display) {
-		  this.othersConditon.custom.emphasis.display = true
-		  this.othersConditon.custom.emphasis.word = this.status.others.custom.emphasis.word
-		  let txt = this.othersConditon.custom.txt
-		  let word = this.othersConditon.custom.emphasis.word
-		  let customTxt = txt.replace(new RegExp(word, 'g'), '{duration}')
-		  this.othersConditon.custom.txt = customTxt
-		}
-	  } 
-	}
   },
   computed: {
     getSymptomList() {
-	  let symptomList = []
-	  this.status.symptomList.forEach(d => {
-	    let obj = {
-	      'txt': "",
-	      'emphasis': false,
-		  'emphasisWord': "",
-	    }
-		
-		if(d.emphasis.length > 0) {
-		  obj.emphasis = true
-		  obj.emphasisWord = d.emphasis		  
-		  let txt  = d.txt.replace(new RegExp(d.emphasis, 'g'), '{emphasis}')
-		  obj.txt = txt
-		} else {
-		  obj.txt = d.txt
-		}
-	    symptomList.push(obj)
-	  })
-	  return symptomList
-	},
+      const symptomList = []
+      this.status.symptomList.forEach(d => {
+        const obj = {
+          txt: '',
+          emphasis: false,
+          emphasisWord: ''
+        }
+
+        if (d.emphasis.length > 0) {
+          obj.emphasis = true
+          obj.emphasisWord = d.emphasis
+          const txt = d.txt.replace(new RegExp(d.emphasis, 'g'), '{emphasis}')
+          obj.txt = txt
+        } else {
+          obj.txt = d.txt
+        }
+        symptomList.push(obj)
+      })
+      return symptomList
+    },
     getPatientList() {
-	  let patientList = []
-	  this.status.others.list.forEach(d => {
-	    let obj = {
-	      'src': "",
-		  'txt': ""
-	    }
-	  
-	    switch (true) {
+      const patientList = []
+      this.status.others.list.forEach(d => {
+        const obj = {
+          src: '',
+          txt: ''
+        }
+
+        switch (true) {
           case d.includes('ご高齢な方'):
-		    obj.src = "/flow/directions_walk-24px.svg"
-		    obj.txt = d
+            obj.src = '/flow/directions_walk-24px.svg'
+            obj.txt = d
             break
           case d.includes('基礎疾患のある方'):
-		    obj.src = "/flow/accessible-24px.svg"
-		    obj.txt = d
+            obj.src = '/flow/accessible-24px.svg'
+            obj.txt = d
             break
           case d.includes('妊娠中の方'):
-		    obj.src = "/flow/pregnant_woman-24px.svg"
-		    obj.txt = d
+            obj.src = '/flow/pregnant_woman-24px.svg'
+            obj.txt = d
             break
           default:
-		    obj.src = "/flow/other_symptom-24px.svg"
-		    obj.txt = d
-            break		  
+            obj.src = '/flow/other_symptom-24px.svg'
+            obj.txt = d
+            break
         }
-	    patientList.push(obj)
-	  })
-	  return patientList
-	}
+        patientList.push(obj)
+      })
+      return patientList
+    }
+  },
+  created() {
+    if (this.status.normal.display) {
+      this.normalConditon.display = true
+      this.normalConditon.day = this.status.normal.day
+      this.normalConditon.inequality = this.status.normal.inequality
+      if (this.status.normal.custom.display) {
+        this.normalConditon.custom.display = true
+        this.normalConditon.custom.txt = this.status.normal.custom.txt
+        if (this.status.normal.custom.emphasis.display) {
+          this.normalConditon.custom.emphasis.display = true
+          this.normalConditon.custom.emphasis.word = this.status.normal.custom.emphasis.word
+          const txt = this.normalConditon.custom.txt
+          const word = this.normalConditon.custom.emphasis.word
+          const customTxt = txt.replace(new RegExp(word, 'g'), '{duration}')
+          this.normalConditon.custom.txt = customTxt
+        }
+      }
+    }
+    if (this.status.others.display) {
+      this.othersConditon.display = true
+      this.othersConditon.day = this.status.others.day
+      this.othersConditon.inequality = this.status.others.inequality
+      if (this.status.others.custom.display) {
+        this.othersConditon.custom.display = true
+        this.othersConditon.custom.txt = this.status.others.custom.txt
+        if (this.status.others.custom.emphasis.display) {
+          this.othersConditon.custom.emphasis.display = true
+          this.othersConditon.custom.emphasis.word = this.status.others.custom.emphasis.word
+          const txt = this.othersConditon.custom.txt
+          const word = this.othersConditon.custom.emphasis.word
+          const customTxt = txt.replace(new RegExp(word, 'g'), '{duration}')
+          this.othersConditon.custom.txt = customTxt
+        }
+      }
+    }
   }
 }
 </script>
 
 <style module lang="scss">
-
 .Flow {
   @include card-container($withDivider: true);
 
@@ -306,7 +321,6 @@ export default {
             width: 30px;
             height: 30px;
           }
-		  
         }
         &Item + &Item {
           margin-top: 14px;
@@ -366,21 +380,20 @@ export default {
         height: 20px;
         background-color: white;
         content: '';
-      }      
+      }
     }
-	
+
     &Summary {
-	  border: 0px !important;
-	  p {
-	    font-weight:normal;
-		font-size: calc(0.575rem + ((1vw - 7.68px) * 0.8929));
-	  }
-	  
+      border: 0px !important;
+      p {
+        font-weight: normal;
+        font-size: calc(0.575rem + ((1vw - 7.68px) * 0.8929));
+      }
+
       &::before {
-	    display:none;
-      }   
-	
-	}
+        display: none;
+      }
+    }
 
     &Emphasis {
       font-size: 24px;

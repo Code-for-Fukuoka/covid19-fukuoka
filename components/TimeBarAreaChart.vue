@@ -1,8 +1,14 @@
 <template>
-  <data-view :title="title" :category="category" :title-id="titleId" :date="date" :url="url">
+  <data-view
+    :title="title"
+    :category="category"
+    :title-id="titleId"
+    :date="date"
+    :url="url"
+  >
     <template v-slot:button>
       <area-selector v-model="areaNum" />
-	  <data-selector v-model="dataKind" />
+      <data-selector v-model="dataKind" />
     </template>
     <bar
       :chart-id="chartId"
@@ -18,7 +24,9 @@
         :unit="displayInfo.unit"
       />
     </template>
-	<small v-if="areaNum == 0" class="annotation">※ 居住地が調査中、海外の陽性患者</small>
+    <small v-if="areaNum == 0" class="annotation"
+      >※ 居住地が調査中、海外の陽性患者</small
+    >
   </data-view>
 </template>
 
@@ -35,7 +43,7 @@ import DataSelector from '@/components/DataSelector.vue'
 import DataViewBasicInfoPanel from '@/components/DataViewBasicInfoPanel.vue'
 
 export default {
-  components: { DataView, AreaSelector, DataSelector,DataViewBasicInfoPanel },
+  components: { DataView, AreaSelector, DataSelector, DataViewBasicInfoPanel },
   props: {
     title: {
       type: String,
@@ -80,99 +88,123 @@ export default {
     AreaData: {
       type: Array,
       required: false,
-      default: () => ["すべて"]
+      default: () => ['すべて']
     }
   },
   data() {
     return {
-	  areaNum: 0,
+      areaNum: 0,
       dataKind: 'transition',
-	  chartDataSelect: [],
+      chartDataSelect: [],
       displayData: {},
       displayOption: {},
-	  update: String,
-	  transitionSum: 0,
-	  transitionPreSum: 0,
-	  cumulativeSum: 0
+      update: String,
+      transitionSum: 0,
+      transitionPreSum: 0,
+      cumulativeSum: 0
+    }
+  },
+  computed: {
+    displayCumulativeRatio() {
+      let result
+      if (this.areaNum === 0) {
+        result = this.transitionSum
+      } else if (this.areaNum > 0) {
+        const lastDay = this.chartDataSelect.slice(-1)[0].cumulative
+        const lastDayBefore = this.chartDataSelect.slice(-2)[0].cumulative
+        result = lastDay - lastDayBefore
+      }
+      return this.formatDayBeforeRatio(result)
+    },
+    displayTransitionRatio() {
+      let lastDay, lastDayBefore
+      if (this.areaNum === 0) {
+        lastDay = this.transitionSum
+        lastDayBefore = this.transitionPreSum
+      } else if (this.areaNum > 0) {
+        lastDay = this.chartDataSelect.slice(-1)[0].transition
+        lastDayBefore = this.chartDataSelect.slice(-2)[0].transition
+      }
+      return this.formatDayBeforeRatio(lastDay - lastDayBefore)
+    },
+    displayInfo() {
+      let lTextTxt, sTextTxt
+      let aTextTxt = `${this.AreaData[this.areaNum]}`
+      if (this.dataKind === 'transition') {
+        aTextTxt = aTextTxt + ' (日別) :'
+        if (this.areaNum === 0) {
+          lTextTxt = `${this.transitionSum.toLocaleString()}`
+          sTextTxt = `実績値（前日比：${this.displayTransitionRatio} ${this.unit}）`
+        } else if (this.areaNum > 0) {
+          lTextTxt = `${this.chartDataSelect
+            .slice(-1)[0]
+            .transition.toLocaleString()}`
+          sTextTxt = `実績値（前日比：${this.displayTransitionRatio} ${this.unit}）`
+        }
+        return {
+          aText: aTextTxt,
+          lText: lTextTxt,
+          sText: sTextTxt,
+          unit: this.unit
+        }
+      }
+      aTextTxt = aTextTxt + '(累計) :'
+      if (this.areaNum === 0) {
+        lTextTxt = this.cumulativeSum.toLocaleString()
+        sTextTxt = `${this.update} 累計値（前日比：${this.displayCumulativeRatio} ${this.unit}）`
+      } else if (this.areaNum > 0) {
+        lTextTxt = this.chartDataSelect[
+          this.chartDataSelect.length - 1
+        ].cumulative.toLocaleString()
+        sTextTxt = `${this.update} 累計値（前日比：${this.displayCumulativeRatio} ${this.unit}）`
+      }
+      return {
+        aText: aTextTxt,
+        lText: lTextTxt,
+        sText: sTextTxt,
+        unit: this.unit
+      }
+    }
+  },
+  watch: {
+    dataKind() {
+      this.displayData = this.setDisplayData()
+    },
+    areaNum(val) {
+      console.log(val)
+      this.dataKind = 'transition'
+      this.chartDataSelect = []
+      this.transitionSum = 0
+      this.transitionPreSum = 0
+      this.transitionPreSum = 0
+      if (val === 0) {
+        this.chartData.forEach(d => {
+          this.chartDataSelect.push(d)
+        })
+      } else if (val > 0) {
+        this.chartData[val - 1].DataArr.forEach(d => {
+          this.chartDataSelect.push(d)
+        })
+      }
+      this.setAreaData()
+
+      this.displayData = this.setDisplayData()
+      this.displayOption = this.setDisplayOption()
     }
   },
   created() {
-   this.chartData.forEach(d => {
-     this.AreaData.push(d.label.replace(/※/g, ''))
-   })
-   this.chartData.forEach(d => {
-     this.chartDataSelect.push(d)
-   })
-   this.setAreaData()
+    this.chartData.forEach(d => {
+      this.AreaData.push(d.label.replace(/※/g, ''))
+    })
+    this.chartData.forEach(d => {
+      this.chartDataSelect.push(d)
+    })
+    this.setAreaData()
   },
   mounted() {
     const cardWidthNum = this.$el.clientWidth
     this.displayOption = this.setDisplayOption(cardWidthNum)
     this.displayData = this.setDisplayData()
-  },
-  computed: {
-    displayCumulativeRatio() {
-	  let result
-	  if(this.areaNum == 0) {
-	   result = this.transitionSum
-	  } else if(this.areaNum > 0) {
-	   const lastDay = this.chartDataSelect.slice(-1)[0].cumulative
-       const lastDayBefore = this.chartDataSelect.slice(-2)[0].cumulative
-	   result = lastDay - lastDayBefore
-	  }
-      return this.formatDayBeforeRatio(result)
-    },
-    displayTransitionRatio() {
-	  let lastDay,lastDayBefore
-	  if(this.areaNum == 0) {
-       lastDay = this.transitionSum
-       lastDayBefore = this.transitionPreSum
-	  } else if(this.areaNum > 0){
-       lastDay = this.chartDataSelect.slice(-1)[0].transition
-       lastDayBefore = this.chartDataSelect.slice(-2)[0].transition
-	  }
-      return this.formatDayBeforeRatio(lastDay - lastDayBefore)
-    },
-    displayInfo() {
-	  let lText_txt,sText_txt
-	  let aTextTxt = `${this.AreaData[this.areaNum]}`
-      if (this.dataKind === 'transition') {
-	  aTextTxt = aTextTxt + ' (日別) :'
-	    if(this.areaNum == 0) {
-         lText_txt = `${this.transitionSum.toLocaleString()}`
-         sText_txt = `実績値（前日比：${this.displayTransitionRatio} ${this.unit}）`
-	    } else if(this.areaNum > 0){
-         lText_txt = `${this.chartDataSelect.slice(-1)[0].transition.toLocaleString()}`
-         sText_txt = `実績値（前日比：${this.displayTransitionRatio} ${this.unit}）`
-	    }
-        return {
-		  aText: aTextTxt,
-          lText: lText_txt,
-          sText: sText_txt,
-          unit: this.unit
-        }
-      }
-	  aTextTxt = aTextTxt + '(累計) :'
-	  if(this.areaNum == 0) {
-       lText_txt = this.cumulativeSum.toLocaleString()
-       sText_txt = `${this.update} 累計値（前日比：${
-          this.displayCumulativeRatio
-        } ${this.unit}）`
-	  } else if(this.areaNum > 0){
-       lText_txt = this.chartDataSelect[
-          this.chartDataSelect.length - 1
-        ].cumulative.toLocaleString()
-       sText_txt = `${this.update} 累計値（前日比：${
-          this.displayCumulativeRatio
-        } ${this.unit}）`
-	  }	  
-      return {
-	    aText: aTextTxt,
-        lText: lText_txt,
-        sText: sText_txt,
-        unit: this.unit
-      }
-    }
   },
   methods: {
     formatDayBeforeRatio(dayBeforeRatio) {
@@ -187,24 +219,29 @@ export default {
       }
     },
     setAreaData() {
-      if(this.update != null){
-        let date = new Date(this.date)
-        let yesterday_date = new Date(date.getFullYear(), date.getMonth(), date.getDate() - 1)
-        this.update =  (1 + yesterday_date.getMonth() ) + "/" + yesterday_date.getDate()
+      if (this.update != null) {
+        const date = new Date(this.date)
+        const yesterdayDate = new Date(
+          date.getFullYear(),
+          date.getMonth(),
+          date.getDate() - 1
+        )
+        this.update =
+          1 + yesterdayDate.getMonth() + '/' + yesterdayDate.getDate()
       }
-      if(this.transitionSum == 0){
+      if (this.transitionSum === 0) {
         this.chartDataSelect.map(d => {
-         this.transitionSum += d.transition
+          this.transitionSum += d.transition
         })
       }
-      if(this.transitionPreSum == 0){
+      if (this.transitionPreSum === 0) {
         this.chartDataSelect.map(d => {
-		 this.transitionPreSum += d.transitionPre
+          this.transitionPreSum += d.transitionPre
         })
       }
-      if(this.cumulativeSum == 0){
+      if (this.cumulativeSum === 0) {
         this.chartDataSelect.map(d => {
-		 this.cumulativeSum += d.cumulative
+          this.cumulativeSum += d.cumulative
         })
       }
     },
@@ -250,8 +287,8 @@ export default {
       if (cardWidth > 360 && this.areaNum === 0) {
         fontSizeNum = 11
         fontStyleNum = 'bold'
-      } 
-	  
+      }
+
       return {
         tooltips: {
           displayColors: false,
@@ -365,32 +402,6 @@ export default {
           ]
         }
       }
-    }
-  },
-  watch: {
-    dataKind() {
-      this.displayData = this.setDisplayData()
-    },
-    areaNum: function (val) {
-	  console.log(val)
-	  this.dataKind = 'transition'
-	  this.chartDataSelect = []
-	  this.transitionSum = 0
-	  this.transitionPreSum = 0
-	  this.transitionPreSum = 0
-	  if(val === 0) {
-	   this.chartData.forEach(d => {
-        this.chartDataSelect.push(d)
-       })
-	  } else if(val > 0) {
-	   this.chartData[val - 1]["DataArr"].forEach(d => {
-        this.chartDataSelect.push(d)
-       })
-	  }
-	  this.setAreaData()
-	  
-	  this.displayData = this.setDisplayData()
-	  this.displayOption = this.setDisplayOption()
     }
   }
 }

@@ -36,12 +36,12 @@ small.annotation {
 #chartjs-tooltip {
   opacity: 1;
   position: absolute;
-  background: rgba(0, 0, 0, .7);
+  background: rgba(0, 0, 0, 0.7);
   font-size: 12px;
   color: white;
   border-radius: 3px;
-  -webkit-transition: all .1s ease;
-  transition: all .1s ease;
+  -webkit-transition: all 0.1s ease;
+  transition: all 0.1s ease;
   pointer-events: none;
   -webkit-transform: translate(-50%, 0);
   transform: translate(-50%, 0);
@@ -49,20 +49,19 @@ small.annotation {
 
 #chartjs-tooltip .wrapper {
   display: flex;
-  margin:0;
-  padding:0;
+  margin: 0;
+  padding: 0;
 }
 
-
 #chartjs-tooltip ul {
-  width:90px;
+  width: 90px;
   list-style: none;
-  padding-left:0px;
-  text-align:right;
+  padding-left: 0px;
+  text-align: right;
 }
 
 #chartjs-tooltip ul li {
-  padding-left:0px;
+  padding-left: 0px;
   font-weight: bold;
 }
 
@@ -203,78 +202,85 @@ export default {
         maintainAspectRatio: false,
         cutoutPercentage: 20,
         tooltips: {
-            enabled: false,
-            custom: function(tooltipModel) {
-                let tooltipEl = document.getElementById('chartjs-tooltip')
-				let areanum = 0
-				let adjustLeft = 0
+          enabled: false,
+          custom(tooltipModel) {
+            let tooltipEl = document.getElementById('chartjs-tooltip')
+            let adjustLeft = 0
 
-                if (!tooltipEl) {
-                    tooltipEl = document.createElement('div');
-                    tooltipEl.id = 'chartjs-tooltip';
-                    this._chart.canvas.parentNode.appendChild(tooltipEl);
-                }
-
-                if (tooltipModel.opacity === 0) {
-                    tooltipEl.style.opacity = 0;
-                    return;
-                }
-
-                tooltipEl.classList.remove('above', 'below', 'no-transform');
-                if (tooltipModel.yAlign) {
-                    tooltipEl.classList.add(tooltipModel.yAlign);
-                } else {
-                    tooltipEl.classList.add('no-transform');
-                }
-
-                function getBody(bodyItem) {
-                    return bodyItem.lines;
-                }
-				
-                if (tooltipModel.body) {
-					let bodyLines = tooltipModel.body.map(getBody)
-					let index = bodyLines[0][0].indexOf(":")
-					index = chartData.findIndex(v => v.label === bodyLines[0][0].slice(0,index))
-                    let dataArr = chartData[index]["areaArr"]
-					
-					let ulNum =  Math.ceil(dataArr.length / 10)
-					
-					if(ulNum > 1) {
-					  adjustLeft = ulNum * 18
-					}
-					
-					let innerHtml = "<div class='wrapper'>"
-					
-					let loopNum = 0
-					let limitNum = 9
-					for (let i = 0; i < ulNum; i++) {
-　　　　　　　　　　　　  innerHtml += '<ul>'
-                      for (let j = loopNum; j < dataArr.length; j++) {
-					    innerHtml += '<li>' + dataArr[j].label + " : " + dataArr[j].cumulative + unit + '</li>'
-						if(j === limitNum) {
-						  loopNum += 10
-						  limitNum += 10
-						  break
-						}
-					  }
-					  innerHtml += '</ul>';
-                    }
-					
-					innerHtml += '</div>'
-							
-                    tooltipEl.innerHTML = innerHtml;
-
-                }
-
-                let positionY = this._chart.canvas.offsetTop;
-                let positionX = this._chart.canvas.offsetLeft;
-
-                tooltipEl.style.opacity = 1;
-                tooltipEl.style.left = positionX + tooltipModel.caretX + adjustLeft + 'px';
-                tooltipEl.style.top = positionY + 45 + 'px';
-                tooltipEl.style.padding = 10 + 'px';
-				tooltipEl.style.pointerEvents = 'none';
+            if (!tooltipEl) {
+              tooltipEl = document.createElement('div')
+              tooltipEl.id = 'chartjs-tooltip'
+              this._chart.canvas.parentNode.appendChild(tooltipEl)
             }
+
+            if (tooltipModel.opacity === 0) {
+              tooltipEl.style.opacity = 0
+              return
+            }
+
+            tooltipEl.classList.remove('above', 'below', 'no-transform')
+            if (tooltipModel.yAlign) {
+              tooltipEl.classList.add(tooltipModel.yAlign)
+            } else {
+              tooltipEl.classList.add('no-transform')
+            }
+
+            function getBody(bodyItem) {
+              return bodyItem.lines
+            }
+
+            if (tooltipModel.body) {
+              const bodyLines = tooltipModel.body.map(getBody)
+              let index = bodyLines[0][0].indexOf(':')
+              index = chartData.findIndex(
+                v => v.label === bodyLines[0][0].slice(0, index)
+              )
+              const dataArr = chartData[index].areaArr
+
+              const ulNum = Math.ceil(dataArr.length / 10)
+
+              if (ulNum > 1) {
+                adjustLeft = ulNum * 18
+              }
+
+              let innerHtml = "<div class='wrapper'>"
+
+              let loopNum = 0
+              let limitNum = 9
+              for (let i = 0; i < ulNum; i++) {
+                innerHtml += '<ul>'
+                for (let j = loopNum; j < dataArr.length; j++) {
+                  innerHtml +=
+                    '<li>' +
+                    dataArr[j].label +
+                    ' : ' +
+                    dataArr[j].cumulative +
+                    unit +
+                    '</li>'
+                  if (j === limitNum) {
+                    loopNum += 10
+                    limitNum += 10
+                    break
+                  }
+                }
+                innerHtml += '</ul>'
+              }
+
+              innerHtml += '</div>'
+
+              tooltipEl.innerHTML = innerHtml
+            }
+
+            const positionY = this._chart.canvas.offsetTop
+            const positionX = this._chart.canvas.offsetLeft
+
+            tooltipEl.style.opacity = 1
+            tooltipEl.style.left =
+              positionX + tooltipModel.caretX + adjustLeft + 'px'
+            tooltipEl.style.top = positionY + 45 + 'px'
+            tooltipEl.style.padding = 10 + 'px'
+            tooltipEl.style.pointerEvents = 'none'
+          }
         },
         legend: {
           display: false
@@ -283,7 +289,7 @@ export default {
           padding: {
             top: 40,
             left: 10,
-			right: 10,
+            right: 10,
             bottom: 20
           }
         }

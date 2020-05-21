@@ -18,11 +18,7 @@
         <div
           :class="[$style.AdvisoryLink, $style.AdvisoryBlockCentering, 'mt-4']"
         >
-          <a
-            v-bind:href="getUrl"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
+          <a :href="getUrl" target="_blank" rel="noopener noreferrer">
             <span>{{
               $t('各保健所の電話番号は新型コロナウイルス感染症ポータルページへ')
             }}</span>
@@ -41,15 +37,15 @@ import Status from '@/components/flow/status.json'
 export default {
   data() {
     return {
-	  status: Status
+      status: Status
     }
   },
   computed: {
     getUrl() {
-	  let URL = this.status.infoURL
-	  if(URL.length == 0) {
-	   URL = "https://www.pref.fukuoka.lg.jp/contents/covid-19-portal.html"
-	  } 
+      let URL = this.status.infoURL
+      if (URL.length === 0) {
+        URL = 'https://www.pref.fukuoka.lg.jp/contents/covid-19-portal.html'
+      }
       return URL
     }
   }

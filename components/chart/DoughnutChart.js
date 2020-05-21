@@ -46,7 +46,7 @@ export default {
               const padding = -2
               const position = element.tooltipPosition()
               let adjustY = 0
-              let adjustX = 0
+              const adjustX = 0
               switch (true) {
                 case index === 3:
                   adjustY = 80
