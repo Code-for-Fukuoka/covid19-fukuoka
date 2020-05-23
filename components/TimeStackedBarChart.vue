@@ -17,8 +17,8 @@
       />
     </template>
     <small>※ 福岡県は福岡市、北九州市以外の自治体の合計</br>
-           ※ 自治体のラベルをクリックすることで特定の自治体のグラフを非表示にできます</br>
-           ※ 民間検査実施分を含まない</small>
+      ※ 自治体のラベルをクリックすることで特定の自治体のグラフを非表示にできます</br>
+      ※ 民間検査実施分を含まない</small>
   </data-view>
 </template>
 
@@ -85,12 +85,13 @@ export default {
   data() {
     return {
       dataKind: 'transition',
+	  labelsArr:[],  // labelsのコピー用配列
+	  dataNumArr:[[],[],[]],  // chartDataのコピー用配列
       hiddenDataSum: [],  // 各区域毎に可視化しないデータの合計値を計算し、格納するための配列
       cumulativeData: []  // 各区域毎に可視化するデータの累積データを格納するための配列（二次元配列）
     }
   },
   created () {
-    
     // 最新の日付から2ヶ月前の日付を mm/dd の文字列で取得（05/18 => 03/18）
     const TwoMonthsAgo = (() => {
       const tmpDate = new Date(this.date)
@@ -99,34 +100,51 @@ export default {
       const d = ('00' + tmpDate.getDate()).slice(-2)
       return m + '/' + d
     })()
+　　　
+    // labels → labelsArrにコピー
+    this.labels.forEach(d => {
+      this.labelsArr.push(d)
+    })
+	
     // 可視化する最初（最古）のデータが入っているインデックスを取得
     // 例：最新の日付が05/18 => 03/19のデータが入っているインデックスを取得
-    const startIndex = this.labels.findIndex(dateStr => {
+    const startIndex = this.labelsArr.findIndex(dateStr => {
       return dateStr > TwoMonthsAgo
     })
-    
-    // 可視化しないラベルを削除
-    this.labels.splice(0, startIndex)
+	
+	// 可視化しないラベルを削除
+    this.labelsArr.splice(0, startIndex)
+	
     // 区域の毎にループ
     for (const i in this.chartData) {
+	  // 可視化しないデータの累計値用配列を作成
+	  const oldDataArr = []
+	  // インデックス以降の数値をchartData → dataNumArrにコピー
+	  this.chartData[i].forEach((d,index) => {
+	    if(index > startIndex - 1) {
+		  this.dataNumArr[i].push(d)
+		} else {
+		  oldDataArr.push(d)
+		}
+      })
       // 可視化しないデータを削除しつつ、可視化しないデータの累計値を計算
-      this.hiddenDataSum.push(this.sum(this.chartData[i].splice(0, startIndex)))
+      this.hiddenDataSum.push(this.sum(oldDataArr))
       // 累積データを計算
-      this.cumulativeData.push(this.cumulative(this.chartData[i], i))
+      this.cumulativeData.push(this.cumulative(this.dataNumArr[i], i))
     }
   },
   computed: {
     displayInfo() {
       if (this.dataKind === 'transition') {
         return {
-          lText: this.sum(this.pickLastNumber(this.chartData)).toLocaleString(),
-          sText: `${this.labels[this.labels.length - 1]} の合計`,
+          lText: this.sum(this.pickLastNumber(this.dataNumArr)).toLocaleString(),
+          sText: `${this.labelsArr[this.labelsArr.length - 1]} の合計`,
           unit: this.unit
         }
       }
       return {
         lText: this.sum(this.pickLastNumber(this.cumulativeData)).toLocaleString(),
-        sText: `${this.labels[this.labels.length - 1]} の全体累計`,
+        sText: `${this.labelsArr[this.labelsArr.length - 1]} の全体累計`,
         unit: this.unit
       }
     },
@@ -134,8 +152,8 @@ export default {
       const colorArray = ['#325685', '#81A3CF', '#B8CBE4']
       if (this.dataKind === 'transition') {
         return {
-          labels: this.labels,
-          datasets: this.chartData.map((item, index) => {
+          labels: this.labelsArr,
+          datasets: this.dataNumArr.map((item, index) => {
             return {
               label: this.items[index],
               data: item,
@@ -146,7 +164,7 @@ export default {
         }
       }
       return {
-        labels: this.labels,
+        labels: this.labelsArr,
         datasets: this.cumulativeData.map((item, index) => {
           return {
             label: this.items[index],
@@ -159,8 +177,8 @@ export default {
     },
     options() {
       const unit = this.unit
-      const sumArray = this.eachArraySum(this.chartData)
-      const data = this.chartData
+      const sumArray = this.eachArraySum(this.dataNumArr)
+      const data = this.dataNumArr
       const cumulativeSumArray = this.eachArraySum(this.cumulativeData)
       return {
         tooltips: {
