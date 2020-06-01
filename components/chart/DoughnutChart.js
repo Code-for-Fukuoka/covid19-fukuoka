@@ -20,6 +20,9 @@ export default {
             meta.data.forEach(function(element, index) {
               // フォントの設定
               let fontSize = 12
+              if (chart.width < 300) {
+                fontSize = 10
+              }
               let fontStyle = 'bold'
               const fontFamily = 'Helvetica Neue'
               ctx.fillStyle = '#4D4D4D'
@@ -46,13 +49,17 @@ export default {
               const padding = -2
               const position = element.tooltipPosition()
               let adjustY = 0
-              const adjustX = 0
+              let adjustX = 0
               switch (true) {
+                case index === 2:
+                  if (chart.width < 300) {
+                    adjustX = -5
+                  }
+                  break
                 case index === 3:
                   adjustY = 80
                   break
               }
-
               // ツールチップに変更内容を表示
               ctx.fillText(
                 labelString,
@@ -60,6 +67,9 @@ export default {
                 position.y - fontSize / 2 - padding - 5 - adjustY
               ) // title
               fontSize = 18
+              if (chart.width < 300) {
+                fontSize = 16
+              }
               fontStyle = 'bold'
               ctx.font = Chart.helpers.fontString(
                 fontSize,

@@ -1,13 +1,32 @@
 <template>
   <data-view :title="title" :title-id="titleId" :date="date" :url="url">
-    <template v-slot:button>
+    <template v-slot:kindButton>
       <data-selector v-model="dataKind" />
+    </template>
+    <template v-slot:selectDate>
+      <v-switch
+        v-model="switch1"
+        label="表示期間を指定する"
+        color="secondary"
+        value="primary"
+        hide-details
+      />
+      <div v-show="switch1">
+        <date-select-slider
+          :arr-type="arrKind"
+          :chart-data="labels"
+          :value="[sliderMin, sliderMax]"
+          :slider-min="sliderMin"
+          :slider-max="sliderMax"
+          @sliderInput="sliderUpdate"
+        />
+      </div>
     </template>
     <bar
       :chart-id="chartId"
       :chart-data="displayData"
       :options="options"
-      :height="240"
+      :height="300"
     />
     <template v-slot:infoPanel>
       <data-view-basic-info-panel
@@ -16,25 +35,30 @@
         :unit="displayInfo.unit"
       />
     </template>
-    <small>※ 福岡県は福岡市、北九州市以外の自治体の合計</br>
-      ※ 自治体のラベルをクリックすることで特定の自治体のグラフを非表示にできます</br>
-      ※ 民間検査実施分を含まない</small>
+    <template v-slot:annotation>
+      <small>※&nbsp;福岡県は福岡市、北九州市以外の自治体の合計</small>
+      <small>※&nbsp;自治体のラベルをクリックすることで特定の自治体のグラフを非表示にできます</small>
+      <small>※&nbsp;民間検査実施分を含まない</small>
+    </template>
   </data-view>
 </template>
 
-<style>
-small.annotation {
-  padding-left: 28px;
-}
-</style>
+<style></style>
 
 <script>
 import DataView from '@/components/DataView.vue'
 import DataSelector from '@/components/DataSelector.vue'
 import DataViewBasicInfoPanel from '@/components/DataViewBasicInfoPanel.vue'
+import DateSelectSlider from '@/components/DateSelectSlider.vue'
+import makeRecentData from '@/utils/makeRecentData'
 
 export default {
-  components: { DataView, DataSelector, DataViewBasicInfoPanel },
+  components: {
+    DataView,
+    DataSelector,
+    DataViewBasicInfoPanel,
+    DateSelectSlider
+  },
   props: {
     title: {
       type: String,
@@ -84,79 +108,93 @@ export default {
   },
   data() {
     return {
+      chartDataSelect: [],
+      displayNumArr: [],
+      arrKind: 'multi',
       dataKind: 'transition',
-	  labelsArr:[],  // labelsのコピー用配列
-	  dataNumArr:[[],[],[]],  // chartDataのコピー用配列
-      hiddenDataSum: [],  // 各区域毎に可視化しないデータの合計値を計算し、格納するための配列
-      cumulativeData: []  // 各区域毎に可視化するデータの累積データを格納するための配列（二次元配列）
-    }
-  },
-  created () {
-    // 最新の日付から2ヶ月前の日付を mm/dd の文字列で取得（05/18 => 03/18）
-    const TwoMonthsAgo = (() => {
-      const tmpDate = new Date(this.date)
-      tmpDate.setMonth(tmpDate.getMonth() - 2)
-      const m = ('00' + (tmpDate.getMonth() + 1)).slice(-2)
-      const d = ('00' + tmpDate.getDate()).slice(-2)
-      return m + '/' + d
-    })()
-　　　
-    // labels → labelsArrにコピー
-    this.labels.forEach(d => {
-      this.labelsArr.push(d)
-    })
-	
-    // 可視化する最初（最古）のデータが入っているインデックスを取得
-    // 例：最新の日付が05/18 => 03/19のデータが入っているインデックスを取得
-    const startIndex = this.labelsArr.findIndex(dateStr => {
-      return dateStr > TwoMonthsAgo
-    })
-	
-	// 可視化しないラベルを削除
-    this.labelsArr.splice(0, startIndex)
-	
-    // 区域の毎にループ
-    for (const i in this.chartData) {
-	  // 可視化しないデータの累計値用配列を作成
-	  const oldDataArr = []
-	  // インデックス以降の数値をchartData → dataNumArrにコピー
-	  this.chartData[i].forEach((d,index) => {
-	    if(index > startIndex - 1) {
-		  this.dataNumArr[i].push(d)
-		} else {
-		  oldDataArr.push(d)
-		}
-      })
-      // 可視化しないデータを削除しつつ、可視化しないデータの累計値を計算
-      this.hiddenDataSum.push(this.sum(oldDataArr))
-      // 累積データを計算
-      this.cumulativeData.push(this.cumulative(this.dataNumArr[i], i))
+      switch1: false,
+      graphRange: [0, 1]
     }
   },
   computed: {
+    sliderMin() {
+      if (!this.labels || this.labels.length === 0) {
+        return 1
+      }
+      const graphData = {
+        date: this.date,
+        graphData: this.labels
+      }
+      const twoMonthAgo = makeRecentData(graphData)
+      return twoMonthAgo
+    },
+    sliderMax() {
+      if (!this.labels || this.labels.length === 0) {
+        return 1
+      }
+      this.sliderUpdate([this.sliderMin, this.labels.length - 1])
+      return this.labels.length - 1
+    },
+    transitionSum() {
+      let totalNum = 0
+      this.chartDataSelect.forEach((d, index) => {
+        if (this.displayNumArr.includes(index)) {
+          totalNum += d[this.graphRange[1]]
+        }
+      })
+      return totalNum
+    },
+    cumulativeSum() {
+      let totalNum = 0
+      this.chartDataSelect.forEach((d, index) => {
+        if (this.displayNumArr.includes(index)) {
+          for (let i = 0; i <= this.graphRange[1]; i++) {
+            totalNum += d[i]
+          }
+        }
+      })
+      return totalNum
+    },
     displayInfo() {
       if (this.dataKind === 'transition') {
         return {
-          lText: this.sum(this.pickLastNumber(this.dataNumArr)).toLocaleString(),
-          sText: `${this.labelsArr[this.labelsArr.length - 1]} の合計`,
+          lText: this.transitionSum.toLocaleString(),
+          sText: `${this.labels[this.graphRange[1]]} の合計`,
           unit: this.unit
         }
       }
       return {
-        lText: this.sum(this.pickLastNumber(this.cumulativeData)).toLocaleString(),
-        sText: `${this.labelsArr[this.labelsArr.length - 1]} の全体累計`,
+        lText: this.cumulativeSum.toLocaleString(),
+        sText: `${this.labels[0]} - ${
+          this.labels[this.graphRange[1]]
+        }  の全体累計`,
         unit: this.unit
       }
     },
     displayData() {
       const colorArray = ['#325685', '#81A3CF', '#B8CBE4']
+      const displayLabel = []
+      for (let i = this.graphRange[0]; i <= this.graphRange[1]; i++) {
+        displayLabel.push(this.labels[i])
+      }
       if (this.dataKind === 'transition') {
         return {
-          labels: this.labelsArr,
-          datasets: this.dataNumArr.map((item, index) => {
+          labels: displayLabel,
+          datasets: this.chartDataSelect.map((item, index) => {
+            const displayArr = []
+            for (let i = this.graphRange[0]; i <= this.graphRange[1]; i++) {
+              displayArr.push(item[i])
+            }
+            let show
+            if (this.displayNumArr.includes(index)) {
+              show = false
+            } else {
+              show = true
+            }
             return {
               label: this.items[index],
-              data: item,
+              data: displayArr,
+              hidden: show,
               backgroundColor: colorArray[index],
               borderWidth: 0
             }
@@ -164,11 +202,23 @@ export default {
         }
       }
       return {
-        labels: this.labelsArr,
-        datasets: this.cumulativeData.map((item, index) => {
+        labels: displayLabel,
+        datasets: this.chartDataSelect.map((item, index) => {
+          const allItemsArr = this.cumulative(item)
+          const displayArr = []
+          for (let i = this.graphRange[0]; i <= this.graphRange[1]; i++) {
+            displayArr.push(allItemsArr[i])
+          }
+          let show
+          if (this.displayNumArr.includes(index)) {
+            show = false
+          } else {
+            show = true
+          }
           return {
             label: this.items[index],
-            data: item,
+            data: displayArr,
+            hidden: show,
             backgroundColor: colorArray[index],
             borderWidth: 0
           }
@@ -176,19 +226,72 @@ export default {
       }
     },
     options() {
+      const self = this
       const unit = this.unit
-      const sumArray = this.eachArraySum(this.dataNumArr)
-      const data = this.dataNumArr
-      const cumulativeSumArray = this.eachArraySum(this.cumulativeData)
+      const sumArray = this.eachArraySum(this.chartDataSelect)
+      const data = this.chartDataSelect
+      const cumulativeData = this.chartDataSelect.map(item => {
+        return this.cumulative(item)
+      })
+      const cumulativeSumArray = this.eachArraySum(cumulativeData)
+
+      const newLegendClickHandler = function(e, legendItem) {
+        const index = legendItem.datasetIndex
+        const ci = this.chart
+        const meta = ci.getDatasetMeta(index)
+        meta.hidden =
+          meta.hidden === null ? !ci.data.datasets[index].hidden : null
+        ci.update()
+
+        const arrIndex = self.displayNumArr.indexOf(index)
+        if (!legendItem.hidden) {
+          if (arrIndex >= 0) {
+            self.displayNumArr.splice(arrIndex, 1)
+          }
+        } else {
+          if (arrIndex === -1) {
+            self.displayNumArr.push(index)
+          }
+          if (self.displayNumArr.length > 0) {
+            self.displayNumArr.sort(function(a, b) {
+              if (a < b) return -1
+              if (a > b) return 1
+              return 0
+            })
+          }
+        }
+      }
       return {
         tooltips: {
           displayColors: false,
           callbacks: {
             label: tooltipItem => {
+              const transitionSelect = [[], [], []]
+              data.map((item, index) => {
+                for (let i = this.graphRange[0]; i <= this.graphRange[1]; i++) {
+                  transitionSelect[index].push(item[i])
+                }
+              })
+              const cumulativeSelect = [[], [], []]
+              data.map((item, index) => {
+                const allItemsArr = this.cumulative(item)
+                for (let i = this.graphRange[0]; i <= this.graphRange[1]; i++) {
+                  cumulativeSelect[index].push(allItemsArr[i])
+                }
+              })
+
               const labelText =
                 this.dataKind === 'transition'
-                  ? `${sumArray[tooltipItem.index]}${unit}（福岡市: ${data[0][tooltipItem.index]}/北九州市: ${data[1][tooltipItem.index]}/福岡県※: ${data[2][tooltipItem.index]}）`
-                  : `${cumulativeSumArray[tooltipItem.index]}${unit}（福岡市: ${this.cumulativeData[0][tooltipItem.index]}/北九州市: ${this.cumulativeData[1][tooltipItem.index]}/福岡県※: ${this.cumulativeData[2][tooltipItem.index]}）`
+                  ? `${sumArray[tooltipItem.index]}${unit}（福岡市: ${
+                      transitionSelect[0][tooltipItem.index]
+                    }/北九州市: ${
+                      transitionSelect[1][tooltipItem.index]
+                    }/福岡県※: ${transitionSelect[2][tooltipItem.index]}）`
+                  : `${cumulativeSumArray[tooltipItem.index]}${unit}（福岡市: ${
+                      cumulativeSelect[0][tooltipItem.index]
+                    }/北九州市: ${
+                      cumulativeSelect[1][tooltipItem.index]
+                    }/福岡県※: ${cumulativeSelect[2][tooltipItem.index]}）`
               return labelText
             },
             title(tooltipItem, data) {
@@ -201,8 +304,18 @@ export default {
         },
         responsive: true,
         maintainAspectRatio: false,
+        onResize(chart, size) {
+          if (size.width > 320) {
+            chart.options.scales.xAxes[0].ticks.fontSize = 11
+            chart.options.scales.xAxes[0].ticks.maxTicksLimit = 20
+          } else {
+            chart.options.scales.xAxes[0].ticks.fontSize = 9
+            chart.options.scales.xAxes[0].ticks.maxTicksLimit = 10
+          }
+        },
         legend: {
-          display: true
+          display: true,
+          onClick: newLegendClickHandler
         },
         scales: {
           xAxes: [
@@ -281,10 +394,19 @@ export default {
       }
     }
   },
+  created() {
+    this.chartData.forEach((d, index) => {
+      this.chartDataSelect.push(d)
+      this.displayNumArr.push(index)
+    })
+  },
   methods: {
-    cumulative(array, index) {
+    sliderUpdate(sliderValue) {
+      this.graphRange = sliderValue
+    },
+    cumulative(array) {
       const cumulativeArray = []
-      let patSum = this.hiddenDataSum[index]
+      let patSum = 0
       array.forEach(d => {
         patSum += d
         cumulativeArray.push(patSum)
@@ -301,19 +423,18 @@ export default {
         return array[array.length - 1]
       })
     },
-    cumulativeSum(chartDataArray) {
-      return chartDataArray.map(array => {
-        return array.reduce((acc, cur) => {
-          return acc + cur
-        })
-      })
-    },
     eachArraySum(chartDataArray) {
       const sumArray = []
       for (let i = 0; i < chartDataArray[0].length; i++) {
-        sumArray.push(chartDataArray[0][i] + chartDataArray[1][i] + chartDataArray[2][i])
+        sumArray.push(
+          chartDataArray[0][i] + chartDataArray[1][i] + chartDataArray[2][i]
+        )
       }
-      return sumArray
+      const selectSumArray = sumArray.slice(
+        this.graphRange[0],
+        this.graphRange[1] + 1
+      )
+      return selectSumArray
     }
   }
 }

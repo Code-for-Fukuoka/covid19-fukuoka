@@ -21,7 +21,7 @@
         >
           <confirmed-cases-table v-bind="confirmedCases" />
         </svg-card>
-      </v-col> 
+      </v-col>
       <v-col cols="12" md="6" class="DataCard">
         <time-bar-patients-chart
           title="陽性患者数"
@@ -29,6 +29,8 @@
           :chart-id="'time-bar-chart-patients'"
           :chart-data="patientsGraph"
           :date="Data.patients.date"
+          :items="patientsItems"
+          :labels="patientsLabels"
           :unit="'人'"
           :url="
             'https://ckan.open-governmentdata.org/dataset/401000_pref_fukuoka_covid19_patients'
@@ -57,7 +59,9 @@
           :chart-option="{}"
           :date="Data.patients.date"
           :info="sumInfoOfPatients"
-          :url="'https://ckan.open-governmentdata.org/dataset/401000_pref_fukuoka_covid19_patients'"
+          :url="
+            'https://ckan.open-governmentdata.org/dataset/401000_pref_fukuoka_covid19_patients'
+          "
         />
       </v-col>
       <v-col cols="12" md="6" class="DataCard">
@@ -70,18 +74,22 @@
           :items="inspectionsItems"
           :labels="inspectionsLabels"
           :unit="'件'"
-          :url="'https://ckan.open-governmentdata.org/dataset/401000_pref_fukuoka_covid19_exam'"
+          :url="
+            'https://ckan.open-governmentdata.org/dataset/401000_pref_fukuoka_covid19_exam'
+          "
         />
       </v-col>
       <v-col cols="12" md="6" class="DataCard">
         <time-bar-chart
-          title="新型コロナウイルス感染症　帰国者・接触者相談センター相談件数"
+          title="新型コロナウイルス感染症 帰国者・接触者相談センター相談件数"
           :title-id="'number-of-reports-to-covid19-consultation-desk'"
           :chart-id="'time-bar-chart-querents'"
           :chart-data="querentsGraph"
           :date="Data.querents.date"
           :unit="'件'"
-          :url="'https://ckan.open-governmentdata.org/dataset/401000_pref_fukuoka_covid19_kikokusyasessyokusya'"
+          :url="
+            'https://ckan.open-governmentdata.org/dataset/401000_pref_fukuoka_covid19_kikokusyasessyokusya'
+          "
         />
       </v-col>
     </v-row>
@@ -109,7 +117,6 @@ import News from '@/data/news.json'
 import SvgCard from '@/components/SvgCard.vue'
 import ConfirmedCasesTable from '@/components/ConfirmedCasesTable.vue'
 
-
 export default {
   components: {
     PageHeader,
@@ -126,7 +133,16 @@ export default {
   },
   data() {
     // 感染者数グラフ
-    const patientsGraph = formatPatientsGraph(Data.patients)
+    const patientsData = formatPatientsGraph(Data.patients)
+    const patientsGraph = [
+      patientsData.data['福岡市'],
+      patientsData.data['北九州市'],
+      patientsData.data['福岡県※'],
+      patientsData.data['それ以外※']
+    ]
+    const patientsItems = ['福岡市', '北九州市', '福岡県※', 'それ以外※']
+    const patientsLabels = patientsData.labels
+
     // 感染者数グラフ（地区別）
     const areaGraph = formatAreaGraph(Data.patients.data)
     // 感染者数
@@ -148,11 +164,7 @@ export default {
       Data.inspections_summary.data['北九州市'],
       Data.inspections_summary.data['福岡県※']
     ]
-    const inspectionsItems = [
-      '福岡市',
-      '北九州市',
-      '福岡県※'
-    ]
+    const inspectionsItems = ['福岡市', '北九州市', '福岡県※']
     const inspectionsLabels = Data.inspections_summary.labels
     // 死亡者数
     // #MEMO: 今後使う可能性あるので一時コメントアウト
@@ -162,21 +174,26 @@ export default {
     // 検査陽性者の状況
     const confirmedCases = formatConfirmedCases(Data.main_summary)
 
+    const PatientsInfo = Data.patients.data
+    const moment = require('moment')
+
     const sumInfoOfPatients = {
-      lText: patientsGraph[0].DataArr[
-        patientsGraph[0].DataArr.length - 1
-      ].cumulative.toLocaleString(),
+      lText: PatientsInfo.length.toLocaleString(),
       sText:
-        patientsGraph[0].DataArr[patientsGraph[0].DataArr.length - 1].label +
-        'の累計',
+        moment(PatientsInfo[PatientsInfo.length - 1]['リリース日']).format(
+          'MM/DD'
+        ) + 'の累計',
       unit: '人'
     }
 
     const data = {
       Data,
       patientsTable,
+      patientsData,
       patientsGraph,
-	  areaGraph,
+      patientsItems,
+      patientsLabels,
+      areaGraph,
       dischargesGraph,
       testedGraph,
       contactsGraph,
