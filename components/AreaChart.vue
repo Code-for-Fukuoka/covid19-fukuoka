@@ -20,17 +20,16 @@
         :unit="displayInfo.unit"
       />
     </template>
-    <small class="annotation">※居住地が調査中、県外在住、海外の陽性患者</small>
+    <template v-slot:annotation>
+      <small>※&nbsp;それ以外は居住地が調査中、県外在住、海外の陽性患者</small>
+    </template>
   </data-view>
 </template>
 
 <style>
+
 .adjustMargin {
   margin-top: -15px;
-}
-small.annotation {
-  padding-left: 28px;
-  font-weight: 'bold';
 }
 
 #chartjs-tooltip {
@@ -187,7 +186,7 @@ export default {
             data: this.chartData.map(d => {
               return d.cumulative
             }),
-            backgroundColor: ['#80CAFF', '#D9EFFF', '#C1E5FF', '#0070C0'],
+            backgroundColor: ['#80CAFF', '#D9EFFF', '#C1E5FF', '#45c1f0'],
             borderColor: '#7f7f7f',
             borderWidth: 0.3
           }
@@ -288,8 +287,8 @@ export default {
         layout: {
           padding: {
             top: 40,
-            left: 10,
-            right: 10,
+            left: 15,
+            right: 15,
             bottom: 20
           }
         }
