@@ -32,7 +32,7 @@ export default (data: DataType[]) => {
       areaArr: []
     },
     {
-      label: '福岡県（その他）',
+      label: '福岡県※',
       cumulative: 0,
       areaArr: []
     },

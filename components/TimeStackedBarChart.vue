@@ -113,7 +113,14 @@ export default {
       arrKind: 'multi',
       dataKind: 'transition',
       switch1: false,
-      graphRange: [0, 1]
+      graphRange: [0, 1],
+	  displayWidth: 'normal'
+    }
+  },
+  mounted() {
+    const cardWidthNum = this.$el.clientWidth
+    if (cardWidthNum < 350) {
+      this.displayWidth = 'sp'
     }
   },
   computed: {
@@ -259,8 +266,14 @@ export default {
               return 0
             })
           }
-        }
+        }  
       }
+	  
+      let maxLimitNum = 20
+      if (this.displayWidth === 'sp') {
+        maxLimitNum = 10
+      }
+	  
       return {
         tooltips: {
           displayColors: false,
@@ -305,11 +318,9 @@ export default {
         responsive: true,
         maintainAspectRatio: false,
         onResize(chart, size) {
-          if (size.width > 320) {
-            chart.options.scales.xAxes[0].ticks.fontSize = 11
+          if (size.width > 350) {
             chart.options.scales.xAxes[0].ticks.maxTicksLimit = 20
           } else {
-            chart.options.scales.xAxes[0].ticks.fontSize = 9
             chart.options.scales.xAxes[0].ticks.maxTicksLimit = 10
           }
         },
@@ -327,7 +338,7 @@ export default {
               },
               ticks: {
                 fontSize: 9,
-                maxTicksLimit: 20,
+                maxTicksLimit: maxLimitNum,
                 fontColor: '#808080',
                 maxRotation: 0,
                 minRotation: 0,
@@ -371,7 +382,11 @@ export default {
               },
               type: 'time',
               time: {
-                unit: 'month'
+                unit: 'month',
+                parser: 'M/D',
+                displayFormats: {
+                  month: 'MMM'
+                }
               }
             }
           ],
