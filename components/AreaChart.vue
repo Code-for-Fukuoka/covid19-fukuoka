@@ -21,6 +21,7 @@
       />
     </template>
     <template v-slot:annotation>
+	  <small>※&nbsp;福岡県は福岡市、北九州市以外の自治体の合計</small>
       <small>※&nbsp;それ以外は居住地が調査中、県外在住、海外の陽性患者</small>
     </template>
   </data-view>

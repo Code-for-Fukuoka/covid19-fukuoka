@@ -8,6 +8,7 @@
           </h3>
           <p v-if="category" class="DataView-Category">({{ category }})</p>
           <slot name="kindButton" />
+		  <slot name="areaButton" />
         </div>
         <slot name="infoPanel" />
         <div class="DataView-SelectSpace">

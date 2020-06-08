@@ -52,6 +52,20 @@
         />
       </v-col>
       <v-col cols="12" md="6" class="DataCard">
+        <age-chart
+          title="陽性患者数の累計"
+          category="年代・性別"
+          :title-id="'age-of-confirmed-cases'"
+          :chart-id="'age-chart-patients'"
+          :chart-data="ageGraph"
+          :date="Data.patients.date"
+          :unit="'人'"
+          :url="
+            'https://ckan.open-governmentdata.org/dataset/401000_pref_fukuoka_covid19_patients'
+          "
+        />
+      </v-col>
+      <v-col cols="12" md="6" class="DataCard">
         <data-table
           :title="'陽性患者の属性'"
           :title-id="'attributes-of-confirmed-cases'"
@@ -101,6 +115,7 @@ import PageHeader from '@/components/PageHeader.vue'
 import TimeBarChart from '@/components/TimeBarChart.vue'
 import TimeBarPatientsChart from '@/components/TimeBarPatientsChart.vue'
 import AreaChart from '@/components/AreaChart.vue'
+import AgeChart from '@/components/AgeChart.vue'
 import MetroBarChart from '@/components/MetroBarChart.vue'
 import TimeStackedBarChart from '@/components/TimeStackedBarChart.vue'
 import WhatsNew from '@/components/WhatsNew.vue'
@@ -111,6 +126,7 @@ import DataTable from '@/components/DataTable.vue'
 import formatGraph from '@/utils/formatGraph'
 import formatPatientsGraph from '@/utils/formatPatientsGraph'
 import formatAreaGraph from '@/utils/formatAreaGraph'
+import formatAgeGraph from '@/utils/formatAgeGraph'
 import formatTable from '@/utils/formatTable'
 import formatConfirmedCases from '@/utils/formatConfirmedCases'
 import News from '@/data/news.json'
@@ -123,6 +139,7 @@ export default {
     TimeBarChart,
     TimeBarPatientsChart,
     AreaChart,
+	AgeChart,
     MetroBarChart,
     TimeStackedBarChart,
     WhatsNew,
@@ -145,6 +162,8 @@ export default {
 
     // 感染者数グラフ（地区別）
     const areaGraph = formatAreaGraph(Data.patients.data)
+    // 感染者数グラフ（年齢・性別）
+    const ageGraph = formatAgeGraph(Data.patients.data)
     // 感染者数
     const patientsTable = formatTable(Data.patients.data)
     // 退院者グラフ
@@ -194,6 +213,7 @@ export default {
       patientsItems,
       patientsLabels,
       areaGraph,
+	  ageGraph,
       dischargesGraph,
       testedGraph,
       contactsGraph,

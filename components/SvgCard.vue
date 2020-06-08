@@ -2,6 +2,7 @@
   <data-view class="SvgCard" :title="title" :title-id="titleId" :date="date" :url="url">
     <template v-slot:infoPanel>
       <p class="Graph-Desc"> （注）入院等には、自宅待機中の方などを含む</p>
+      <p class="Graph-Desc"> （注）Internet Explorer(IE)では表示できない場合があります</p>
     </template>
     <slot />
   </data-view>
