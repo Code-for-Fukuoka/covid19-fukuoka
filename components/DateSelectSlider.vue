@@ -64,7 +64,6 @@ export default {
       this.sliderValue = [this.sliderMin, this.sliderMax]
     },
     sliderValue(newValue, oldValue) {
-      console.log(Math.abs(newValue[0] - newValue[1]))
       if (Math.abs(newValue[0] - newValue[1]) <= 12) {
         this.sliderValue = oldValue
       } else {

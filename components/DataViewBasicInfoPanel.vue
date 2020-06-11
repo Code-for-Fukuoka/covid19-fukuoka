@@ -1,16 +1,18 @@
 <template>
   <div class="DataView-DataInfo">
-    <span v-show="aText" class="DataView-DataInfo-Kind"> {{ aText }}</span>
+    <span v-show="aText" class="DataView-DataInfo-Kind">{{ aText }}</span>
     <span class="DataView-DataInfo-summary">
       <span
         v-if="kindtype && lText > 0"
         class="DataView-DataInfo-summary-transition"
-        >+</span
       >
+        +
+      </span>
       <span :style="{ color: activeColor }">{{ lText }}</span>
       <small class="DataView-DataInfo-summary-unit">{{ unit }}</small>
     </span>
     <br />
+    <span v-show="rText" class="DataView-DataInfo-Rate">{{ rText }}</span>
     <small class="DataView-DataInfo-date">{{ sText }}</small>
   </div>
 </template>
@@ -47,6 +49,9 @@
       font-weight: bold;
       color: $gray-3;
     }
+    &-rate {
+      font-size: 15px;
+    }
     &-summary {
       display: inline-block;
       font-family: Hiragino Sans, sans-serif;
@@ -77,19 +82,25 @@ import { Component, Prop, Vue } from 'vue-property-decorator'
 export default class DataViewBasicInfoPanel extends Vue {
   @Prop() private aText!: string
   @Prop() private lText!: string
+  @Prop() private rText!: string
   @Prop() private sText!: string
   @Prop() private unit!: string
+  @Prop() private numType!: string
   @Prop() private dataKind!: string
 
   get kindtype() {
-    if (this.dataKind === 'transition') {
+    if (this.dataKind === 'transition' && this.numType === 'number') {
       return true
     }
     return false
   }
 
   get activeColor() {
-    if (!this.dataKind || this.dataKind === 'cumulative') {
+    if (
+      !this.dataKind ||
+      this.dataKind === 'cumulative' ||
+      this.numType === 'percent'
+    ) {
       return '#4D4D4D'
     }
     if (Number(this.lText) === 0) {
