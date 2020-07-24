@@ -77,6 +77,7 @@
 import DataView from '@/components/DataView.vue'
 import DoughnutChart from '@/components/chart/DoughnutChart.js'
 import DataViewBasicInfoPanel from '@/components/DataViewBasicInfoPanel.vue'
+import chartColor from '@/utils/colors'
 
 export default {
   components: {
@@ -187,7 +188,7 @@ export default {
             data: this.chartData.map(d => {
               return d.cumulative
             }),
-            backgroundColor: ['#80CAFF', '#D9EFFF', '#C1E5FF', '#45c1f0'],
+            backgroundColor: chartColor,
             borderColor: '#7f7f7f',
             borderWidth: 0.3
           }

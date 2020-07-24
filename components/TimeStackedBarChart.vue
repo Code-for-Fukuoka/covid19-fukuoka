@@ -54,6 +54,7 @@ import DataSelector from '@/components/DataSelector.vue'
 import DataViewBasicInfoPanel from '@/components/DataViewBasicInfoPanel.vue'
 import DateSelectSlider from '@/components/DateSelectSlider.vue'
 import makeRecentData from '@/utils/makeRecentData'
+import chartColor from '@/utils/colors'
 
 export default {
   components: {
@@ -176,7 +177,7 @@ export default {
       }
     },
     displayData() {
-      const colorArray = ['#325685', '#81A3CF', '#B8CBE4']
+      const colorArray = chartColor.slice(0,3)
       const displayLabel = []
       for (let i = this.graphRange[0]; i <= this.graphRange[1]; i++) {
         displayLabel.push(this.labels[i])
