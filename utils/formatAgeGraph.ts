@@ -18,7 +18,6 @@ interface DataArrType {
 
 type GraphDataType = {
   label: string
-  update: string
   cumulative: number
   DataArr: Array<DataArrType>
 }
@@ -27,7 +26,6 @@ export default (data: DataType[]) => {
   const graphData: GraphDataType[] = [
     {
       label: 'すべて',
-      update: '',
       cumulative: 0,
       DataArr: [
         { label: '10歳未満', count: 0, percent: 0, male: 0, female: 0 },
@@ -44,7 +42,6 @@ export default (data: DataType[]) => {
     },
     {
       label: '福岡市',
-      update: '',
       cumulative: 0,
       DataArr: [
         { label: '10歳未満', count: 0, percent: 0, male: 0, female: 0 },
@@ -61,7 +58,6 @@ export default (data: DataType[]) => {
     },
     {
       label: '北九州市',
-      update: '',
       cumulative: 0,
       DataArr: [
         { label: '10歳未満', count: 0, percent: 0, male: 0, female: 0 },
@@ -78,7 +74,6 @@ export default (data: DataType[]) => {
     },
     {
       label: '福岡県（その他）',
-      update: '',
       cumulative: 0,
       DataArr: [
         { label: '10歳未満', count: 0, percent: 0, male: 0, female: 0 },
@@ -95,7 +90,6 @@ export default (data: DataType[]) => {
     },
     {
       label: 'それ以外※',
-      update: '',
       cumulative: 0,
       DataArr: [
         { label: '10歳未満', count: 0, percent: 0, male: 0, female: 0 },
@@ -116,8 +110,6 @@ export default (data: DataType[]) => {
 
   data.forEach(d => {
     let ageData: string
-    const update: Date = new Date(d['リリース日'])
-    const updateTxt: string = update.getMonth() + 1 + '/' + update.getDate()
     switch (true) {
       case d['年代'].includes('未満'):
         ageData = '10歳未満'
@@ -137,7 +129,6 @@ export default (data: DataType[]) => {
     graphData[0].DataArr[ArrIndex].count += 1
     cumulDataArr[0] += 1
     graphData[0].cumulative += 1
-    graphData[0].update = updateTxt
 
     let DataArrIndex: number
     switch (true) {
@@ -191,24 +182,23 @@ export default (data: DataType[]) => {
     }
     cumulDataArr[DataArrIndex] += 1
     graphData[DataArrIndex].cumulative += 1
-    graphData[DataArrIndex].update = updateTxt
   })
 
   graphData.forEach((d, index) => {
-	let emptyArr: number[] = []
-    d.DataArr.forEach( (e,indexSecond) => {
-	  if(!e.count) {
-	    emptyArr.push(indexSecond)
-	  }
+    const emptyArr: number[] = []
+    d.DataArr.forEach((e, indexSecond) => {
+      if (!e.count) {
+        emptyArr.push(indexSecond)
+      }
       const sum = (e.count / graphData[index].cumulative) * 100
       e.percent = Math.ceil(sum)
     })
-	let count = 0
-    emptyArr.forEach( f => {
-	 graphData[index].DataArr.splice(f - count, 1)
-	 count += 1
-    })	
+    let count = 0
+    emptyArr.forEach(f => {
+      graphData[index].DataArr.splice(f - count, 1)
+      count += 1
+    })
   })
-	
+
   return graphData
 }

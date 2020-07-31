@@ -30,6 +30,7 @@
     />
     <template v-slot:infoPanel>
       <data-view-basic-info-panel
+        :num-type="'number'"
         :l-text="displayInfo.lText"
         :s-text="displayInfo.sText"
         :unit="displayInfo.unit"
@@ -97,13 +98,7 @@ export default {
       arrKind: 'single',
       switch1: false,
       graphRange: [0, 1],
-	  displayWidth: 'normal'
-    }
-  },
-  mounted() {
-    const cardWidthNum = this.$el.clientWidth
-    if (cardWidthNum < 350) {
-      this.displayWidth = 'sp'
+      displayWidth: 'normal'
     }
   },
   computed: {
@@ -310,6 +305,12 @@ export default {
           ]
         }
       }
+    }
+  },
+  mounted() {
+    const cardWidthNum = this.$el.clientWidth
+    if (cardWidthNum < 350) {
+      this.displayWidth = 'sp'
     }
   },
   methods: {

@@ -38,6 +38,22 @@
         />
       </v-col>
       <v-col cols="12" md="6" class="DataCard">
+        <infection-source-chart
+          title="陽性患者数"
+          category="感染経路別"
+          :title-id="'type-of-infection-cases'"
+          :chart-id="'infection-source-chart-patients'"
+          :chart-data="infectionTypeGraph"
+          :date="Data.patients.date"
+          :items="infectionTypeItems"
+          :labels="infectionTypeLabels"
+          :unit="'%'"
+          :url="
+            'https://ckan.open-governmentdata.org/dataset/401000_pref_fukuoka_covid19_patients'
+          "
+        />
+      </v-col>
+      <v-col cols="12" md="6" class="DataCard">
         <area-chart
           title="陽性患者数の累計"
           category="居住地別"
@@ -114,6 +130,7 @@
 import PageHeader from '@/components/PageHeader.vue'
 import TimeBarChart from '@/components/TimeBarChart.vue'
 import TimeBarPatientsChart from '@/components/TimeBarPatientsChart.vue'
+import InfectionSourceChart from '@/components/InfectionSourceChart.vue'
 import AreaChart from '@/components/AreaChart.vue'
 import AgeChart from '@/components/AgeChart.vue'
 import MetroBarChart from '@/components/MetroBarChart.vue'
@@ -125,6 +142,7 @@ import MetroData from '@/data/metro.json'
 import DataTable from '@/components/DataTable.vue'
 import formatGraph from '@/utils/formatGraph'
 import formatPatientsGraph from '@/utils/formatPatientsGraph'
+import formatInfectionType from '@/utils/formatInfectionType'
 import formatAreaGraph from '@/utils/formatAreaGraph'
 import formatAgeGraph from '@/utils/formatAgeGraph'
 import formatTable from '@/utils/formatTable'
@@ -138,8 +156,9 @@ export default {
     PageHeader,
     TimeBarChart,
     TimeBarPatientsChart,
+    InfectionSourceChart,
     AreaChart,
-	AgeChart,
+    AgeChart,
     MetroBarChart,
     TimeStackedBarChart,
     WhatsNew,
@@ -159,7 +178,11 @@ export default {
     ]
     const patientsItems = ['福岡市', '北九州市', '福岡県※', 'それ以外※']
     const patientsLabels = patientsData.labels
-
+    // 感染者数グラフ（感染経路別）
+    const infectionTypeData = formatInfectionType(Data.patients)
+    const infectionTypeGraph = infectionTypeData.DataArr
+    const infectionTypeItems = ['濃厚接触者', '感染経路不明', '海外渡航歴有']
+    const infectionTypeLabels = infectionTypeData.labels
     // 感染者数グラフ（地区別）
     const areaGraph = formatAreaGraph(Data.patients.data)
     // 感染者数グラフ（年齢・性別）
@@ -212,8 +235,12 @@ export default {
       patientsGraph,
       patientsItems,
       patientsLabels,
+      infectionTypeData,
+      infectionTypeGraph,
+      infectionTypeItems,
+      infectionTypeLabels,
       areaGraph,
-	  ageGraph,
+      ageGraph,
       dischargesGraph,
       testedGraph,
       contactsGraph,
