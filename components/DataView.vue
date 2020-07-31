@@ -8,7 +8,7 @@
           </h3>
           <p v-if="category" class="DataView-Category">({{ category }})</p>
           <slot name="kindButton" />
-		  <slot name="areaButton" />
+          <slot name="areaButton" />
         </div>
         <slot name="infoPanel" />
         <div class="DataView-SelectSpace">
@@ -23,9 +23,9 @@
         "
       >
         <slot />
-		<div class="DataView-AnnotationStyle">
-		  <slot name="annotation" />
-		</div>
+        <div class="DataView-AnnotationStyle">
+          <slot name="annotation" />
+        </div>
       </v-card-text>
       <v-footer class="DataView-Footer">
         <time :datetime="formattedDate">{{ date }} 更新</time>
@@ -133,7 +133,7 @@ export default class DataView extends Vue {
     width: 100%;
     padding-left: 2px !important;
   }
- 
+
   &-SelectSpace .v-label {
     font-size: 14px !important;
   }
@@ -144,12 +144,12 @@ export default class DataView extends Vue {
   &-CardTextForXS {
     margin: 20px 0;
   }
-  
+
   &-AnnotationStyle small {
     display: inline-block;
     color: rgba(0, 0, 0, 0.6);
   }
-  
+
   &-Embed {
     background-color: $gray-5;
   }

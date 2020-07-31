@@ -5,6 +5,7 @@ type patientsArr = {
   年代: string
   性別: string
   退院: string
+  感染経路: string
   date: Date
 }
 
@@ -13,23 +14,44 @@ type DataType = {
   data: Array<patientsArr>
 }
 
+interface DataArrType {
+  [key: string]: number[]
+}
+
 type GraphDataType = {
-  date: Date
-  data: {
-    [key: string]: number[]
-  }
+  DataArr: Array<DataArrType>
   labels: string[]
 }
 
 export default (data: DataType) => {
   const graphData: GraphDataType = {
-    date: data.date,
-    data: {
-      福岡市: [],
-      北九州市: [],
-      '福岡県※': [],
-      'それ以外※': []
-    },
+    DataArr: [
+      {
+        濃厚接触者: [],
+        感染経路不明: [],
+        海外渡航歴有: []
+      },
+      {
+        濃厚接触者: [],
+        感染経路不明: [],
+        海外渡航歴有: []
+      },
+      {
+        濃厚接触者: [],
+        感染経路不明: [],
+        海外渡航歴有: []
+      },
+      {
+        濃厚接触者: [],
+        感染経路不明: [],
+        海外渡航歴有: []
+      },
+      {
+        濃厚接触者: [],
+        感染経路不明: [],
+        海外渡航歴有: []
+      }
+    ],
     labels: []
   }
 
@@ -40,6 +62,8 @@ export default (data: DataType) => {
   const duration = moment.duration(diff)
   const days = Math.floor(duration.asDays())
 
+  const categoryArr = ['濃厚接触者', '感染経路不明', '海外渡航歴有']
+
   for (let i = 0; i <= days; i++) {
     const date = moment
       .utc(dateFirst)
@@ -47,28 +71,35 @@ export default (data: DataType) => {
       .format()
     graphData.labels.push(moment(date).format('MM/DD'))
     const result = data.data.filter(data => data['リリース日'] === date)
-    const countArr = [0, 0, 0, 0]
+    const countArr = [
+      [0, 0, 0],
+      [0, 0, 0],
+      [0, 0, 0],
+      [0, 0, 0],
+      [0, 0, 0]
+    ]
     if (result.length > 0) {
       result.forEach(d => {
+        let areaIndex = 0
         switch (true) {
           case d['居住地'].includes('福岡市'):
-            countArr[0] += 1
+            areaIndex = 1
             break
           case d['居住地'].includes('北九州市'):
             if (d['居住地'] === '北九州市外') {
-              countArr[3] += 1
+              areaIndex = 4
             } else {
-              countArr[1] += 1
+              areaIndex = 2
             }
             break
           default:
             if (d['居住地'] === '調査中' || d['居住地'] === '海外') {
-              countArr[3] += 1
+              areaIndex = 4
             } else if (
               d['居住地'].includes('県') &&
               !d['居住地'].includes('福岡')
             ) {
-              countArr[3] += 1
+              areaIndex = 3
             } else if (d['居住地'].includes('区')) {
               const areaArr = [
                 '東区',
@@ -81,22 +112,41 @@ export default (data: DataType) => {
               ]
               const index = areaArr.indexOf(d['居住地'])
               if (index === -1) {
-                countArr[1] += 1
+                areaIndex = 2
               } else {
-                countArr[0] += 1
+                areaIndex = 1
               }
             } else if (d['居住地'].includes('確認中')) {
-              countArr[3] += 1
+              areaIndex = 4
             } else {
-              countArr[2] += 1
+              areaIndex = 3
             }
+        }
+        switch (true) {
+          case d['感染経路'].includes('濃厚接触者'):
+            countArr[0][0] += 1
+            countArr[areaIndex][0] += 1
+            break
+          case d['感染経路'].includes('感染経路不明'):
+            countArr[0][1] += 1
+            countArr[areaIndex][1] += 1
+            break
+          case d['感染経路'].includes('海外渡航歴有'):
+            countArr[0][2] += 1
+            countArr[areaIndex][2] += 1
+            break
+          default:
         }
       })
     }
-    graphData.data['福岡市'].push(countArr[0])
-    graphData.data['北九州市'].push(countArr[1])
-    graphData.data['福岡県※'].push(countArr[2])
-    graphData.data['それ以外※'].push(countArr[3])
+
+    countArr.forEach((d, index) => {
+      const areaIndex = index
+      d.forEach((e, index02) => {
+        const category: keyof DataArrType = categoryArr[index02]
+        graphData.DataArr[areaIndex][category].push(Number(e))
+      })
+    })
   }
 
   return graphData

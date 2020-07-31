@@ -1,7 +1,16 @@
 <template>
-  <data-view :title="title" :title-id="titleId" :date="date" :url="url">
+  <data-view
+    :title="title"
+    :category="category"
+    :title-id="titleId"
+    :date="date"
+    :url="url"
+  >
     <template v-slot:kindButton>
       <data-selector v-model="dataKind" />
+    </template>
+    <template v-slot:areaButton>
+      <area-selector v-model="areaNum" />
     </template>
     <template v-slot:selectDate>
       <v-switch
@@ -31,9 +40,10 @@
     <template v-slot:infoPanel>
       <data-view-basic-info-panel
         :data-kind="dataKind"
-        :num-type="'number'"
+        :num-type="'percent'"
         :a-text="displayInfo.aText"
         :l-text="displayInfo.lText"
+        :r-text="displayInfo.rText"
         :s-text="displayInfo.sText"
         :unit="displayInfo.unit"
       />
@@ -42,7 +52,7 @@
       <small>※&nbsp;福岡県は福岡市、北九州市以外の自治体の合計</small>
       <small>※&nbsp;それ以外は居住地が調査中、県外在住、海外の陽性患者</small>
       <small>
-        ※&nbsp;自治体のラベルをクリックすることで特定の自治体のグラフを非表示にできます
+        ※&nbsp;感染経路のラベルをクリックすることで特定のグラフを非表示にできます
       </small>
     </template>
   </data-view>
@@ -53,6 +63,7 @@
 <script>
 import DataView from '@/components/DataView.vue'
 import DataSelector from '@/components/DataSelector.vue'
+import AreaSelector from '@/components/AreaSelector.vue'
 import DataViewBasicInfoPanel from '@/components/DataViewBasicInfoPanel.vue'
 import DateSelectSlider from '@/components/DateSelectSlider.vue'
 import makeRecentData from '@/utils/makeRecentData'
@@ -61,11 +72,17 @@ export default {
   components: {
     DataView,
     DataSelector,
+    AreaSelector,
     DataViewBasicInfoPanel,
     DateSelectSlider
   },
   props: {
     title: {
+      type: String,
+      required: false,
+      default: ''
+    },
+    category: {
       type: String,
       required: false,
       default: ''
@@ -78,7 +95,7 @@ export default {
     chartId: {
       type: String,
       required: false,
-      default: 'time-bar-chart-patients'
+      default: 'infection-source-chart-patients'
     },
     chartData: {
       type: Array,
@@ -114,8 +131,10 @@ export default {
   data() {
     return {
       chartDataSelect: [],
+      unKnownRateNum: [0, 0],
       displayNumArr: [],
       arrKind: 'multi',
+      areaNum: 0,
       dataKind: 'transition',
       switch1: false,
       graphRange: [0, 1],
@@ -141,129 +160,131 @@ export default {
       this.sliderUpdate([this.sliderMin, this.labels.length - 1])
       return this.labels.length - 1
     },
-    transitionSum() {
-      let totalNum = 0
-      this.chartDataSelect.forEach((d, index) => {
-        if (this.displayNumArr.includes(index)) {
-          totalNum += d[this.graphRange[1]]
-        }
-      })
-      return totalNum
-    },
-    cumulativeSum() {
-      let totalNum = 0
-      this.chartDataSelect.forEach((d, index) => {
-        if (this.displayNumArr.includes(index)) {
-          for (let i = 0; i <= this.graphRange[1]; i++) {
-            totalNum += d[i]
-          }
-        }
-      })
-      return totalNum
-    },
-    displayCumulativeRatio() {
-      let lastDay = 0
-      let lastDayNum = 0
-      let lastDayBefore = 0
-      this.chartDataSelect.forEach((d, index) => {
-        if (this.displayNumArr.includes(index)) {
-          for (let i = 0; i <= this.graphRange[1]; i++) {
-            lastDay += d[i]
-          }
-          lastDayNum += d[this.graphRange[1]]
-        }
-      })
-      lastDayBefore = lastDay - lastDayNum
-      return this.formatDayBeforeRatio(lastDay - lastDayBefore)
-    },
-    displayTransitionRatio() {
-      let lastDay = 0
-      let lastDayBefore = 0
-      this.chartDataSelect.forEach((d, index) => {
-        if (this.displayNumArr.includes(index)) {
-          lastDay += d[this.graphRange[1]]
-          lastDayBefore += d[this.graphRange[1] - 1]
-        }
-      })
-      return this.formatDayBeforeRatio(lastDay - lastDayBefore)
+    averageRate() {
+      if (this.graphRange[1] === 1) {
+        return 0
+      }
+      if (this.unKnownRateNum[0] === 0) {
+        return 0
+      }
+      const num = (this.unKnownRateNum[0] / this.unKnownRateNum[1]) * 100
+      const rate = Math.floor(num * 10) / 10
+      return rate
     },
     displayInfo() {
+      const moment = require('moment')
+      const changeLabel = labels => {
+        if (labels === undefined) {
+          return false
+        }
+        const date = labels.slice(0, 2) + '-' + labels.slice(3, 5)
+        return moment(date).format('M月D日')
+      }
+
+      let rateTxt = ''
+      if (this.unKnownRateNum[0] > 0) {
+        rateTxt =
+          ' (' +
+          this.unKnownRateNum[0] +
+          '人 / ' +
+          this.unKnownRateNum[1] +
+          '人' +
+          ')'
+      }
+
       if (this.dataKind === 'transition') {
         return {
-          aText: '新規感染者 :',
-          lText: this.transitionSum.toLocaleString(),
-          sText: `${this.labels[this.graphRange[1]]} 実績値（前日比：${
-            this.displayTransitionRatio
-          } ${this.unit}）`,
+          aText: '感染経路不明者の割合 :',
+          lText: this.averageRate.toLocaleString(),
+          rText: rateTxt,
+          sText: `直近7日間 (${changeLabel(
+            this.labels[this.graphRange[1] - 6]
+          )} - ${changeLabel(this.labels[this.graphRange[1]])})の移動平均`,
           unit: this.unit
         }
       }
       return {
-        aText: '累計感染者 :',
-        lText: this.cumulativeSum.toLocaleString(),
-        sText: `${this.labels[0]} - ${
+        aText: '感染経路不明者の割合 :',
+        lText: this.averageRate.toLocaleString(),
+        rText: rateTxt,
+        sText: `${changeLabel(this.labels[0])} - ${changeLabel(
           this.labels[this.graphRange[1]]
-        } 累計値（前日比：${this.displayCumulativeRatio} ${this.unit}）`,
+        )} の移動平均`,
         unit: this.unit
       }
     },
     displayData() {
-      const colorArray = ['#80caff', '#95e7ec', '#0e98da', '#8fc1e3']
       const displayLabel = []
       for (let i = this.graphRange[0]; i <= this.graphRange[1]; i++) {
         displayLabel.push(this.labels[i])
       }
-      if (this.dataKind === 'transition') {
-        return {
-          labels: displayLabel,
-          datasets: this.chartDataSelect.map((item, index) => {
-            const displayArr = []
-            for (let i = this.graphRange[0]; i <= this.graphRange[1]; i++) {
-              displayArr.push(item[i])
-            }
-            let show
-            if (this.displayNumArr.includes(index)) {
-              show = false
-            } else {
-              show = true
-            }
-            return {
-              label: this.items[index],
-              data: displayArr,
-              hidden: show,
-              backgroundColor: colorArray[index],
-              borderWidth: 0
-            }
-          })
+      const displayArr = [[], [], []]
+      const showArr = []
+      this.chartDataSelect.map((item, index) => {
+        if (this.graphRange[1] === 1) {
+          return false
         }
-      }
+        if (this.dataKind === 'transition') {
+          for (let i = this.graphRange[0]; i <= this.graphRange[1]; i++) {
+            displayArr[index].push(item[i])
+            if (i >= this.graphRange[1] - 6 && i <= this.graphRange[1]) {
+              if (index === 1) {
+                this.unKnownRateNum[0] += item[i]
+              }
+              this.unKnownRateNum[1] += item[i]
+            }
+          }
+        } else {
+          const allItemsArr = this.cumulative(item)
+          for (let i = this.graphRange[0]; i <= this.graphRange[1]; i++) {
+            displayArr[index].push(allItemsArr[i])
+            if (i === this.graphRange[1]) {
+              if (index === 1) {
+                this.unKnownRateNum[0] += allItemsArr[i]
+              }
+              this.unKnownRateNum[1] += allItemsArr[i]
+            }
+          }
+        }
+        if (this.displayNumArr.includes(index)) {
+          showArr.push(false)
+        } else {
+          showArr.push(true)
+        }
+      })
+
       return {
         labels: displayLabel,
-        datasets: this.chartDataSelect.map((item, index) => {
-          const allItemsArr = this.cumulative(item)
-          const displayArr = []
-          for (let i = this.graphRange[0]; i <= this.graphRange[1]; i++) {
-            displayArr.push(allItemsArr[i])
-          }
-          let show
-          if (this.displayNumArr.includes(index)) {
-            show = false
-          } else {
-            show = true
-          }
-          return {
-            label: this.items[index],
-            data: displayArr,
-            hidden: show,
-            backgroundColor: colorArray[index],
+        datasets: [
+          {
+            label: this.items[0],
+            data: displayArr[0],
+            hidden: showArr[0],
+            backgroundColor: '#146cca',
             borderWidth: 0
+          },
+          {
+            label: this.items[1],
+            data: displayArr[1],
+            hidden: showArr[1],
+            backgroundColor: '#cdb3ff',
+            borderWidth: 0,
+            order: 3
+          },
+          {
+            label: this.items[2],
+            data: displayArr[2],
+            hidden: showArr[2],
+            backgroundColor: '#334863',
+            borderWidth: 0,
+            order: 4
           }
-        })
+        ]
       }
     },
     options() {
       const self = this
-      const unit = this.unit
+      const unit = '人'
       const data = this.chartDataSelect
       const labels = this.labels
       const displayNumArr = this.displayNumArr
@@ -301,11 +322,12 @@ export default {
       }
 
       const areaName = {
-        0: '福岡市',
-        1: '北九州市',
-        2: '福岡県',
-        3: 'それ以外'
+        0: '濃厚接触者',
+        1: '感染経路不明',
+        2: '海外渡航歴有'
       }
+
+      let totalNum
 
       return {
         tooltips: {
@@ -318,7 +340,7 @@ export default {
               )
             },
             label: tooltipItem => {
-              let totalNum = 0
+              totalNum = 0
               let beforeTxt = ''
               const labelIndex = labels.indexOf(tooltipItem.label)
               displayNumArr.forEach(item => {
@@ -348,7 +370,25 @@ export default {
                   ItemsArr = this.cumulative(data[item])
                 }
 
-                const txt = areaName[item] + ' : ' + ItemsArr[labelIndex] + unit
+                const num = (ItemsArr[labelIndex] / totalNum) * 100
+                const percent = Math.floor(num * 10) / 10
+
+                let txt
+                if (
+                  ItemsArr[labelIndex] !== totalNum &&
+                  ItemsArr[labelIndex] > 0
+                ) {
+                  txt =
+                    areaName[item] +
+                    ' : ' +
+                    ItemsArr[labelIndex] +
+                    unit +
+                    ' (' +
+                    percent +
+                    '%)'
+                } else {
+                  txt = areaName[item] + ' : ' + ItemsArr[labelIndex] + unit
+                }
                 returnArr.push(txt)
               })
               if (returnArr.length > 1) {
@@ -455,11 +495,27 @@ export default {
       }
     }
   },
+  watch: {
+    areaNum(val) {
+      this.chartDataSelect = []
+      this.chartDataSelect = [
+        this.chartData[val]['濃厚接触者'],
+        this.chartData[val]['感染経路不明'],
+        this.chartData[val]['海外渡航歴有']
+      ]
+      this.unKnownRateNum = [0, 0]
+    },
+    dataKind() {
+      this.unKnownRateNum = [0, 0]
+    }
+  },
   created() {
-    this.chartData.forEach((d, index) => {
-      this.chartDataSelect.push(d)
-      this.displayNumArr.push(index)
-    })
+    this.chartDataSelect = [
+      this.chartData[0]['濃厚接触者'],
+      this.chartData[0]['感染経路不明'],
+      this.chartData[0]['海外渡航歴有']
+    ]
+    this.displayNumArr = [0, 1, 2]
   },
   mounted() {
     const cardWidthNum = this.$el.clientWidth
@@ -469,6 +525,7 @@ export default {
   },
   methods: {
     sliderUpdate(sliderValue) {
+      this.unKnownRateNum = [0, 0]
       this.graphRange = sliderValue
     },
     cumulative(array) {
@@ -479,43 +536,6 @@ export default {
         cumulativeArray.push(patSum)
       })
       return cumulativeArray
-    },
-    sum(array) {
-      return array.reduce((acc, cur) => {
-        return acc + cur
-      })
-    },
-    pickLastNumber(chartDataArray) {
-      return chartDataArray.map(array => {
-        return array[array.length - 1]
-      })
-    },
-    eachArraySum(chartDataArray) {
-      const sumArray = []
-      for (let i = 0; i < chartDataArray[0].length; i++) {
-        sumArray.push(
-          chartDataArray[0][i] +
-            chartDataArray[1][i] +
-            chartDataArray[2][i] +
-            chartDataArray[3][i]
-        )
-      }
-      const selectSumArray = sumArray.slice(
-        this.graphRange[0],
-        this.graphRange[1] + 1
-      )
-      return selectSumArray
-    },
-    formatDayBeforeRatio(dayBeforeRatio) {
-      const dayBeforeRatioLocaleString = dayBeforeRatio.toLocaleString()
-      switch (Math.sign(dayBeforeRatio)) {
-        case 1:
-          return `+${dayBeforeRatioLocaleString}`
-        case -1:
-          return `${dayBeforeRatioLocaleString}`
-        default:
-          return `${dayBeforeRatioLocaleString}`
-      }
     }
   }
 }

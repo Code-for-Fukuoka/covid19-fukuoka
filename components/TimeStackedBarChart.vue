@@ -30,6 +30,7 @@
     />
     <template v-slot:infoPanel>
       <data-view-basic-info-panel
+        :num-type="'number'"
         :l-text="displayInfo.lText"
         :s-text="displayInfo.sText"
         :unit="displayInfo.unit"
@@ -37,7 +38,9 @@
     </template>
     <template v-slot:annotation>
       <small>※&nbsp;福岡県は福岡市、北九州市以外の自治体の合計</small>
-      <small>※&nbsp;自治体のラベルをクリックすることで特定の自治体のグラフを非表示にできます</small>
+      <small>
+        ※&nbsp;自治体のラベルをクリックすることで特定の自治体のグラフを非表示にできます
+      </small>
       <small>※&nbsp;民間検査実施分を含まない</small>
     </template>
   </data-view>
@@ -114,13 +117,7 @@ export default {
       dataKind: 'transition',
       switch1: false,
       graphRange: [0, 1],
-	  displayWidth: 'normal'
-    }
-  },
-  mounted() {
-    const cardWidthNum = this.$el.clientWidth
-    if (cardWidthNum < 350) {
-      this.displayWidth = 'sp'
+      displayWidth: 'normal'
     }
   },
   computed: {
@@ -266,14 +263,14 @@ export default {
               return 0
             })
           }
-        }  
+        }
       }
-	  
+
       let maxLimitNum = 20
       if (this.displayWidth === 'sp') {
         maxLimitNum = 10
       }
-	  
+
       return {
         tooltips: {
           displayColors: false,
@@ -407,6 +404,12 @@ export default {
           ]
         }
       }
+    }
+  },
+  mounted() {
+    const cardWidthNum = this.$el.clientWidth
+    if (cardWidthNum < 350) {
+      this.displayWidth = 'sp'
     }
   },
   created() {

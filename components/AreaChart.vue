@@ -15,20 +15,21 @@
     />
     <template v-slot:infoPanel>
       <data-view-basic-info-panel
+        :num-type="'number'"
         :l-text="displayInfo.lText"
         :s-text="displayInfo.sText"
         :unit="displayInfo.unit"
       />
     </template>
     <template v-slot:annotation>
-	  <small>※&nbsp;福岡県は福岡市、北九州市以外の自治体の合計</small>
+      <small>※&nbsp;福岡県は福岡市、北九州市以外の自治体の合計</small>
       <small>※&nbsp;それ以外は居住地が調査中、県外在住、海外の陽性患者</small>
+      <small>※県1312例目（福岡市695例目）については、当初、陽性患者と公表していましたが、7/30福岡市において陰性であると発表されましたので、県1312例目（福岡市695例目）を欠番とします。</small>
     </template>
   </data-view>
 </template>
 
 <style>
-
 .adjustMargin {
   margin-top: -15px;
 }

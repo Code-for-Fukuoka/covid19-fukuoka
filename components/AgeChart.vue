@@ -17,6 +17,7 @@
     />
     <template v-slot:infoPanel>
       <data-view-basic-info-panel
+        :num-type="'number'"
         :l-text="displayInfo.lText"
         :s-text="displayInfo.sText"
         :unit="displayInfo.unit"
@@ -25,7 +26,9 @@
     <template v-slot:annotation>
       <small>※&nbsp;福岡県は福岡市、北九州市以外の自治体の合計</small>
       <small>※&nbsp;それ以外は居住地が調査中、県外在住、海外の陽性患者</small>
-      <small>※&nbsp;性別のラベルをクリックすることで選択した性別のグラフを非表示にできます</small>
+      <small>
+        ※&nbsp;性別のラベルをクリックすることで選択した性別のグラフを非表示にできます
+      </small>
     </template>
   </data-view>
 </template>
@@ -100,33 +103,20 @@ export default {
   },
   data() {
     return {
-      update: String,
       areaNum: 0,
       chartDataSelect: [],
-	  displayWidth: 'normal'
-    }
-  },
-  mounted() {
-    const cardWidthNum = this.$el.clientWidth
-    if (cardWidthNum < 350) {
-      this.displayWidth = 'sp'
+      displayWidth: 'normal'
     }
   },
   computed: {
     displayInfo() {
-      if (this.update != null) {
-        const date = new Date(this.date)
-        const yesterdayDate = new Date(
-          date.getFullYear(),
-          date.getMonth(),
-          date.getDate() - 1
-        )
-        this.update =
-          1 + yesterdayDate.getMonth() + '/' + yesterdayDate.getDate()
-      }
+      const moment = require('moment')
+      const date = moment(this.date)
+        .add('days', -1)
+        .format('M/D')
       const cumulative = this.chartData[this.areaNum].cumulative
       const lTextTxt = cumulative.toLocaleString()
-      const sTextTxt = `${this.update}の累計 `
+      const sTextTxt = `${date}の累計 `
       return {
         lText: lTextTxt,
         sText: sTextTxt,
@@ -159,47 +149,48 @@ export default {
       }
     },
     displayOption() {
-	　const self = this
-      const unit = this.unit
-      let fontsize = 9
+      const self = this
+      let fontstyle = 'bold'
+      let maxrotation = 0
       if (this.displayWidth === 'sp') {
-        fontsize = 7
+        fontstyle = 'normal'
+        maxrotation = 45
       }
-	  
+
       return {
         tooltips: {
-		  mode: 'index',
+          mode: 'index',
           displayColors: false,
           callbacks: {
             title(tooltipItem, data) {
               return data.labels[tooltipItem[0].index]
             },
-			beforeBody(tooltipItem, data) {
-			  if(tooltipItem.length > 1) {
-			    let totalNum = Number(tooltipItem[0].value) + Number(tooltipItem[1].value)
-			    return "合計 : " + totalNum + "人"
-			  } else {
-			    return false
-			  }
-			},
-			label() {
-			  return false
-			},
-            afterBody(tooltipItem, data)  {
-			　if(tooltipItem.length > 1) {
-			   let returnArr = []
-			   tooltipItem.forEach((d, index) => {
-			     if(index === 0) {
-				   returnArr.push("男性 : " + d.value + "人")
-				 } else {
-				   returnArr.push("女性 : " + d.value + "人")
-				 }
-			   })
-			   return returnArr
-			 } else {
-			   return Number(tooltipItem[0].value) + "人"
-			 }
-			  
+            beforeBody(tooltipItem) {
+              if (tooltipItem.length > 1) {
+                const totalNum =
+                  Number(tooltipItem[0].value) + Number(tooltipItem[1].value)
+                return '合計 : ' + totalNum + '人'
+              } else {
+                return false
+              }
+            },
+            label() {
+              return false
+            },
+            afterBody(tooltipItem) {
+              if (tooltipItem.length > 1) {
+                const returnArr = []
+                tooltipItem.forEach((d, index) => {
+                  if (index === 0) {
+                    returnArr.push('男性 : ' + d.value + '人')
+                  } else {
+                    returnArr.push('女性 : ' + d.value + '人')
+                  }
+                })
+                return returnArr
+              } else {
+                return Number(tooltipItem[0].value) + '人'
+              }
             }
           }
         },
@@ -208,10 +199,12 @@ export default {
         onResize(chart, size) {
           if (size.width > 350) {
             self.displayWidth = 'normal'
-            chart.options.scales.xAxes[0].ticks.fontSize = 9
+            chart.options.scales.xAxes[0].ticks.fontStyle = 'bold'
+            chart.options.scales.xAxes[0].ticks.maxRotation = 0
           } else {
             self.displayWidth = 'sp'
-            chart.options.scales.xAxes[0].ticks.fontSize = 7
+            chart.options.scales.xAxes[0].ticks.fontStyle = 'normal'
+            chart.options.scales.xAxes[0].ticks.maxRotation = 45
           }
         },
         legend: {
@@ -226,11 +219,11 @@ export default {
                 display: false
               },
               ticks: {
-                fontSize: fontsize,
+                fontSize: 9,
                 maxTicksLimit: 9,
                 fontColor: '#808080',
-                fontStyle: 'bold',
-                maxRotation: 0,
+                fontStyle: fontstyle,
+                maxRotation: maxrotation,
                 minRotation: 0,
                 callback: label => {
                   return label
@@ -271,6 +264,12 @@ export default {
       })
       this.lText = this.chartData[val].cumulative
       this.sText = this.chartData[val].update + 'の累計'
+    }
+  },
+  mounted() {
+    const cardWidthNum = this.$el.clientWidth
+    if (cardWidthNum < 350) {
+      this.displayWidth = 'sp'
     }
   },
   created() {
