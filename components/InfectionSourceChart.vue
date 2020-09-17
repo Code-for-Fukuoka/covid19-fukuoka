@@ -54,6 +54,7 @@
       <small>
         ※&nbsp;感染経路のラベルをクリックすることで特定のグラフを非表示にできます
       </small>
+      <small>※&nbsp;データは、後日修正されることがあります。</small>
     </template>
   </data-view>
 </template>
