@@ -5,6 +5,9 @@
       <p class="Graph-Desc"> （注）Internet Explorer(IE)では表示できない場合があります</p>
     </template>
     <slot />
+    <template v-slot:annotation>
+      <small>※データは、後日修正されることがあります。</small>
+    </template>
   </data-view>
 </template>
 

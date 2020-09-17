@@ -29,6 +29,7 @@
       <small>
         ※&nbsp;性別のラベルをクリックすることで選択した性別のグラフを非表示にできます
       </small>
+      <small>※データは、後日修正されることがあります。</small>
     </template>
   </data-view>
 </template>
