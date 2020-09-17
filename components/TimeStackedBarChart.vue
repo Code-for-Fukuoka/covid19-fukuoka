@@ -42,7 +42,7 @@
         ※&nbsp;自治体のラベルをクリックすることで特定の自治体のグラフを非表示にできます
       </small>
       <small>※&nbsp;民間検査実施分を含まない</small>
-      <small>※データは、後日修正されることがあります。</small>
+      <small>※&nbsp;データは、後日修正されることがあります。</small>
     </template>
   </data-view>
 </template>

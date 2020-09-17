@@ -44,7 +44,7 @@
       <small>
         ※&nbsp;自治体のラベルをクリックすることで特定の自治体のグラフを非表示にできます
       </small>
-      <small>※データは、後日修正されることがあります。</small>
+      <small>※&nbsp;データは、後日修正されることがあります。</small>
     </template>
   </data-view>
 </template>

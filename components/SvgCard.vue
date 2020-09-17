@@ -6,7 +6,7 @@
     </template>
     <slot />
     <template v-slot:annotation>
-      <small>※データは、後日修正されることがあります。</small>
+      <small>※&nbsp;データは、後日修正されることがあります。</small>
     </template>
   </data-view>
 </template>
