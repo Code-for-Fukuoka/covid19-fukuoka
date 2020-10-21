@@ -54,20 +54,6 @@
         />
       </v-col>
       <v-col cols="12" md="6" class="DataCard">
-        <area-chart
-          title="陽性患者数の累計"
-          category="居住地別"
-          :title-id="'area-of-confirmed-cases'"
-          :chart-id="'area-chart-patients'"
-          :chart-data="areaGraph"
-          :date="Data.patients.date"
-          :unit="'人'"
-          :url="
-            'https://ckan.open-governmentdata.org/dataset/401000_pref_fukuoka_covid19_patients'
-          "
-        />
-      </v-col>
-      <v-col cols="12" md="6" class="DataCard">
         <age-chart
           title="陽性患者数の累計"
           category="年代・性別"
