@@ -52,6 +52,7 @@
             'https://ckan.open-governmentdata.org/dataset/401000_pref_fukuoka_covid19_patients'
           "
         />
+      </v-col>
       <v-col cols="12" md="6" class="DataCard">
         <age-chart
           title="陽性患者数の累計"
