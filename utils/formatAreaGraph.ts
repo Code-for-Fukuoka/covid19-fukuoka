@@ -45,7 +45,7 @@ export default (data: DataType[]) => {
   data.forEach(d => {
     let AreaName: string
     let index: number
-    let address = d['居住地']
+    const address = d['居住地']
     switch (true) {
       case address.includes('福岡市'):
         if (address.includes('区') && !address.includes('県')) {
@@ -59,7 +59,7 @@ export default (data: DataType[]) => {
         if (address.includes('区') && !address.includes('県')) {
           AreaName = address.replace(/北九州市/g, '')
           index = 1
-        } else if (address == '北九州市外') {
+        } else if (address === '北九州市外') {
           AreaName = 'それ以外'
           index = 3
         } else {
@@ -104,11 +104,11 @@ export default (data: DataType[]) => {
             '若松区',
             '戸畑区'
           ]
-          let inFukuoka = fukuoka.some(ku => {
-            return address.indexOf(ku) >= 0
+          const inFukuoka = fukuoka.some(ku => {
+            return address.includes(ku)
           })
-          let inKitakyu = kitakyu.some(ku => {
-            return address.indexOf(ku) >= 0
+          const inKitakyu = kitakyu.some(ku => {
+            return address.includes(ku)
           })
 
           AreaName = address

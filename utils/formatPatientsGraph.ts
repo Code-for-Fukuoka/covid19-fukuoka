@@ -50,50 +50,55 @@ export default (data: DataType) => {
     const countArr = [0, 0, 0, 0]
     if (result.length > 0) {
       result.forEach(d => {
-          if (d['居住地'].includes('福岡市')) {
-            countArr[0] += 1
-          } else if(d['居住地'].includes('北九州市')) {
-            if (d['居住地'].includes('北九州市外')) {
+        if (d['居住地'].includes('福岡市')) {
+          countArr[0] += 1
+        } else if (d['居住地'].includes('北九州市')) {
+          if (d['居住地'].includes('北九州市外')) {
+            countArr[3] += 1
+          } else {
+            countArr[1] += 1
+          }
+        } else if (
+          d['居住地'].includes('調査中') ||
+          d['居住地'].includes('海外') ||
+          d['居住地'].includes('県外')
+        ) {
+          countArr[3] += 1
+        } else if (
+          d['居住地'].includes('県') &&
+          !d['居住地'].includes('福岡')
+        ) {
+          countArr[3] += 1
+        } else if (d['居住地'].includes('区')) {
+          const areaArr = [
+            '東区',
+            '博多区',
+            '中央区',
+            '南区',
+            '西区',
+            '城南区',
+            '早良区'
+          ]
+          const inFukuoka = areaArr.some(ku => {
+            if (d['居住地'].includes(ku)) {
+              return true
+            } else {
+              return false
+            }
+          })
+          if (!inFukuoka) {
+            if (d['居住地'].includes('新宿区')) {
               countArr[3] += 1
             } else {
               countArr[1] += 1
             }
           } else {
-            if (d['居住地'].includes('調査中') || d['居住地'].includes('海外') || d['居住地'].includes('県外')) {
-              countArr[3] += 1
-            } else if (d['居住地'].includes('県') && !d['居住地'].includes('福岡')) {
-              countArr[3] += 1
-            } else if (d['居住地'].includes('区')) {
-              const areaArr = [
-                '東区',
-                '博多区',
-                '中央区',
-                '南区',
-                '西区',
-                '城南区',
-                '早良区'
-              ]
-              let inFukuoka = areaArr.some(ku => {
-                if (d['居住地'].indexOf(ku) >= 0) {
-                  return true;
-                } else {
-                  return false;
-                }
-              });
-              if (!inFukuoka) {
-                if (d['居住地'].includes('新宿区')) {
-                  countArr[3] += 1
-                } else {
-                  countArr[1] += 1
-                }
-              } else {
-                countArr[0] += 1
-              }
-            } else if (d['居住地'].includes('確認中')) {
-              countArr[3] += 1
-            } else {
-              countArr[2] += 1
-            }
+            countArr[0] += 1
+          }
+        } else if (d['居住地'].includes('確認中')) {
+          countArr[3] += 1
+        } else {
+          countArr[2] += 1
         }
       })
     }
