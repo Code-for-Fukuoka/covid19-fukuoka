@@ -99,3 +99,4 @@ nuxt.config.ts
 
 # Data
 /data/data.json
+static/Thumbs.db
