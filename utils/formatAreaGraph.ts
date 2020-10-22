@@ -45,20 +45,21 @@ export default (data: DataType[]) => {
   data.forEach(d => {
     let AreaName: string
     let index: number
+    let address = d['居住地']
     switch (true) {
-      case d['居住地'].includes('福岡市'):
-        if (d['居住地'].includes('区') && !d['居住地'].includes('県')) {
-          AreaName = d['居住地'].replace(/福岡市/g, '')
+      case address.includes('福岡市'):
+        if (address.includes('区') && !address.includes('県')) {
+          AreaName = address.replace(/福岡市/g, '')
         } else {
           AreaName = '福岡市内'
         }
         index = 0
         break
-      case d['居住地'].includes('北九州市'):
-        if (d['居住地'].includes('区') && !d['居住地'].includes('県')) {
-          AreaName = d['居住地'].replace(/北九州市/g, '')
+      case address.includes('北九州市'):
+        if (address.includes('区') && !address.includes('県')) {
+          AreaName = address.replace(/北九州市/g, '')
           index = 1
-        } else if (d['居住地'] === '北九州市外') {
+        } else if (address == '北九州市外') {
           AreaName = 'それ以外'
           index = 3
         } else {
@@ -67,23 +68,25 @@ export default (data: DataType[]) => {
         }
         break
       default:
-        if (d['居住地'] === '調査中' || d['居住地'] === '海外') {
-          if (d['居住地'] === '調査中') {
-            AreaName = 'それ以外'
-          } else {
-            AreaName = '海外'
-          }
+        if (address.includes('調査中')) {
+          AreaName = 'それ以外'
           index = 3
-        } else if (!d['居住地'].includes('県') && !d['居住地'].includes('区')) {
-          if (d['居住地'].includes('確認中')) {
+        } else if (address.includes('海外')) {
+          AreaName = '海外'
+          index = 3
+        } else if (address.includes('県外')) {
+          AreaName = '県外'
+          index = 3
+        } else if (!address.includes('県') && !address.includes('区')) {
+          if (address.includes('確認中')) {
             AreaName = 'それ以外'
             index = 3
           } else {
-            AreaName = d['居住地']
+            AreaName = address
             index = 2
           }
-        } else if (d['居住地'].includes('区')) {
-          const cityArr: string[] = [
+        } else if (address.includes('区')) {
+          const fukuoka: string[] = [
             '東区',
             '博多区',
             '中央区',
@@ -92,17 +95,37 @@ export default (data: DataType[]) => {
             '城南区',
             '早良区'
           ]
-          const areaIndex = cityArr.indexOf(d['居住地'])
-          if (areaIndex === -1) {
-            AreaName = d['居住地']
+          const kitakyu: string[] = [
+            '小倉南区',
+            '小倉北区',
+            '八幡西区',
+            '八幡東区',
+            '門司区',
+            '若松区',
+            '戸畑区'
+          ]
+          let inFukuoka = fukuoka.some(ku => {
+            return address.indexOf(ku) >= 0
+          })
+          let inKitakyu = kitakyu.some(ku => {
+            return address.indexOf(ku) >= 0
+          })
+
+          AreaName = address
+          if (inKitakyu) {
             index = 1
-          } else {
-            AreaName = d['居住地']
+          } else if (inFukuoka) {
             index = 0
+          } else {
+            index = 3
           }
         } else {
-          AreaName = d['居住地']
-          index = 3
+          AreaName = address
+          if (address.includes('福岡')) {
+            index = 2
+          } else {
+            index = 3
+          }
         }
     }
     const ArrIndex = graphData[index].areaArr.findIndex(
@@ -126,6 +149,8 @@ export default (data: DataType[]) => {
       case d.label === 'それ以外':
         break
       case d.label === '海外':
+        break
+      case d.label === '県外':
         break
       case d.label.replace(/福岡県/g, '').length === 0:
         graphData[2].areaArr.push({

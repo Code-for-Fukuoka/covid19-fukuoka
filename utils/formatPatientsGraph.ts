@@ -50,24 +50,18 @@ export default (data: DataType) => {
     const countArr = [0, 0, 0, 0]
     if (result.length > 0) {
       result.forEach(d => {
-        switch (true) {
-          case d['居住地'].includes('福岡市'):
+          if (d['居住地'].includes('福岡市')) {
             countArr[0] += 1
-            break
-          case d['居住地'].includes('北九州市'):
-            if (d['居住地'] === '北九州市外') {
+          } else if(d['居住地'].includes('北九州市')) {
+            if (d['居住地'].includes('北九州市外')) {
               countArr[3] += 1
             } else {
               countArr[1] += 1
             }
-            break
-          default:
-            if (d['居住地'] === '調査中' || d['居住地'] === '海外') {
+          } else {
+            if (d['居住地'].includes('調査中') || d['居住地'].includes('海外') || d['居住地'].includes('県外')) {
               countArr[3] += 1
-            } else if (
-              d['居住地'].includes('県') &&
-              !d['居住地'].includes('福岡')
-            ) {
+            } else if (d['居住地'].includes('県') && !d['居住地'].includes('福岡')) {
               countArr[3] += 1
             } else if (d['居住地'].includes('区')) {
               const areaArr = [
@@ -79,9 +73,19 @@ export default (data: DataType) => {
                 '城南区',
                 '早良区'
               ]
-              const index = areaArr.indexOf(d['居住地'])
-              if (index === -1) {
-                countArr[1] += 1
+              let inFukuoka = areaArr.some(ku => {
+                if (d['居住地'].indexOf(ku) >= 0) {
+                  return true;
+                } else {
+                  return false;
+                }
+              });
+              if (!inFukuoka) {
+                if (d['居住地'].includes('新宿区')) {
+                  countArr[3] += 1
+                } else {
+                  countArr[1] += 1
+                }
               } else {
                 countArr[0] += 1
               }
