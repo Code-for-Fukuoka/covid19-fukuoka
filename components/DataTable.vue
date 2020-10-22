@@ -20,7 +20,10 @@
         :unit="info.unit"
       />
     </template>
-    <div class="note">※退院のフラグはプライバシーへの配慮から非公開となりました</div>
+    <template v-slot:annotation>
+      <small>※&nbsp;退院のフラグはプライバシーへの配慮から非公開となりました</small>
+      <small>※&nbsp;データは、後日修正されることがあります。</small>
+    </template>
   </data-view>
 </template>
 

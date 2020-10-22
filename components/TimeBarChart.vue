@@ -36,6 +36,9 @@
         :unit="displayInfo.unit"
       />
     </template>
+    <template v-slot:annotation>
+      <small>※&nbsp;データは、後日修正されることがあります。</small>
+    </template>
   </data-view>
 </template>
 
