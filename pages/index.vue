@@ -204,9 +204,10 @@ export default {
     const inspectionsGraph = [
       Data.inspections_summary.data['福岡市'],
       Data.inspections_summary.data['北九州市'],
-      Data.inspections_summary.data['福岡県※']
+      Data.inspections_summary.data['福岡県※'],
+      Data.inspections_summary.data['民間検査']
     ]
-    const inspectionsItems = ['福岡市', '北九州市', '福岡県※']
+    const inspectionsItems = ['福岡市', '北九州市', '福岡県※', '民間検査']
     const inspectionsLabels = Data.inspections_summary.labels
     // 死亡者数
     // #MEMO: 今後使う可能性あるので一時コメントアウト
