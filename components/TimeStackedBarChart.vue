@@ -39,7 +39,6 @@
     <template v-slot:annotation>
       <small>※&nbsp;福岡県は福岡市、北九州市以外の自治体の合計</small>
       <small>※&nbsp;自治体のラベルをクリックすることで特定の自治体のグラフを非表示にできます</small>
-      <small>※&nbsp;民間検査実施分を含まない</small>
       <small>※&nbsp;データは、後日修正されることがあります。</small>
     </template>
   </data-view>
