@@ -296,16 +296,14 @@ export default {
                       transitionSelect[1][tooltipItem.index]
                     }, 福岡県※: ${
                       transitionSelect[2][tooltipItem.index]
-                    }, 民間検査: ${
-                      transitionSelect[3][tooltipItem.index]})`
+                    }, 民間検査: ${transitionSelect[3][tooltipItem.index]})`
                   : `${cumulativeSumArray[tooltipItem.index]}${unit} (福岡市: ${
                       cumulativeSelect[0][tooltipItem.index]
                     }, 北九州市: ${
                       cumulativeSelect[1][tooltipItem.index]
                     }, 福岡県※: ${
                       cumulativeSelect[2][tooltipItem.index]
-                    }, 民間検査: ${
-                      cumulativeSelect[3][tooltipItem.index]})`
+                    }, 民間検査: ${cumulativeSelect[3][tooltipItem.index]})`
               return labelText
             },
             title(tooltipItem, data) {
