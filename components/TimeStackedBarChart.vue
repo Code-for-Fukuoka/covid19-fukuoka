@@ -40,6 +40,7 @@
       <small>※&nbsp;福岡県は福岡市、北九州市以外の自治体の合計</small>
       <small>※&nbsp;自治体のラベルをクリックすることで特定の自治体のグラフを非表示にできます</small>
       <small>※&nbsp;データは、後日修正されることがあります。</small>
+      <small>※&nbsp;民間検査の数は、福岡県が契約している病院からの報告の件数です。自由診療の件数は含まれません。</small>
     </template>
   </data-view>
 </template>
