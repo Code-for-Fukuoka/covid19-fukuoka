@@ -39,8 +39,8 @@
     <template v-slot:annotation>
       <small>※&nbsp;福岡県は福岡市、北九州市以外の自治体の合計</small>
       <small>※&nbsp;自治体のラベルをクリックすることで特定の自治体のグラフを非表示にできます</small>
-      <small>※&nbsp;民間検査実施分を含まない</small>
       <small>※&nbsp;データは、後日修正されることがあります。</small>
+      <small>※&nbsp;民間検査の数は、福岡県が契約している病院からの報告の件数です。自由診療の件数は含まれません。</small>
     </template>
   </data-view>
 </template>
@@ -275,13 +275,13 @@ export default {
           displayColors: false,
           callbacks: {
             label: tooltipItem => {
-              const transitionSelect = [[], [], []]
+              const transitionSelect = [[], [], [], []]
               data.map((item, index) => {
                 for (let i = this.graphRange[0]; i <= this.graphRange[1]; i++) {
                   transitionSelect[index].push(item[i])
                 }
               })
-              const cumulativeSelect = [[], [], []]
+              const cumulativeSelect = [[], [], [], []]
               data.map((item, index) => {
                 const allItemsArr = this.cumulative(item)
                 for (let i = this.graphRange[0]; i <= this.graphRange[1]; i++) {
@@ -291,16 +291,20 @@ export default {
 
               const labelText =
                 this.dataKind === 'transition'
-                  ? `${sumArray[tooltipItem.index]}${unit}（福岡市: ${
+                  ? `${sumArray[tooltipItem.index]}${unit} (福岡市: ${
                       transitionSelect[0][tooltipItem.index]
-                    }/北九州市: ${
+                    }, 北九州市: ${
                       transitionSelect[1][tooltipItem.index]
-                    }/福岡県※: ${transitionSelect[2][tooltipItem.index]}）`
-                  : `${cumulativeSumArray[tooltipItem.index]}${unit}（福岡市: ${
+                    }, 福岡県※: ${
+                      transitionSelect[2][tooltipItem.index]
+                    }, 民間検査: ${transitionSelect[3][tooltipItem.index]})`
+                  : `${cumulativeSumArray[tooltipItem.index]}${unit} (福岡市: ${
                       cumulativeSelect[0][tooltipItem.index]
-                    }/北九州市: ${
+                    }, 北九州市: ${
                       cumulativeSelect[1][tooltipItem.index]
-                    }/福岡県※: ${cumulativeSelect[2][tooltipItem.index]}）`
+                    }, 福岡県※: ${
+                      cumulativeSelect[2][tooltipItem.index]
+                    }, 民間検査: ${cumulativeSelect[3][tooltipItem.index]})`
               return labelText
             },
             title(tooltipItem, data) {

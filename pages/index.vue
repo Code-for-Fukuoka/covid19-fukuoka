@@ -54,6 +54,20 @@
         />
       </v-col>
       <v-col cols="12" md="6" class="DataCard">
+        <area-chart
+          title="陽性患者数の累計"
+          category="居住地別"
+          :title-id="'area-of-confirmed-cases'"
+          :chart-id="'area-chart-patients'"
+          :chart-data="areaGraph"
+          :date="Data.patients.date"
+          :unit="'人'"
+          :url="
+            'https://ckan.open-governmentdata.org/dataset/401000_pref_fukuoka_covid19_patients'
+          "
+        />
+      </v-col>
+      <v-col cols="12" md="6" class="DataCard">
         <age-chart
           title="陽性患者数の累計"
           category="年代・性別"
@@ -190,9 +204,10 @@ export default {
     const inspectionsGraph = [
       Data.inspections_summary.data['福岡市'],
       Data.inspections_summary.data['北九州市'],
-      Data.inspections_summary.data['福岡県※']
+      Data.inspections_summary.data['福岡県※'],
+      Data.inspections_summary.data['民間検査']
     ]
-    const inspectionsItems = ['福岡市', '北九州市', '福岡県※']
+    const inspectionsItems = ['福岡市', '北九州市', '福岡県※', '民間検査']
     const inspectionsLabels = Data.inspections_summary.labels
     // 死亡者数
     // #MEMO: 今後使う可能性あるので一時コメントアウト
