@@ -274,13 +274,13 @@ export default {
           displayColors: false,
           callbacks: {
             label: tooltipItem => {
-              const transitionSelect = [[], [], []]
+              const transitionSelect = [[], [], [], []]
               data.map((item, index) => {
                 for (let i = this.graphRange[0]; i <= this.graphRange[1]; i++) {
                   transitionSelect[index].push(item[i])
                 }
               })
-              const cumulativeSelect = [[], [], []]
+              const cumulativeSelect = [[], [], [], []]
               data.map((item, index) => {
                 const allItemsArr = this.cumulative(item)
                 for (let i = this.graphRange[0]; i <= this.graphRange[1]; i++) {
@@ -290,16 +290,20 @@ export default {
 
               const labelText =
                 this.dataKind === 'transition'
-                  ? `${sumArray[tooltipItem.index]}${unit}（福岡市: ${
+                  ? `${sumArray[tooltipItem.index]}${unit} (福岡市: ${
                       transitionSelect[0][tooltipItem.index]
-                    }/北九州市: ${
+                    }, 北九州市: ${
                       transitionSelect[1][tooltipItem.index]
-                    }/福岡県※: ${transitionSelect[2][tooltipItem.index]}）`
-                  : `${cumulativeSumArray[tooltipItem.index]}${unit}（福岡市: ${
+                    }, 福岡県※: ${
+                      transitionSelect[2][tooltipItem.index]
+                    }, 民間検査: ${transitionSelect[3][tooltipItem.index]})`
+                  : `${cumulativeSumArray[tooltipItem.index]}${unit} (福岡市: ${
                       cumulativeSelect[0][tooltipItem.index]
-                    }/北九州市: ${
+                    }, 北九州市: ${
                       cumulativeSelect[1][tooltipItem.index]
-                    }/福岡県※: ${cumulativeSelect[2][tooltipItem.index]}）`
+                    }, 福岡県※: ${
+                      cumulativeSelect[2][tooltipItem.index]
+                    }, 民間検査: ${cumulativeSelect[3][tooltipItem.index]})`
               return labelText
             },
             title(tooltipItem, data) {
