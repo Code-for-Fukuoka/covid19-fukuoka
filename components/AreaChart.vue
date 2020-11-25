@@ -185,7 +185,7 @@ export default {
         const yesterdayDate = new Date(
           date.getFullYear(),
           date.getMonth(),
-          date.getDate() - 1
+          date.getDate()
         )
         this.update =
           1 + yesterdayDate.getMonth() + '/' + yesterdayDate.getDate()
