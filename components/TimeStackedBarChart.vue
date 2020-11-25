@@ -448,7 +448,7 @@ export default {
       const sumArray = []
       for (let i = 0; i < chartDataArray[0].length; i++) {
         sumArray.push(
-          chartDataArray[0][i] + chartDataArray[1][i] + chartDataArray[2][i]
+          chartDataArray[0][i] + chartDataArray[1][i] + chartDataArray[2][i] + chartDataArray[3][i]
         )
       }
       const selectSumArray = sumArray.slice(

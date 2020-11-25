@@ -37,7 +37,8 @@
 &nbsp;&nbsp;・県3002例目（福岡市1710例目）（8/9公表）</br>
 &nbsp;&nbsp;・県5052例目（福岡市3013例目）（10/1公表）</br>
 &nbsp;&nbsp;・県5120例目（福岡市3050例目）（10/13公表）</br>
-&nbsp;&nbsp;・県1617例目（福岡市878例目）（7/29公表）</small>
+&nbsp;&nbsp;・県1617例目（福岡市878例目）（7/29公表）</br>
+&nbsp;&nbsp;・県5243例目（福岡県1319例目）（11／2公表）</small>
     </template>
   </data-view>
 </template>
@@ -184,7 +185,7 @@ export default {
         const yesterdayDate = new Date(
           date.getFullYear(),
           date.getMonth(),
-          date.getDate() - 1
+          date.getDate()
         )
         this.update =
           1 + yesterdayDate.getMonth() + '/' + yesterdayDate.getDate()
