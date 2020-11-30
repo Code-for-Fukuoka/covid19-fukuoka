@@ -169,7 +169,7 @@ export default {
         return 0
       }
       const num = (this.unKnownRateNum[0] / this.unKnownRateNum[1]) * 100
-      const rate = Math.floor(num * 10) / 10
+      const rate = Math.round(num * 10) / 10
       return rate
     },
     displayInfo() {
