@@ -173,7 +173,7 @@ export default {
     }
   },
   created() {
-    //this.settingAreaData()
+    this.settingAreaData()
   },
   mounted() {
     this.displayOption = this.setDisplayOption()
