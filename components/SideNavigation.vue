@@ -151,7 +151,7 @@ export default {
         {
           icon: 'mdi-account-multiple',
           title: this.$t('Not infect virus'),
-          link: 'https://www.pref.fukuoka.lg.jp/contents/covid-19-portal.html#A1-4'
+          link: 'https://www.pref.fukuoka.lg.jp/contents/covid-seasonalinfo.html'
         },
         {
           icon: 'mdi-domain',
@@ -162,12 +162,12 @@ export default {
         {
           title: this.$t('Cancelled public events'),
           link:
-            'https://www.pref.fukuoka.lg.jp/contents/eventinfo-coronavirus.html'
+            'https://www.pref.fukuoka.lg.jp/contents/rinjikyuukan.html#sp_headline_2'
         },
         {
           title: this.$t('Closed public facility'),
           link:
-            'https://www.pref.fukuoka.lg.jp/contents/rinjikyuukan.html'
+            'https://www.pref.fukuoka.lg.jp/contents/rinjikyuukan.html#sp_headline_0'
         },
         {
           title: this.$t('for school'),
