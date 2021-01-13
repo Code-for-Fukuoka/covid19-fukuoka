@@ -45,7 +45,9 @@
 &nbsp;&nbsp;・県6634例目（福岡市3854例目）</br>
 &nbsp;&nbsp;・県6913例目（福岡県1755例目）</br>
 &nbsp;&nbsp;・県8002例目（福岡市4658例目）</br>
-&nbsp;&nbsp;・県9267例目（福岡県2337例目）</small>
+&nbsp;&nbsp;・県9267例目（福岡県2337例目）</br>
+&nbsp;&nbsp;・県9879例目（福岡市5565例目）</br>
+&nbsp;&nbsp;・県10819例目（福岡県2795例目）</small>
     </template>
   </data-view>
 </template>
