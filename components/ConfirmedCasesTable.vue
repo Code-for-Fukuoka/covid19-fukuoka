@@ -87,7 +87,7 @@
     />
     <text
       class="black text"
-      transform="translate(8 95)"
+      transform="translate(5 95)"
       :dx="getAdjustX(検査実施人数)"
     >
       <tspan>{{ 検査実施人数 }}</tspan>
@@ -95,7 +95,7 @@
     </text>
     <text
       class="green text"
-      transform="translate(85 95)"
+      transform="translate(80 95)"
       :dx="getAdjustX(陽性物数)"
     >
       <tspan>{{ 陽性物数 }}</tspan>

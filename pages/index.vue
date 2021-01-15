@@ -8,7 +8,7 @@
     <whats-new class="mb-4" :items="newsItems" />
     <static-info
       class="mb-4"
-      :url="'/flow'"
+      :url="'https://www.pref.fukuoka.lg.jp/contents/covid-19-portal.html#a1-5'"
       :text="'自分や家族の症状に不安や心配があればまずは電話でご相談下さい'"
       :btn-text="'相談の手順を見る'"
     />
@@ -24,7 +24,7 @@
       </v-col>
       <v-col cols="12" md="6" class="DataCard">
         <time-bar-patients-chart
-          title="陽性患者数"
+          title="陽性者数"
           :title-id="'number-of-confirmed-cases'"
           :chart-id="'time-bar-chart-patients'"
           :chart-data="patientsGraph"
@@ -39,7 +39,7 @@
       </v-col>
       <v-col cols="12" md="6" class="DataCard">
         <infection-source-chart
-          title="陽性患者数"
+          title="陽性者数"
           category="感染経路別"
           :title-id="'type-of-infection-cases'"
           :chart-id="'infection-source-chart-patients'"
@@ -55,7 +55,7 @@
       </v-col>
       <v-col cols="12" md="6" class="DataCard">
         <area-chart
-          title="陽性患者数の累計"
+          title="陽性者数の累計"
           category="居住地別"
           :title-id="'area-of-confirmed-cases'"
           :chart-id="'area-chart-patients'"
@@ -69,7 +69,7 @@
       </v-col>
       <v-col cols="12" md="6" class="DataCard">
         <age-chart
-          title="陽性患者数の累計"
+          title="陽性者数の累計"
           category="年代・性別"
           :title-id="'age-of-confirmed-cases'"
           :chart-id="'age-chart-patients'"
@@ -83,7 +83,7 @@
       </v-col>
       <v-col cols="12" md="6" class="DataCard">
         <data-table
-          :title="'陽性患者の属性'"
+          :title="'陽性者の属性'"
           :title-id="'attributes-of-confirmed-cases'"
           :chart-data="patientsTable"
           :chart-option="{}"
@@ -111,7 +111,7 @@
       </v-col>
       <v-col cols="12" md="6" class="DataCard">
         <time-bar-chart
-          title="受診・相談センター（旧帰国者・接触者相談センター）相談件数"
+          title="「受診・相談センター」相談件数"
           :title-id="'number-of-reports-to-covid19-consultation-desk'"
           :chart-id="'time-bar-chart-querents'"
           :chart-data="querentsGraph"
