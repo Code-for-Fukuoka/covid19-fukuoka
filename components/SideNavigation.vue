@@ -104,10 +104,8 @@
     "The latest updates": "福岡県内の感染動向",
     "If you have any symptoms": "感染が疑われる場合の受診・相談について",
     "Portal": "新型コロナウイルス感染症ポータルページ",
-    "Not infect virus": "新型コロナウイルスに感染しないようにするために",
     "for Citizens": "県民の方、事業者の方への支援情報",
     "Cancelled public events": "県主催のイベント・行事の中止・延期",
-    "Closed public facility": "県有施設の臨時休館など",
     "for school": "県内の学校等での対応",
     "Government official website": "福岡県公式ホームページ",
     "Message from Governor": "知事からのメッセージ",
@@ -149,25 +147,15 @@ export default {
           link: 'https://www.pref.fukuoka.lg.jp/contents/covid-19-portal.html'
         },
         {
-          icon: 'mdi-account-multiple',
-          title: this.$t('Not infect virus'),
-          link: 'https://www.pref.fukuoka.lg.jp/contents/covid-seasonalinfo.html'
-        },
-        {
           icon: 'mdi-domain',
           title: this.$t('for Citizens'),
-          link: 'https://www.pref.fukuoka.lg.jp/contents/coronavirus-shien.html',
+          link: 'https://www.pref.fukuoka.lg.jp/contents/covid-19-support-allsoudan.html',
           divider: true
         },
         {
           title: this.$t('Cancelled public events'),
           link:
             'https://www.pref.fukuoka.lg.jp/contents/rinjikyuukan.html#sp_headline_2'
-        },
-        {
-          title: this.$t('Closed public facility'),
-          link:
-            'https://www.pref.fukuoka.lg.jp/contents/rinjikyuukan.html#sp_headline_0'
         },
         {
           title: this.$t('for school'),

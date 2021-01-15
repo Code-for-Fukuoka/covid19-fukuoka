@@ -191,7 +191,7 @@ export default {
     displayInfo() {
       if (this.dataKind === 'transition') {
         return {
-          aText: '新規感染者 :',
+          aText: '陽性者 :',
           lText: this.transitionSum.toLocaleString(),
           sText: `${this.labels[this.graphRange[1]]} 実績値（前日比：${
             this.displayTransitionRatio
