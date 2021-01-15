@@ -138,7 +138,7 @@ export default {
         {
           icon: 'covid',
           title: this.$t('If you have any symptoms'),
-          link: '/flow',
+          link: 'https://www.pref.fukuoka.lg.jp/contents/covid-19-portal.html#a1-5',
           divider: true
         },
         {
