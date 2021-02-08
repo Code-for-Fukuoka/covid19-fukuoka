@@ -119,7 +119,7 @@
     </text>
     <text
       class="green text"
-      transform="translate(292 95)"
+      transform="translate(280 95)"
       :dx="getAdjustX(退院)"
     >
       <tspan>{{ 退院 }}</tspan>
